@@ -1,6 +1,8 @@
 import { BookingCalculator, DatesCalculator } from '@/application/calculators'
 
 import { BookingCalculateTotalPrice } from '@/application/protocols'
+import { DateError } from '@/domain/errors'
+
 describe('BookingCalculator', () => {
   let sut: BookingCalculateTotalPrice
 
@@ -32,5 +34,15 @@ describe('BookingCalculator', () => {
 
     expect(result.totalPrice).toBe('100.00')
     expect(result.numberOfNights).toBe(1)
+  })
+
+  it('should not calculate the total price and number of nights if the startDate is more recent than the end date', () => {
+    const params: BookingCalculateTotalPrice.Params = {
+      startDate: new Date('2024-01-02'),
+      endDate: new Date('2024-01-01'),
+      pricePerNight: '100'
+    }
+
+    expect(() => sut.execute(params)).toThrow(DateError)
   })
 })
