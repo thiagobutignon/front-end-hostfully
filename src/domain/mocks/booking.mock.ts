@@ -13,7 +13,7 @@ export const bookingModelMock = (): Booking.Model => ({
   guests: guestModelMock()
 })
 
-export const bookingParamsMock = (): Booking.Params => ({
+export const createBookingParamsMock = (): Booking.Params => ({
   guestEmail: faker.internet.email(),
   propertyId: faker.string.alphanumeric(),
   guests: guestModelMock(),
@@ -23,6 +23,6 @@ export const bookingParamsMock = (): Booking.Params => ({
   property: propertyModelMock()
 })
 
-export const bookindResultMock = (): Booking.Result => ({
+export const createBookindResultMock = (): Booking.Result => ({
   booking: Array.from({ length: 10 }, () => bookingModelMock())
 })
