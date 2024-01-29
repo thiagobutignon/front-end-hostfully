@@ -14,12 +14,12 @@ describe('BookingCalculator', () => {
     const params: BookingCalculateTotalPrice.Params = {
       startDate: new Date('2024-01-01'),
       endDate: new Date('2024-01-05'),
-      pricePerNight: '100'
+      pricePerNight: 100.00
     }
 
     const result = sut.execute(params)
 
-    expect(result.totalPrice).toBe('400.00')
+    expect(result.totalPrice).toBe(400.00)
     expect(result.numberOfNights).toBe(4)
   })
 
@@ -27,12 +27,12 @@ describe('BookingCalculator', () => {
     const params: BookingCalculateTotalPrice.Params = {
       startDate: new Date('2024-01-01'),
       endDate: new Date('2024-01-01'),
-      pricePerNight: '100'
+      pricePerNight: 100
     }
 
     const result = sut.execute(params)
 
-    expect(result.totalPrice).toBe('100.00')
+    expect(result.totalPrice).toBe(100.00)
     expect(result.numberOfNights).toBe(1)
   })
 
@@ -40,9 +40,52 @@ describe('BookingCalculator', () => {
     const params: BookingCalculateTotalPrice.Params = {
       startDate: new Date('2024-01-02'),
       endDate: new Date('2024-01-01'),
-      pricePerNight: '100'
+      pricePerNight: 100.00
     }
 
     expect(() => sut.execute(params)).toThrow(DateError)
+  })
+
+  it('should correctly calculate the total price with cleaning fee', () => {
+    const params: BookingCalculateTotalPrice.Params = {
+      startDate: new Date('2024-01-01'),
+      endDate: new Date('2024-01-01'),
+      pricePerNight: 100,
+      cleaningFee: 100
+    }
+
+    const result = sut.execute(params)
+
+    expect(result.totalPrice).toBe(200.00)
+    expect(result.numberOfNights).toBe(1)
+  })
+
+  it('should correctly calculate the total price with service fee', () => {
+    const params: BookingCalculateTotalPrice.Params = {
+      startDate: new Date('2024-01-01'),
+      endDate: new Date('2024-01-01'),
+      pricePerNight: 100,
+      serviceFee: 100
+    }
+
+    const result = sut.execute(params)
+
+    expect(result.totalPrice).toBe(200.00)
+    expect(result.numberOfNights).toBe(1)
+  })
+
+  it('should correctly calculate the total price with service fee', () => {
+    const params: BookingCalculateTotalPrice.Params = {
+      startDate: new Date('2024-01-01'),
+      endDate: new Date('2024-01-01'),
+      pricePerNight: 100,
+      serviceFee: 100,
+      cleaningFee: 100
+    }
+
+    const result = sut.execute(params)
+
+    expect(result.totalPrice).toBe(300.00)
+    expect(result.numberOfNights).toBe(1)
   })
 })

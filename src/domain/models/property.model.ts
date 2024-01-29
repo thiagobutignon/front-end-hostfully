@@ -8,9 +8,9 @@ export type PropertyModel = {
   bedrooms: number
   beds: number
   image: string[]
-  pricePerNight: string
-  cleaningFee: string
-  serviceFee: string
+  pricePerNight: number
+  cleaningFee: number
+  serviceFee: number
   roomType: 'Room' | 'House' | 'Apartment' | 'Shared'
   status: 'Pending' | 'Cancelled' | 'Waiting for Payment' | 'Paid' | 'Completed'
 }

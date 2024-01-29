@@ -3,12 +3,20 @@ import { BookingCalculateTotalPrice, CalculateNumberOfNights } from '@/applicati
 export class BookingCalculator implements BookingCalculateTotalPrice {
   constructor (private readonly datesCalculator: CalculateNumberOfNights) {}
   execute (params: BookingCalculateTotalPrice.Params): BookingCalculateTotalPrice.Result {
-    const { startDate, endDate, pricePerNight } = params
+    let totalPrice: number
+    const { startDate, endDate, pricePerNight, cleaningFee, serviceFee } = params
     const numberOfNights = this.datesCalculator.execute({ startDate, endDate })
 
-    const nightlyRate = parseFloat(pricePerNight)
+    totalPrice = Number((numberOfNights * pricePerNight).toFixed(2))
 
-    const totalPrice = (numberOfNights * nightlyRate).toFixed(2).toString()
+    if (cleaningFee) {
+      totalPrice += cleaningFee
+    }
+
+    if (serviceFee) {
+      totalPrice += serviceFee
+    }
+
     return {
       numberOfNights,
       totalPrice

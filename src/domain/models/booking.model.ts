@@ -3,7 +3,7 @@ import { Guest, PropertyModel } from '@/domain/models'
 export namespace Booking {
   export type Model = {
     id: string
-    totalPrice: string
+    totalPrice: number
     numberOfNights: number
     startDate: Date
     endDate: Date

@@ -6,10 +6,12 @@ export namespace BookingCalculateTotalPrice {
   export type Params = {
     startDate: Date
     endDate: Date
-    pricePerNight: string
+    pricePerNight: number
+    serviceFee?: number
+    cleaningFee?: number
   }
   export type Result = {
     numberOfNights: number
-    totalPrice: string
+    totalPrice: number
   }
 }

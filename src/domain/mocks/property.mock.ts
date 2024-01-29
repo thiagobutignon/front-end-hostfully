@@ -10,9 +10,9 @@ export const propertyModelMock = (maxGuests: number = faker.number.int({ min: 11
   bedrooms: faker.number.int(),
   beds: faker.number.int(),
   image: Array.from({ length: 10 }, () => faker.image.urlPicsumPhotos()),
-  pricePerNight: faker.number.float().toString(),
-  cleaningFee: faker.number.float().toString(),
-  serviceFee: faker.number.float().toString(),
+  pricePerNight: faker.number.float(),
+  cleaningFee: faker.number.float(),
+  serviceFee: faker.number.float(),
   roomType: faker.helpers.arrayElement(['Room', 'House', 'Apartment', 'Shared']),
   status: faker.helpers.arrayElement(['Pending' , 'Cancelled' , 'Waiting for Payment' , 'Paid' , 'Completed'])
 })

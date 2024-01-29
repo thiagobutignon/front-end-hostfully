@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker'
 
 export const bookingModelMock = (): Booking.Model => ({
   id: faker.string.alpha(),
-  totalPrice: faker.number.float().toString(),
+  totalPrice: faker.number.float(),
   numberOfNights: faker.number.int(),
   startDate: faker.date.recent(),
   endDate: faker.date.future(),
