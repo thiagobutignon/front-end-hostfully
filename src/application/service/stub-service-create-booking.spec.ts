@@ -1,6 +1,7 @@
 import { HttpRequest, HttpStatusCode } from '@/data/protocols'
 
 import { CreateBookingUsecase } from '@/domain/usecases'
+import { DateError } from '@/domain/errors'
 import { StubServiceCreateBooking } from '@/application/service/stub-service-create-booking'
 import { createBookingParamsMock } from './../../domain/mocks/booking.mock'
 import { mockHttpRequest } from '@/data/mocks'
@@ -38,5 +39,35 @@ describe('StubServiceCreateBooking', () => {
     const httpResponse = await sut.request(request)
 
     expect(httpResponse.statusCode).toBe(HttpStatusCode.unauthorized)
+  })
+
+  it('should accumulate and return multiple bookings', async () => {
+    const firstRequest = mockHttpRequest(createBookingParamsMock(5, 10))
+    const secondRequest = mockHttpRequest(createBookingParamsMock(3, 10))
+
+    await sut.request(firstRequest)
+    const httpResponse = await sut.request(secondRequest)
+
+    expect(httpResponse.statusCode).toBe(HttpStatusCode.ok)
+    expect(httpResponse.body.booking).toHaveLength(2)
+  })
+
+  it('should handle invalid input data', async () => {
+    const invalidRequest = mockHttpRequest(createBookingParamsMock(-1, 10))
+
+    const httpResponse = await sut.request(invalidRequest)
+
+    expect(httpResponse.statusCode).toBe(HttpStatusCode.unauthorized)
+  })
+
+  it('should handle errors from BookingCalculateTotalPrice', async () => {
+    bookingCalculateTotaltPriceSpy.execute.mockImplementation(() => {
+      throw new DateError()
+    })
+    const request = mockHttpRequest(createBookingParamsMock(5, 10))
+
+    const httpResponse = await sut.request(request)
+
+    expect(httpResponse.statusCode).toBe(HttpStatusCode.badRequest) // Handling of internal errors
   })
 })

@@ -20,6 +20,7 @@ export namespace Booking {
     property: PropertyModel
   }
   export type Result = {
-    booking: Booking.Model[]
+    booking?: Booking.Model[]
+    error?: string
   }
 }
