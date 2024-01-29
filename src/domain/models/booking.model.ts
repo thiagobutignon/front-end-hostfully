@@ -4,6 +4,7 @@ export namespace Booking {
   export type Model = {
     id: string
     totalPrice: string
+    numberOfNights: number
     startDate: Date
     endDate: Date
     hostEmail: string

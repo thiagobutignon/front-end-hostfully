@@ -7,6 +7,7 @@ export const bookingModelMock = (): Booking.Model => ({
   id: faker.string.alpha(),
   propertyId: faker.string.alphanumeric(),
   totalPrice: faker.number.float().toString(),
+  numberOfNights: faker.number.int(),
   startDate: faker.date.recent(),
   endDate: faker.date.future(),
   hostEmail: faker.internet.email(),

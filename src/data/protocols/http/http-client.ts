@@ -1,7 +1,7 @@
-export type HttpRequest = {
+export type HttpRequest<T = any> = {
   url: string
   method: HttpMethod
-  body?: any
+  body?: T
   headers?: any
 }
 
