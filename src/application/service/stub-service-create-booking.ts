@@ -6,6 +6,7 @@ import { faker } from '@faker-js/faker'
 
 export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase.Result> {
   constructor (private readonly bookingCalculator: BookingCalculateTotalPrice) {}
+
   async request (data: HttpRequest<CreateBookingUsecase.Params>): Promise<HttpResponse<CreateBookingUsecase.Result>> {
     const params = data.body
     const { totalPrice, numberOfNights } = this.bookingCalculator.execute({
@@ -29,10 +30,10 @@ export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase
         endDate: params.endDate,
         hostEmail: faker.internet.email(),
         guests: params.guests,
-        propertyId: params.propertyId
+        property: params.property
       }]
     }
-    await new Promise(resolve => setTimeout(resolve, 1000))
+
     return {
       statusCode: HttpStatusCode.ok,
       body: response

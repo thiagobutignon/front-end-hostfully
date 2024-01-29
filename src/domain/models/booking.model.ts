@@ -9,11 +9,10 @@ export namespace Booking {
     endDate: Date
     hostEmail: string
     guests: Guest.Model
-    propertyId: string
+    property: PropertyModel
   }
   export type Params = {
     guestEmail: string
-    propertyId: string
     guests: Guest.Model
     startDate: Date
     endDate: Date

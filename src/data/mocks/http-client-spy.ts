@@ -2,10 +2,10 @@ import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/pr
 
 import { faker } from '@faker-js/faker'
 
-export const mockHttpRequest = (): HttpRequest => ({
+export const mockHttpRequest = (body: any = faker.helpers.objectEntry({ any: faker.string.alpha() })): HttpRequest => ({
   url: faker.internet.url(),
   method: faker.helpers.arrayElement(['get', 'post', 'put', 'delete']),
-  body: faker.helpers.objectEntry({ any: faker.string.alpha() }),
+  body,
   headers: faker.helpers.objectEntry({ any: faker.string.alpha() })
 })
 

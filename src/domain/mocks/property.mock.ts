@@ -2,11 +2,11 @@ import { PropertyModel } from '@/domain/models'
 import { faker } from '@faker-js/faker'
 import { locationModelMock } from '@/domain/mocks/location.mock'
 
-export const propertyModelMock = (): PropertyModel => ({
+export const propertyModelMock = (maxGuests: number = faker.number.int({ min: 11 })): PropertyModel => ({
   id: faker.string.alphanumeric(),
   name: faker.person.fullName(),
   location: locationModelMock(),
-  maxGuests: faker.number.int(),
+  maxGuests,
   bedrooms: faker.number.int(),
   beds: faker.number.int(),
   image: Array.from({ length: 10 }, () => faker.image.urlPicsumPhotos()),

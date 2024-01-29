@@ -5,23 +5,22 @@ import { faker } from '@faker-js/faker'
 
 export const bookingModelMock = (): Booking.Model => ({
   id: faker.string.alpha(),
-  propertyId: faker.string.alphanumeric(),
   totalPrice: faker.number.float().toString(),
   numberOfNights: faker.number.int(),
   startDate: faker.date.recent(),
   endDate: faker.date.future(),
   hostEmail: faker.internet.email(),
-  guests: guestModelMock()
+  guests: guestModelMock(),
+  property: propertyModelMock()
 })
 
-export const createBookingParamsMock = (): Booking.Params => ({
+export const createBookingParamsMock = (numberOfGuests: number = faker.number.int(), maxGuests: number = faker.number.int()): Booking.Params => ({
   guestEmail: faker.internet.email(),
-  propertyId: faker.string.alphanumeric(),
-  guests: guestModelMock(),
-  startDate: faker.date.recent(),
+  guests: guestModelMock(numberOfGuests),
+  startDate: faker.date.past(),
   endDate: faker.date.future(),
   createdAt: faker.date.recent(),
-  property: propertyModelMock()
+  property: propertyModelMock(maxGuests)
 })
 
 export const createBookindResultMock = (): Booking.Result => ({
