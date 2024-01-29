@@ -1,10 +1,11 @@
+import { BookingCalculator, DatesCalculator } from '@/application/calculators'
+
 import { BookingCalculateTotalPrice } from '@/application/protocols'
-import { BookingCalculator } from '@/application/calculators'
 describe('BookingCalculator', () => {
   let sut: BookingCalculateTotalPrice
 
   beforeEach(() => {
-    sut = new BookingCalculator()
+    sut = new BookingCalculator(new DatesCalculator())
   })
 
   it('should correctly calculate the total price for a given period', () => {
