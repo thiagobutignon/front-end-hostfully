@@ -1,4 +1,4 @@
-import { GuestModel, PropertyModel } from '@/domain/models'
+import { Guest, PropertyModel } from '@/domain/models'
 
 export namespace Booking {
   export type Model = {
@@ -7,12 +7,13 @@ export namespace Booking {
     startDate: Date
     endDate: Date
     hostEmail: string
-    guests: GuestModel
+    guests: Guest.Model
+    propertyId: string
   }
   export type Params = {
-    hostEmail: string
+    guestEmail: string
     propertyId: string
-    guests: GuestModel
+    guests: Guest.Model
     startDate: Date
     endDate: Date
     createdAt: Date

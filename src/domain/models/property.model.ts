@@ -11,6 +11,6 @@ export type PropertyModel = {
   pricePerNight: string
   cleaningFee: string
   serviceFee: string
-  roomType: string
+  roomType: 'Room' | 'House' | 'Apartment' | 'Shared'
   status: 'Pending' | 'Cancelled' | 'Waiting for Payment' | 'Paid' | 'Completed'
 }

@@ -1,0 +1,18 @@
+import { PropertyModel } from '@/domain/models'
+import { faker } from '@faker-js/faker'
+import { locationModelMock } from '@/domain/mocks/location.mock'
+
+export const propertyModelMock = (): PropertyModel => ({
+  id: faker.string.alphanumeric(),
+  name: faker.person.fullName(),
+  location: locationModelMock(),
+  maxGuests: faker.number.int(),
+  bedrooms: faker.number.int(),
+  beds: faker.number.int(),
+  image: Array.from({ length: 10 }, () => faker.image.urlPicsumPhotos()),
+  pricePerNight: faker.number.float().toString(),
+  cleaningFee: faker.number.float().toString(),
+  serviceFee: faker.number.float().toString(),
+  roomType: faker.helpers.arrayElement(['Room', 'House', 'Apartment', 'Shared']),
+  status: faker.helpers.arrayElement(['Pending' , 'Cancelled' , 'Waiting for Payment' , 'Paid' , 'Completed'])
+})
