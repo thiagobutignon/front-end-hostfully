@@ -68,6 +68,7 @@ describe('StubServiceCreateBooking', () => {
 
     const httpResponse = await sut.request(request)
 
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.badRequest) // Handling of internal errors
+    expect(httpResponse.statusCode).toBe(HttpStatusCode.badRequest)
+    expect(httpResponse.body.booking).toBeUndefined()
   })
 })
