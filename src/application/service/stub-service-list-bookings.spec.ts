@@ -36,6 +36,4 @@ describe('StubServiceListBookings', () => {
     expect(httpResponse.statusCode).toBe(HttpStatusCode.badRequest)
     expect(httpResponse.body).toEqual({ error: 'An error occurred while listing bookings' })
   })
-
-  // Add more tests if there are more scenarios to cover
 })
