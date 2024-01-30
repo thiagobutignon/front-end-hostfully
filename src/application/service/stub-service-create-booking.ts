@@ -2,13 +2,14 @@ import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/pr
 
 import { Booking } from '@/domain/models'
 import { BookingCalculateTotalPrice } from '@/application/protocols'
+import { BookingRepository } from '@/domain/repository'
 import { CreateBookingUsecase } from '@/domain/usecases'
 import { DateError } from '@/domain/errors'
 import { faker } from '@faker-js/faker'
 
 export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase.Result> {
-  private readonly bookings: CreateBookingUsecase.Result['booking'] = []
-  constructor (private readonly bookingCalculator: BookingCalculateTotalPrice) {}
+  constructor (private readonly bookingCalculator: BookingCalculateTotalPrice,
+    private readonly bookingsRepository: BookingRepository) {}
 
   async request (data: HttpRequest<CreateBookingUsecase.Params>): Promise<HttpResponse<CreateBookingUsecase.Result>> {
     try {
@@ -36,12 +37,10 @@ export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase
         property: params.property
       }
 
-      this.bookings.push(newBooking)
-
+      this.bookingsRepository.add(newBooking)
       const response: CreateBookingUsecase.Result = {
-        booking: this.bookings
+        booking: [newBooking]
       }
-
       return {
         statusCode: HttpStatusCode.ok,
         body: response

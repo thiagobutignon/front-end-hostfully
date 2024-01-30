@@ -1,21 +1,24 @@
 import { HttpRequest, HttpStatusCode } from '@/data/protocols'
 
+import { CacheBookingRepository } from '@/application/repository'
 import { CreateBookingUsecase } from '@/domain/usecases'
 import { DateError } from '@/domain/errors'
 import { StubServiceCreateBooking } from '@/application/service/stub-service-create-booking'
-import { createBookingParamsMock } from './../../domain/mocks/booking.mock'
+import { createBookingParamsMock } from '@/domain/mocks'
 import { mockHttpRequest } from '@/data/mocks'
 
 const bookingCalculateTotaltPriceSpy = {
   execute: jest.fn()
 }
+
 describe('StubServiceCreateBooking', () => {
   let sut: StubServiceCreateBooking
+  let bookingsRepository: CacheBookingRepository
 
   beforeEach(() => {
     bookingCalculateTotaltPriceSpy.execute.mockReturnValue({ totalPrice: '200.00', numberOfNights: 2 })
-
-    sut = new StubServiceCreateBooking(bookingCalculateTotaltPriceSpy)
+    bookingsRepository = new CacheBookingRepository()
+    sut = new StubServiceCreateBooking(bookingCalculateTotaltPriceSpy, bookingsRepository)
   })
 
   it('should successfully create a booking when the number of guests are equalt to the max number of guests', async () => {
@@ -39,17 +42,6 @@ describe('StubServiceCreateBooking', () => {
     const httpResponse = await sut.request(request)
 
     expect(httpResponse.statusCode).toBe(HttpStatusCode.unauthorized)
-  })
-
-  it('should accumulate and return multiple bookings', async () => {
-    const firstRequest = mockHttpRequest(createBookingParamsMock(5, 10))
-    const secondRequest = mockHttpRequest(createBookingParamsMock(3, 10))
-
-    await sut.request(firstRequest)
-    const httpResponse = await sut.request(secondRequest)
-
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.ok)
-    expect(httpResponse.body.booking).toHaveLength(2)
   })
 
   it('should handle invalid input data', async () => {
