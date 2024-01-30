@@ -13,8 +13,8 @@ describe('StubServiceListBookings', () => {
     mockBookings = createBookingsResultMock().booking
     mockBookingsRepository = {
       getAll: jest.fn().mockReturnValue(mockBookings),
-
-      add: jest.fn()
+      add: jest.fn(),
+      update: jest.fn() as jest.Mock<BookingRepository.UpdateResult>
     }
     sut = new StubServiceListBookings(mockBookingsRepository)
   })

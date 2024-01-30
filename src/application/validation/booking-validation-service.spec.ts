@@ -15,7 +15,8 @@ describe('BookingValidationService', () => {
   beforeEach(() => {
     mockBookingsRepository = {
       add: jest.fn().mockReturnValue(createBookingsResultMock()),
-      getAll: jest.fn() as jest.Mock<Booking.Model[]>
+      getAll: jest.fn() as jest.Mock<Booking.Model[]>,
+      update: jest.fn() as jest.Mock<BookingRepository.UpdateResult>
     }
     dateFnsAdapter = new DateFnsAdapter()
     mockDateClient = {

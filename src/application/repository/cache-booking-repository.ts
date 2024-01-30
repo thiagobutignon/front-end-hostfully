@@ -11,4 +11,13 @@ export class CacheBookingRepository implements BookingRepository {
   public getAll (): BookingRepository.Result {
     return this.bookings
   }
+
+  public update (params: BookingRepository.Params): BookingRepository.UpdateResult {
+    const index = this.bookings.findIndex(booking => booking.id === params.id)
+    if (index !== -1) {
+      this.bookings[index] = { ...this.bookings[index], ...params }
+      return { booking: this.bookings }
+    }
+    return { error: 'Booking not found' }
+  }
 }
