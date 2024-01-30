@@ -33,7 +33,7 @@ describe('StubServiceCreateBooking', () => {
   })
 
   it('should successfully create a booking when the number of guests are equal to the max number of guests', async () => {
-    const request = mockHttpRequest(createBookingParamsMock(10, 10))
+    const request = mockHttpRequest(createBookingParamsMock(10, 10, new Date('2024-01-02')))
 
     const httpResponse = await sut.request(request)
 
