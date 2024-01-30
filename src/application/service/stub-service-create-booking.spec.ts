@@ -40,10 +40,14 @@ describe('StubServiceCreateBooking', () => {
     expect(httpResponse.statusCode).toBe(HttpStatusCode.ok)
     expect(httpResponse.body).toHaveProperty('booking')
     expect(bookingCalculateTotaltPriceSpy.execute).toHaveBeenCalled()
+    const { startDate, endDate } = request.body
+    const { pricePerNight, cleaningFee, serviceFee } = request.body.property
     expect(bookingCalculateTotaltPriceSpy.execute).toHaveBeenCalledWith({
-      startDate: request.body.startDate,
-      endDate: request.body.endDate,
-      pricePerNight: request.body.property.pricePerNight
+      startDate,
+      endDate,
+      pricePerNight,
+      cleaningFee,
+      serviceFee
     })
   })
 

@@ -1,20 +1,20 @@
 import { HttpClient, HttpRequest, HttpResponse, HttpStatusCode } from '@/data/protocols'
 import { calculateBooking, validateBooking } from '@/application/helpers'
 
-import { Booking } from '@/domain/models'
 import { BookingCalculateTotalPrice } from '@/application/protocols'
 import { BookingRepository } from '@/domain/repository'
-import { CreateBookingUsecase } from '@/domain/usecases'
 import { DateError } from '@/domain/errors'
+import { UpdateBookingUsecase } from '@/domain/usecases'
 import { Validation } from '@/validation/protocols'
-import { faker } from '@faker-js/faker'
 
-export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase.Result> {
-  constructor (private readonly bookingCalculator: BookingCalculateTotalPrice,
+export class StubServiceUpdateBooking implements HttpClient<UpdateBookingUsecase.Result> {
+  constructor (
+    private readonly bookingCalculator: BookingCalculateTotalPrice,
     private readonly bookingsRepository: BookingRepository,
-    private readonly bookingValidationService: Validation) {}
+    private readonly bookingValidationService: Validation
+  ) {}
 
-  async request (data: HttpRequest<CreateBookingUsecase.Params>): Promise<HttpResponse<CreateBookingUsecase.Result>> {
+  async request (data: HttpRequest<UpdateBookingUsecase.Params>): Promise<HttpResponse<UpdateBookingUsecase.Result>> {
     try {
       const params = data.body
       const validationBooking = validateBooking(this.bookingValidationService, params)
@@ -26,28 +26,27 @@ export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase
         }
       }
 
-      const { startDate, endDate } = params
+      const existingBooking = this.bookingsRepository.getAll().find(booking => booking.id === params.id)
+      if (!existingBooking) {
+        return {
+          statusCode: HttpStatusCode.notFound,
+          body: { error: 'Booking not found' }
+        }
+      }
+
       const { totalPrice, numberOfNights } = calculateBooking(this.bookingCalculator, params)
 
-      const newBooking: Booking.Model = {
-        id: faker.string.alphanumeric(),
+      const updatedBooking = {
+        ...existingBooking,
+        ...params,
         totalPrice,
-        numberOfNights,
-        startDate,
-        endDate,
-        hostEmail: faker.internet.email(),
-        guests: params.guests,
-        property: params.property,
-        guestEmail: params.guestEmail
+        numberOfNights
       }
+      this.bookingsRepository.update(updatedBooking)
 
-      this.bookingsRepository.add(newBooking)
-      const response: CreateBookingUsecase.Result = {
-        booking: [newBooking]
-      }
       return {
         statusCode: HttpStatusCode.ok,
-        body: response
+        body: { booking: [updatedBooking] }
       }
     } catch (error) {
       if (error instanceof DateError) {
@@ -55,6 +54,11 @@ export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase
           statusCode: HttpStatusCode.badRequest,
           body: { error: error.message }
         }
+      }
+
+      return {
+        statusCode: HttpStatusCode.serverError,
+        body: { error: 'Unexpected error occurred' }
       }
     }
   }

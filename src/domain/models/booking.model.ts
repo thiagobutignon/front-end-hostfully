@@ -10,6 +10,7 @@ export namespace Booking {
     hostEmail: string
     guests: Guest.Model
     property: PropertyModel
+    guestEmail: string
   }
   export type Params = {
     guestEmail: string
