@@ -4,7 +4,7 @@ import { CreateBookingUsecase } from '@/domain/usecases'
 import { HttpClientSpy } from '@/data/mocks'
 import { HttpStatusCode } from '@/data/protocols'
 import { RemoteListBookings } from '@/data/usecases'
-import { createBookindResultMock } from '@/domain/mocks'
+import { createBookingsResultMock } from '@/domain/mocks'
 import { faker } from '@faker-js/faker'
 
 type SutTypes = {
@@ -35,7 +35,7 @@ describe('RemoteListBookings', () => {
   })
 
   test('Should return bookings data if httpClient returns 200', async () => {
-    const result = createBookindResultMock()
+    const result = createBookingsResultMock()
     const { sut, httpClientSpy } = makeSut()
     httpClientSpy.response = {
       statusCode: HttpStatusCode.ok,

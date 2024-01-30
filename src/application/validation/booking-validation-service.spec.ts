@@ -1,4 +1,4 @@
-import { bookingModelMock, createBookindResultMock } from '@/domain/mocks'
+import { bookingModelMock, createBookingsResultMock } from '@/domain/mocks'
 
 import { Booking } from '@/domain/models'
 import { BookingRepository } from '@/domain/repository'
@@ -14,7 +14,7 @@ describe('BookingValidationService', () => {
 
   beforeEach(() => {
     mockBookingsRepository = {
-      add: jest.fn().mockReturnValue(createBookindResultMock()),
+      add: jest.fn().mockReturnValue(createBookingsResultMock()),
       getAll: jest.fn() as jest.Mock<Booking.Model[]>
     }
     dateFnsAdapter = new DateFnsAdapter()

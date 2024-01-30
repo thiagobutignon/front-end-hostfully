@@ -1,5 +1,5 @@
 import { InvalidCredentialError, NotFoundError, UnexpectedError } from '@/domain/errors'
-import { createBookindResultMock, createBookingParamsMock } from '@/domain/mocks'
+import { createBookingParamsMock, createBookingsResultMock } from '@/domain/mocks'
 
 import { CreateBookingUsecase } from '@/domain/usecases'
 import { HttpClientSpy } from '@/data/mocks'
@@ -36,7 +36,7 @@ describe('RemoteCreateBooking', () => {
   })
 
   test('Should return booking data if httpClient returns 200', async () => {
-    const result = createBookindResultMock()
+    const result = createBookingsResultMock()
     const { sut, httpClientSpy } = makeSut()
     httpClientSpy.response = {
       statusCode: HttpStatusCode.ok,

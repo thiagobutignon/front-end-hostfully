@@ -26,6 +26,6 @@ export const createBookingParamsMock = (numberOfGuests: number = faker.number.in
   property: propertyModelMock(maxGuests)
 })
 
-export const createBookindResultMock = (): Booking.Result => ({
+export const createBookingsResultMock = (): Booking.Result => ({
   booking: Array.from({ length: 10 }, () => bookingModelMock())
 })
