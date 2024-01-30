@@ -5,26 +5,30 @@ import { BookingCalculateTotalPrice } from '@/application/protocols'
 import { BookingRepository } from '@/domain/repository'
 import { CreateBookingUsecase } from '@/domain/usecases'
 import { DateError } from '@/domain/errors'
+import { Validation } from '@/validation/protocols'
 import { faker } from '@faker-js/faker'
 
 export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase.Result> {
   constructor (private readonly bookingCalculator: BookingCalculateTotalPrice,
-    private readonly bookingsRepository: BookingRepository) {}
+    private readonly bookingsRepository: BookingRepository,
+    private readonly bookingValidationService: Validation) {}
 
   async request (data: HttpRequest<CreateBookingUsecase.Params>): Promise<HttpResponse<CreateBookingUsecase.Result>> {
     try {
+      const validationError = this.bookingValidationService.validate('guests', data.body)
+      if (validationError) {
+        return {
+          statusCode: HttpStatusCode.unauthorized,
+          body: { error: validationError }
+        }
+      }
+
       const params = data.body
       const { totalPrice, numberOfNights } = this.bookingCalculator.execute({
         endDate: params.endDate,
         startDate: params.startDate,
         pricePerNight: params.property.pricePerNight
       })
-
-      if (params.guests.numberOfGuests > params.property.maxGuests || params.guests.numberOfGuests < 1) {
-        return {
-          statusCode: HttpStatusCode.unauthorized
-        }
-      }
 
       const newBooking: Booking.Model = {
         id: faker.string.alphanumeric(),
