@@ -4,6 +4,7 @@ import { BookingValidationService } from '@/application/validation'
 import { CacheBookingRepository } from '@/application/repository'
 import { CreateBookingUsecase } from '@/domain/usecases'
 import { DateError } from '@/domain/errors'
+import { DateFnsAdapter } from '@/infra/date'
 import { StubServiceCreateBooking } from '@/application/service'
 import { Validation } from '@/validation/protocols'
 import { createBookingParamsMock } from '@/domain/mocks'
@@ -21,7 +22,7 @@ describe('StubServiceCreateBooking', () => {
   beforeEach(() => {
     bookingCalculateTotaltPriceSpy.execute.mockReturnValue({ totalPrice: '200.00', numberOfNights: 2 })
     bookingsRepository = new CacheBookingRepository()
-    bookingValidation = new BookingValidationService()
+    bookingValidation = new BookingValidationService(new CacheBookingRepository(), new DateFnsAdapter())
     sut = new StubServiceCreateBooking(bookingCalculateTotaltPriceSpy, bookingsRepository, bookingValidation)
   })
 

@@ -23,6 +23,14 @@ export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase
         }
       }
 
+      const doubleBookingError = this.bookingValidationService.validate('booking', { booking: data.body })
+      if (doubleBookingError) {
+        return {
+          statusCode: HttpStatusCode.conflict,
+          body: { error: doubleBookingError }
+        }
+      }
+
       const params = data.body
       const { totalPrice, numberOfNights } = this.bookingCalculator.execute({
         endDate: params.endDate,

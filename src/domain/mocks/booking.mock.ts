@@ -3,15 +3,18 @@ import { guestModelMock, propertyModelMock } from '@/domain/mocks'
 import { Booking } from '@/domain/models'
 import { faker } from '@faker-js/faker'
 
-export const bookingModelMock = (): Booking.Model => ({
+export const bookingModelMock = (
+  id: string = faker.string.alphanumeric(),
+  startDate: Date = faker.date.recent(),
+  endDate: Date = faker.date.future()): Booking.Model => ({
   id: faker.string.alpha(),
   totalPrice: faker.number.float(),
   numberOfNights: faker.number.int(),
-  startDate: faker.date.recent(),
-  endDate: faker.date.future(),
+  startDate,
+  endDate,
   hostEmail: faker.internet.email(),
   guests: guestModelMock(),
-  property: propertyModelMock()
+  property: propertyModelMock(faker.number.int({ min: 11 }), id)
 })
 
 export const createBookingParamsMock = (numberOfGuests: number = faker.number.int(), maxGuests: number = faker.number.int()): Booking.Params => ({
