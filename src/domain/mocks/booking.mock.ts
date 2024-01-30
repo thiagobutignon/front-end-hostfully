@@ -20,7 +20,7 @@ export const bookingModelMock = (
 export const createBookingParamsMock = (numberOfGuests: number = faker.number.int(), maxGuests: number = faker.number.int()): Booking.Params => ({
   guestEmail: faker.internet.email(),
   guests: guestModelMock(numberOfGuests),
-  startDate: faker.date.past(),
+  startDate: faker.date.recent(),
   endDate: faker.date.future(),
   createdAt: faker.date.recent(),
   property: propertyModelMock(maxGuests)

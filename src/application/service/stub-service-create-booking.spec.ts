@@ -20,13 +20,19 @@ describe('StubServiceCreateBooking', () => {
   let bookingValidation: Validation
 
   beforeEach(() => {
+    jest.useFakeTimers().setSystemTime(new Date('2024-01-01').getTime())
+
     bookingCalculateTotaltPriceSpy.execute.mockReturnValue({ totalPrice: '200.00', numberOfNights: 2 })
     bookingsRepository = new CacheBookingRepository()
     bookingValidation = new BookingValidationService(new CacheBookingRepository(), new DateFnsAdapter())
     sut = new StubServiceCreateBooking(bookingCalculateTotaltPriceSpy, bookingsRepository, bookingValidation)
   })
 
-  it('should successfully create a booking when the number of guests are equalt to the max number of guests', async () => {
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
+  it('should successfully create a booking when the number of guests are equal to the max number of guests', async () => {
     const request = mockHttpRequest(createBookingParamsMock(10, 10))
 
     const httpResponse = await sut.request(request)

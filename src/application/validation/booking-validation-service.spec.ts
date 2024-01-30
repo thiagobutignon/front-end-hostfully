@@ -36,20 +36,25 @@ describe('BookingValidationService', () => {
 
   describe('validate double booking', () => {
     beforeEach(() => {
+      jest.useFakeTimers().setSystemTime(new Date('2024-01-01').getTime())
+
       mockBookingsRepository.getAll.mockReturnValue(
         [
-          bookingModelMock('property1', new Date('2024-01-01'), new Date('2024-01-03')),
+          bookingModelMock('property1', new Date('2024-01-02'), new Date('2024-01-03')),
           bookingModelMock('property1', new Date('2024-01-03'), new Date('2024-01-05'))
         ]
       )
     })
 
+    afterEach(() => {
+      jest.useRealTimers()
+    })
     test.each([
       [
         {
           booking: {
             property: { id: 'property1' },
-            startDate: new Date('2024-01-01'),
+            startDate: new Date('2024-01-02'),
             endDate: new Date('2024-01-07')
           }
         },
@@ -76,8 +81,8 @@ describe('BookingValidationService', () => {
       [{
         booking: {
           property: { id: 'property3' },
-          startDate: new Date('2023-01-01'),
-          endDate: new Date('2023-01-02')
+          startDate: new Date('2024-01-02'),
+          endDate: new Date('2024-01-03')
         }
       },
       '',
@@ -85,6 +90,18 @@ describe('BookingValidationService', () => {
     ])('when booking for %s, expect %s (%s)', (input, expected, description) => {
       const result = sut.validate('booking', input)
       expect(result).toBe(expected)
+    })
+
+    it('should not allow booking a room for a past date', () => {
+      const pastDate = new Date('2023-01-01')
+      const result = sut.validate('booking', {
+        booking: {
+          property: { id: 'property1' },
+          startDate: pastDate,
+          endDate: new Date('2023-01-02')
+        }
+      })
+      expect(result).toBe('Cannot book a room for a past date')
     })
   })
 })
