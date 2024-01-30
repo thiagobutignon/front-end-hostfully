@@ -17,10 +17,10 @@ export const bookingModelMock = (
   property: propertyModelMock(faker.number.int({ min: 11 }), id)
 })
 
-export const createBookingParamsMock = (numberOfGuests: number = faker.number.int(), maxGuests: number = faker.number.int()): Booking.Params => ({
+export const createBookingParamsMock = (numberOfGuests: number = faker.number.int(), maxGuests: number = faker.number.int(), startDate: Date = faker.date.recent()): Booking.Params => ({
   guestEmail: faker.internet.email(),
   guests: guestModelMock(numberOfGuests),
-  startDate: faker.date.recent(),
+  startDate,
   endDate: faker.date.future(),
   createdAt: faker.date.recent(),
   property: propertyModelMock(maxGuests)

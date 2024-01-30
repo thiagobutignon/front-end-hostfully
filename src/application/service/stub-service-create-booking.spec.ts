@@ -67,7 +67,7 @@ describe('StubServiceCreateBooking', () => {
     bookingCalculateTotaltPriceSpy.execute.mockImplementation(() => {
       throw new DateError()
     })
-    const request = mockHttpRequest(createBookingParamsMock(5, 10))
+    const request = mockHttpRequest(createBookingParamsMock(5, 10, new Date('01/02/2024')))
 
     const httpResponse = await sut.request(request)
 
