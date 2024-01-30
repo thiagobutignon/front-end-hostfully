@@ -1,13 +1,11 @@
-import { isBefore, isWithinInterval, startOfDay } from 'date-fns'
-
 import { BookingRepository } from '@/domain/repository'
-import { DateComparer } from '@/data/protocols'
+import { DateClient } from '@/data/protocols'
 import { Validation } from '@/validation/protocols'
 
 export class BookingValidationService implements Validation {
   constructor (
     private readonly bookingsRepository: BookingRepository,
-    private readonly dateComparer: DateComparer
+    private readonly dateClient: DateClient
   ) {}
 
   validate (fieldName: string, input: Record<string, any>): string {
@@ -48,8 +46,8 @@ export class BookingValidationService implements Validation {
     const isDoubleBooked = existingBookings.some(booking =>
       booking.property.id === newBooking.property.id &&
     (
-      isWithinInterval(newBooking.startDate, { start: booking.startDate, end: booking.endDate }) ||
-      isWithinInterval(newBooking.endDate, { start: booking.startDate, end: booking.endDate })
+      this.dateClient.isWithinInterval(newBooking.startDate, { start: booking.startDate, end: booking.endDate }) ||
+      this.dateClient.isWithinInterval(newBooking.endDate, { start: booking.startDate, end: booking.endDate })
     )
     )
 
@@ -61,8 +59,8 @@ export class BookingValidationService implements Validation {
   }
 
   private validateBookingDate (newBookingDate: Date): string {
-    const today = startOfDay(new Date())
-    if (isBefore(newBookingDate, today)) {
+    const today = this.dateClient.startOfDay(new Date())
+    if (this.dateClient.isBefore(newBookingDate, today)) {
       return 'Cannot book a room for a past date'
     }
     return ''

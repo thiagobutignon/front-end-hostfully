@@ -1,8 +1,21 @@
-import { DateComparer } from '@/data/protocols/date'
-import { isSameDay as isSameDayFn } from 'date-fns'
+import { isBefore as isBeforeFns, isSameDay as isSameDayFns, isWithinInterval as isWithinIntervalFns, startOfDay as startOfDayFns } from 'date-fns'
 
-export class DateFnsAdapter implements DateComparer {
+import { DateClient } from '@/data/protocols/date'
+
+export class DateFnsAdapter implements DateClient {
   isSameDay (entryDate: Date, dateToCompare: Date): boolean {
-    return isSameDayFn(entryDate, dateToCompare)
+    return isSameDayFns(entryDate, dateToCompare)
+  }
+
+  isBefore (dateToCheck: Date, dateToCompare: Date): boolean {
+    return isBeforeFns(dateToCheck, dateToCompare)
+  }
+
+  isWithinInterval (date: Date, interval: { start: Date, end: Date }): boolean {
+    return isWithinIntervalFns(date, interval)
+  }
+
+  startOfDay (date: Date): Date {
+    return startOfDayFns(date)
   }
 }

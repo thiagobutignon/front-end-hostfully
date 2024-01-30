@@ -3,23 +3,28 @@ import { bookingModelMock, createBookindResultMock } from '@/domain/mocks'
 import { Booking } from '@/domain/models'
 import { BookingRepository } from '@/domain/repository'
 import { BookingValidationService } from '@/application/validation/booking-validation-service'
-import { DateComparer } from '@/data/protocols'
+import { DateClient } from '@/data/protocols'
 import { DateFnsAdapter } from '@/infra/date'
 
 describe('BookingValidationService', () => {
   let sut: BookingValidationService
   let mockBookingsRepository: jest.Mocked<BookingRepository>
-  let mockDateComparer: DateComparer
+  let mockDateClient: DateClient
+  let dateFnsAdapter: DateFnsAdapter
 
   beforeEach(() => {
     mockBookingsRepository = {
       add: jest.fn().mockReturnValue(createBookindResultMock()),
       getAll: jest.fn() as jest.Mock<Booking.Model[]>
     }
-    mockDateComparer = {
-      isSameDay: jest.fn().mockImplementation((entryDate, dateToCompare) => new DateFnsAdapter().isSameDay(entryDate, dateToCompare))
+    dateFnsAdapter = new DateFnsAdapter()
+    mockDateClient = {
+      isSameDay: jest.fn().mockImplementation((entryDate, dateToCompare) => dateFnsAdapter.isSameDay(entryDate, dateToCompare)),
+      isBefore: jest.fn().mockImplementation((dateToCheck, dateToCompare) => dateFnsAdapter.isBefore(dateToCheck, dateToCompare)),
+      isWithinInterval: jest.fn().mockImplementation((date, interval) => dateFnsAdapter.isWithinInterval(date, interval)),
+      startOfDay: jest.fn().mockImplementation((date) => dateFnsAdapter.startOfDay(date))
     }
-    sut = new BookingValidationService(mockBookingsRepository, mockDateComparer)
+    sut = new BookingValidationService(mockBookingsRepository, mockDateClient)
   })
 
   describe('validate guests', () => {
