@@ -4,5 +4,5 @@ export interface DeleteBookingByIdUsecase {
 
 export namespace DeleteBookingByIdUsecase {
   export type Params = { id: string }
-  export type Result = boolean
+  export type Result = boolean | { error: string }
 }

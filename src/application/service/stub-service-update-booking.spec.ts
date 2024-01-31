@@ -20,6 +20,8 @@ describe('StubServiceUpdateBooking', () => {
   let bookingValidation: Validation
 
   beforeEach(() => {
+    jest.resetAllMocks()
+
     jest.useFakeTimers().setSystemTime(new Date('2024-01-01').getTime())
 
     bookingCalculateTotaltPriceSpy.execute.mockReturnValue({ totalPrice: '300.00', numberOfNights: 3 })

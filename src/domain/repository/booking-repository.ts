@@ -13,5 +13,5 @@ export namespace BookingRepository {
   export type Result = CreateBookingUsecase.Result['booking']
   export type UpdateResult = Booking.Result
   export type DeleteParams = { id: string }
-  export type DeleteResult = boolean | { error?: string }
+  export type DeleteResult = boolean | { error: string }
 }

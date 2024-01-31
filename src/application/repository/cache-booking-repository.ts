@@ -27,5 +27,6 @@ export class CacheBookingRepository implements BookingRepository {
       return { error: 'Booking not found' }
     }
     this.bookings.splice(index, 1)
+    return true
   }
 }
