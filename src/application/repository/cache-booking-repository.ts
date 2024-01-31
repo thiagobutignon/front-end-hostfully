@@ -20,4 +20,12 @@ export class CacheBookingRepository implements BookingRepository {
     }
     return { error: 'Booking not found' }
   }
+
+  public delete (params: BookingRepository.DeleteParams): BookingRepository.DeleteResult {
+    const index = this.bookings.findIndex(booking => booking.id === params.id)
+    if (index === -1) {
+      return { error: 'Booking not found' }
+    }
+    this.bookings.splice(index, 1)
+  }
 }

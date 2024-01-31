@@ -14,7 +14,8 @@ describe('StubServiceListBookings', () => {
     mockBookingsRepository = {
       getAll: jest.fn().mockReturnValue(mockBookings),
       add: jest.fn(),
-      update: jest.fn() as jest.Mock<BookingRepository.UpdateResult>
+      update: jest.fn() as jest.Mock<BookingRepository.UpdateResult>,
+      delete: jest.fn() as jest.Mock<BookingRepository.DeleteResult>
     }
     sut = new StubServiceListBookings(mockBookingsRepository)
   })
