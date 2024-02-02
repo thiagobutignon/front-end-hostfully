@@ -1,9 +1,8 @@
-import { makeCacheBookingRepository, makeDateFnsAdapter } from '@/main/factories'
-
 import { BookingValidationService } from '@/application/validation'
+import { cacheSingleton } from '@/main/singleton'
+import { makeDateFnsAdapter } from '@/main/factories'
 
 export const makeBookingValidationService = (): BookingValidationService => {
-  const cache = makeCacheBookingRepository()
   const dateAdapter = makeDateFnsAdapter()
-  return new BookingValidationService(cache, dateAdapter)
+  return new BookingValidationService(cacheSingleton, dateAdapter)
 }

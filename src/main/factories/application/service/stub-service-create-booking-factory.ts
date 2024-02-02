@@ -1,10 +1,10 @@
-import { makeBookingCalculator, makeBookingValidationService, makeCacheBookingRepository } from '@/main/factories'
+import { makeBookingCalculator, makeBookingValidationService } from '@/main/factories'
 
 import { StubServiceCreateBooking } from '@/application/service'
+import { cacheSingleton } from '@/main/singleton'
 
 export const makeStubServiceCreateBooking = (): StubServiceCreateBooking => {
   const bookingCalculator = makeBookingCalculator()
-  const cache = makeCacheBookingRepository()
   const validation = makeBookingValidationService()
-  return new StubServiceCreateBooking(bookingCalculator, cache, validation)
+  return new StubServiceCreateBooking(bookingCalculator, cacheSingleton, validation)
 }

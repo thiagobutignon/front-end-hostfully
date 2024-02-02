@@ -29,4 +29,8 @@ export class CacheBookingRepository implements BookingRepository {
     this.bookings.splice(index, 1)
     return true
   }
+
+  clearCacheTestOnly (): void {
+    this.bookings.length = 0
+  }
 }

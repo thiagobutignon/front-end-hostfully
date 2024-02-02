@@ -24,10 +24,7 @@ export class RemoteCreateBooking implements CreateBookingUsecase {
       case HttpStatusCode.notFound:
         throw new NotFoundError()
       case HttpStatusCode.conflict:
-        if (response.body.error === 'This room is already booked for the selected dates') {
-          throw new Error('This room is already booked for the selected dates')
-        }
-        throw new Error()
+        throw new Error('This room is already booked for the selected dates')
       default:
         throw new UnexpectedError()
     }
