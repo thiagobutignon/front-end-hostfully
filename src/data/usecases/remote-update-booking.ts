@@ -24,6 +24,7 @@ export class RemoteUpdateBooking implements UpdateBookingUsecase {
       case HttpStatusCode.notFound:
         throw new NotFoundError()
       default:
+        console.log(httpResponse)
         throw new UnexpectedError()
     }
   }
