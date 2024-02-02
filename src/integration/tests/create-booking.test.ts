@@ -1,3 +1,5 @@
+import { BookingError, DateError, InvalidCredentialError } from '@/domain/errors'
+
 import { Booking } from '@/domain/models'
 import { DateInfo } from '@/integration/helpers'
 import { RemoteCreateBooking } from '@/data/usecases'
@@ -67,6 +69,17 @@ describe('CreateBookingUsecase Integration Test', () => {
     expect(response1).toBeDefined()
     expect(cacheSingleton.getAll()).toHaveLength(1)
 
-    await expect(sut.perform(bookingData2)).rejects.toThrow(new Error('This room is already booked for the selected dates'))
+    await expect(sut.perform(bookingData2)).rejects.toThrow(new BookingError().message)
+  })
+
+  const testCases = [
+    { propertyId: '1', startDate: 3, endDate: 1, numberOfGuests: 1, maxGuests: 10, errorMessage: new DateError().message },
+    { propertyId: '1', startDate: 1, endDate: 3, numberOfGuests: 12, maxGuests: 10, errorMessage: new InvalidCredentialError().message }
+  ]
+
+  test.each(testCases)('should fail to create a booking with %p', async ({ propertyId, startDate, endDate, numberOfGuests, maxGuests, errorMessage }) => {
+    const bookingData = realBooking(propertyId, startDate, endDate, numberOfGuests, maxGuests)
+
+    await expect(sut.perform(bookingData)).rejects.toThrow(new Error(errorMessage))
   })
 })

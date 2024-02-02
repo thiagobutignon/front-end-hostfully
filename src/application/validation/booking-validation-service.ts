@@ -1,4 +1,5 @@
 import { Booking } from '@/domain/models'
+import { BookingError } from '@/domain/errors'
 import { BookingRepository } from '@/domain/repository'
 import { DateClient } from '@/data/protocols'
 import { Validation } from '@/validation/protocols'
@@ -61,7 +62,7 @@ export class BookingValidationService implements Validation {
       return false
     })
     if (isDoubleBooked) {
-      return 'This room is already booked for the selected dates'
+      return new BookingError().message
     }
 
     return ''

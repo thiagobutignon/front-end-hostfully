@@ -1,5 +1,5 @@
+import { BookingError, DateError, InvalidCredentialError, NotFoundError, UnexpectedError } from '@/domain/errors'
 import { HttpClient, HttpStatusCode } from '@/data/protocols'
-import { InvalidCredentialError, NotFoundError, UnexpectedError } from '@/domain/errors'
 
 import { CreateBookingUsecase } from '@/domain/usecases'
 
@@ -24,7 +24,9 @@ export class RemoteCreateBooking implements CreateBookingUsecase {
       case HttpStatusCode.notFound:
         throw new NotFoundError()
       case HttpStatusCode.conflict:
-        throw new Error('This room is already booked for the selected dates')
+        throw new BookingError()
+      case HttpStatusCode.badRequest:
+        throw new DateError()
       default:
         throw new UnexpectedError()
     }

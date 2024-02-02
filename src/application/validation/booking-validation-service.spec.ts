@@ -1,6 +1,7 @@
 import { bookingModelMock, createBookingsResultMock } from '@/domain/mocks'
 
 import { Booking } from '@/domain/models'
+import { BookingError } from '@/domain/errors'
 import { BookingRepository } from '@/domain/repository'
 import { BookingValidationService } from '@/application/validation/booking-validation-service'
 import { DateClient } from '@/data/protocols'
@@ -65,7 +66,7 @@ describe('BookingValidationService', () => {
             endDate: new Date('2024-01-07')
           }
         },
-        'This room is already booked for the selected dates',
+        new BookingError().message,
         'Overlaps with existing booking'],
       [{
         booking: {
@@ -74,7 +75,7 @@ describe('BookingValidationService', () => {
           endDate: new Date('2024-01-05')
         }
       },
-      'This room is already booked for the selected dates',
+      new BookingError().message,
       'Starts within an existing booking'],
       [{
         booking: {
