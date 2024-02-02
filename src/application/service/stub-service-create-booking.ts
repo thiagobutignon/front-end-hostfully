@@ -18,12 +18,8 @@ export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase
     try {
       const params = data.body
       const validationBooking = validateBooking(this.bookingValidationService, params)
-
       if (validationBooking) {
-        return {
-          statusCode: validationBooking.statusCode,
-          body: validationBooking.body
-        }
+        return validationBooking
       }
 
       const { startDate, endDate } = params
@@ -42,18 +38,17 @@ export class StubServiceCreateBooking implements HttpClient<CreateBookingUsecase
       }
 
       this.bookingsRepository.add(newBooking)
-      const response: CreateBookingUsecase.Result = {
-        booking: [newBooking]
-      }
+
+      const response = this.bookingsRepository.getAll()
+
       return {
         statusCode: HttpStatusCode.ok,
-        body: response
+        body: { booking: response }
       }
     } catch (error) {
       if (error instanceof DateError) {
         return {
-          statusCode: HttpStatusCode.badRequest,
-          body: { error: error.message }
+          statusCode: HttpStatusCode.badRequest
         }
       }
     }

@@ -1,6 +1,8 @@
+import { Booking } from '@/domain/models'
 import { BookingRepository } from '@/domain/repository'
 import { DateClient } from '@/data/protocols'
 import { Validation } from '@/validation/protocols'
+import { isWithinInterval } from 'date-fns'
 
 export class BookingValidationService implements Validation {
   constructor (
@@ -34,7 +36,7 @@ export class BookingValidationService implements Validation {
   }
 
   private validateDoubleBooking (input: Record<string, any>): string {
-    const newBooking = input.booking
+    const newBooking: Booking.Params = input.booking
     if (!newBooking?.startDate || !newBooking.endDate) return 'Invalid booking data'
 
     const dateValidationError = this.validateBookingDate(newBooking.startDate)
@@ -42,15 +44,22 @@ export class BookingValidationService implements Validation {
       return dateValidationError
     }
 
-    const existingBookings = this.bookingsRepository.getAll()
-    const isDoubleBooked = existingBookings.some(booking =>
-      booking.property.id === newBooking.property.id &&
-    (
-      this.dateClient.isWithinInterval(newBooking.startDate, { start: booking.startDate, end: booking.endDate }) ||
-      this.dateClient.isWithinInterval(newBooking.endDate, { start: booking.startDate, end: booking.endDate })
-    )
-    )
+    const existingBookings: Booking.Model[] = this.bookingsRepository.getAll()
 
+    const isDoubleBooked = existingBookings.some((booking: Booking.Model) => {
+      const isTheSameId = booking.property.id === newBooking.property.id
+
+      if (isTheSameId) {
+        if (
+          isWithinInterval(newBooking.startDate, { start: booking.startDate, end: booking.endDate }) ||
+          isWithinInterval(newBooking.endDate, { start: booking.startDate, end: booking.endDate }) ||
+          isWithinInterval(booking.startDate, { start: newBooking.startDate, end: newBooking.endDate })
+        ) {
+          return true
+        }
+      }
+      return false
+    })
     if (isDoubleBooked) {
       return 'This room is already booked for the selected dates'
     }

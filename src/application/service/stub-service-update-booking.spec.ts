@@ -80,6 +80,6 @@ describe('StubServiceUpdateBooking', () => {
 
     const httpResponse = await sut.request(request)
 
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.badRequest)
+    expect(httpResponse.statusCode).toBe(HttpStatusCode.conflict)
   })
 })
