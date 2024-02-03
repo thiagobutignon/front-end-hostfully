@@ -26,13 +26,13 @@ describe('StubServiceDeleteBookingById', () => {
     expect(httpResponse.body).toBe(true)
   })
 
-  it('should return not found if booking does not exist', async () => {
+  it('should return false if booking does not exist', async () => {
     const request: HttpRequest<DeleteBookingByIdUsecase.Params> = mockHttpRequest({ id: 'non-existent-booking-id' })
 
     const httpResponse = await sut.request(request)
 
     expect(httpResponse.statusCode).toBe(HttpStatusCode.notFound)
-    expect(httpResponse.body).toEqual({ error: 'Booking not found' })
+    expect(httpResponse.body).toBeFalsy()
   })
 
   it('should handle unexpected errors', async () => {

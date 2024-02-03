@@ -12,7 +12,7 @@ export class CacheBookingRepository implements BookingRepository {
     return this.bookings
   }
 
-  public update (params: BookingRepository.Params): BookingRepository.UpdateResult {
+  public update (params: Partial<BookingRepository.Params>): BookingRepository.UpdateResult {
     const index = this.bookings.findIndex(booking => booking.id === params.id)
     if (index !== -1) {
       this.bookings[index] = { ...this.bookings[index], ...params }
@@ -24,7 +24,7 @@ export class CacheBookingRepository implements BookingRepository {
   public delete (params: BookingRepository.DeleteParams): BookingRepository.DeleteResult {
     const index = this.bookings.findIndex(booking => booking.id === params.id)
     if (index === -1) {
-      return { error: 'Booking not found' }
+      return false
     }
     this.bookings.splice(index, 1)
     return true

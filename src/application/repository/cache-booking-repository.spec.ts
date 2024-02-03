@@ -1,3 +1,4 @@
+import { BookingRepository } from '@/domain/repository'
 import { CacheBookingRepository } from '@/application/repository'
 import { bookingModelMock } from '@/domain/mocks'
 
@@ -49,6 +50,12 @@ describe('CacheBookingRepository', () => {
 
       expect(updateResult.error).toBe('Booking not found')
     })
+
+    it('should not update anything if booking does not exist', () => {
+      const result = sut.update({ id: 'non-existent-id', totalPrice: 300 })
+      expect(result.error).toBe('Booking not found')
+      expect(sut.getAll()).toHaveLength(0)
+    })
   })
 
   describe('delete', () => {
@@ -62,11 +69,19 @@ describe('CacheBookingRepository', () => {
       expect(sut.getAll()).toHaveLength(0)
     })
 
-    it('should return an error if booking not found', () => {
+    it('should return false if booking not found', () => {
       const result = sut.delete({ id: 'non-existent-id' })
 
-      expect(result).toEqual({ error: 'Booking not found' })
+      expect(result).toBeFalsy()
       expect(sut.getAll()).toHaveLength(0)
+    })
+
+    it('should not delete anything if booking does not exist', () => {
+      sut.add(bookingModelMock())
+      const result: BookingRepository.DeleteResult = sut.delete({ id: 'non-existent-id' })
+
+      expect(result).toBeFalsy()
+      expect(sut.getAll()).toHaveLength(1)
     })
   })
 })

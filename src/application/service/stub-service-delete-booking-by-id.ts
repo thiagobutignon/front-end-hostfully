@@ -11,16 +11,16 @@ export class StubServiceDeleteBookingById implements HttpClient<DeleteBookingByI
       const { id } = data.body
       const deleteResult = this.bookingsRepository.delete({ id })
 
-      if (typeof deleteResult === 'object' && deleteResult.error) {
+      if (deleteResult) {
         return {
-          statusCode: HttpStatusCode.notFound,
-          body: { error: deleteResult.error }
+          statusCode: HttpStatusCode.ok,
+          body: true
         }
       }
 
       return {
-        statusCode: HttpStatusCode.ok,
-        body: true
+        statusCode: HttpStatusCode.notFound,
+        body: false
       }
     } catch (error) {
       return {
