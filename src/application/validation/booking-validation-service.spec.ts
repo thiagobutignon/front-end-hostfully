@@ -1,6 +1,5 @@
 import { bookingModelMock, createBookingsResultMock } from '@/domain/mocks'
 
-import { Booking } from '@/domain/models'
 import { BookingError } from '@/domain/errors'
 import { BookingRepository } from '@/domain/repository'
 import { BookingValidationService } from '@/application/validation/booking-validation-service'
@@ -16,7 +15,7 @@ describe('BookingValidationService', () => {
   beforeEach(() => {
     mockBookingsRepository = {
       add: jest.fn().mockReturnValue(createBookingsResultMock()),
-      getAll: jest.fn() as jest.Mock<Booking.Model[]>,
+      getAll: jest.fn().mockReturnValue([]),
       update: jest.fn() as jest.Mock<BookingRepository.UpdateResult>,
       delete: jest.fn() as jest.Mock<BookingRepository.DeleteResult>
     }
@@ -111,5 +110,33 @@ describe('BookingValidationService', () => {
       })
       expect(result).toBe('Cannot book a room for a past date')
     })
+  })
+
+  test('when booking for different dates without overlap, expect no error', () => {
+    const input = {
+      booking: {
+        property: { id: 'property1' },
+        startDate: new Date('2024-02-07'),
+        endDate: new Date('2024-02-08')
+      }
+    }
+    const expected = ''
+
+    const result = sut.validate('booking', input)
+    expect(result).toBe(expected)
+  })
+
+  test('when booking starts on the end date of an existing booking, expect no error', () => {
+    const input = {
+      booking: {
+        property: { id: 'property1' },
+        startDate: new Date('2024-02-05'),
+        endDate: new Date('2024-02-06')
+      }
+    }
+    const expected = ''
+
+    const result = sut.validate('booking', input)
+    expect(result).toBe(expected)
   })
 })
