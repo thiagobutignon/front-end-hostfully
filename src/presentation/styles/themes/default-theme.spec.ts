@@ -3,11 +3,11 @@ import { defaultTheme } from '@/presentation/styles/themes'
 const sut = defaultTheme.semanticTokens
 
 describe('Default Theme', () => {
-  it('should have defined semantic tokens', () => {
+  test('should have defined semantic tokens', () => {
     expect(defaultTheme.semanticTokens).toBeDefined()
   })
 
-  it('should have defined background colors', () => {
+  test('should have defined background colors', () => {
     const {
       colors: { background }
     } = sut
@@ -16,7 +16,7 @@ describe('Default Theme', () => {
     expect(background._dark).toEqual('#333333')
   })
 
-  it('should have defined background colors', () => {
+  test('should have defined background colors', () => {
     const {
       colors: { reverseBackground }
     } = sut
@@ -25,7 +25,7 @@ describe('Default Theme', () => {
     expect(reverseBackground._dark).toEqual('#FFEBE6')
   })
 
-  it('should have defined text colors', () => {
+  test('should have defined text colors', () => {
     const {
       colors: { text }
     } = sut
@@ -34,7 +34,7 @@ describe('Default Theme', () => {
     expect(text._dark).toEqual('#FFEBE6')
   })
 
-  it('should have defined text colors', () => {
+  test('should have defined text colors', () => {
     const {
       colors: { reverseText }
     } = sut
@@ -43,7 +43,7 @@ describe('Default Theme', () => {
     expect(reverseText._dark).toEqual('#333333')
   })
 
-  it('should have defined detail colors', () => {
+  test('should have defined detail colors', () => {
     const {
       colors: { detail }
     } = sut
@@ -52,7 +52,7 @@ describe('Default Theme', () => {
     expect(detail._dark).toEqual('#D4B483')
   })
 
-  it('should have defined buttonHud colors', () => {
+  test('should have defined buttonHud colors', () => {
     const {
       colors: { buttonHud }
     } = sut
@@ -61,7 +61,7 @@ describe('Default Theme', () => {
     expect(buttonHud._dark).toEqual('rgba(142, 124, 195, 0.7)')
   })
 
-  it('should have defined successButton colors', () => {
+  test('should have defined successButton colors', () => {
     const {
       colors: { successButton }
     } = sut
@@ -70,7 +70,7 @@ describe('Default Theme', () => {
     expect(successButton._dark).toEqual('#A1E887')
   })
 
-  it('should have defined error colors', () => {
+  test('should have defined error colors', () => {
     const {
       colors: { error }
     } = sut
@@ -79,7 +79,7 @@ describe('Default Theme', () => {
     expect(error._dark).toEqual('#F4B6C2')
   })
 
-  it('should have defined delete colors', () => {
+  test('should have defined delete colors', () => {
     const {
       colors: { delete: deleteColor }
     } = sut

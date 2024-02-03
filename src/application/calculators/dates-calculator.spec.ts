@@ -9,7 +9,7 @@ describe('DatesCalculator', () => {
     sut = new DatesCalculator()
   })
 
-  it('should correctly calculate number of days for a period', () => {
+  test('should correctly calculate number of days for a period', () => {
     const params: CalculateNumberOfNights.Params = {
       startDate: new Date('2024-01-01'),
       endDate: new Date('2024-01-05')
@@ -20,7 +20,7 @@ describe('DatesCalculator', () => {
     expect(result).toBe(4)
   })
 
-  it('should correctly calculate the number of days when startDate and endDate are equal', () => {
+  test('should correctly calculate the number of days when startDate and endDate are equal', () => {
     const params: CalculateNumberOfNights.Params = {
       startDate: new Date('2024-01-01'),
       endDate: new Date('2024-01-01')
@@ -30,7 +30,7 @@ describe('DatesCalculator', () => {
 
     expect(result).toBe(1)
   })
-  it('should throw an error when the startDate is more recent than the endDate', () => {
+  test('should throw an error when the startDate is more recent than the endDate', () => {
     const params: CalculateNumberOfNights.Params = {
       startDate: new Date('2024-01-02'),
       endDate: new Date('2024-01-01')

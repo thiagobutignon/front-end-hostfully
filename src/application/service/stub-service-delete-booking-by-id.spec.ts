@@ -15,7 +15,7 @@ describe('StubServiceDeleteBookingById', () => {
     sut = new StubServiceDeleteBookingById(bookingsRepository)
   })
 
-  it('should successfully delete a booking', async () => {
+  test('should successfully delete a booking', async () => {
     const booking = bookingModelMock('existing-booking-id')
     bookingsRepository.add(booking)
     const request: HttpRequest<DeleteBookingByIdUsecase.Params> = mockHttpRequest({ id: 'existing-booking-id' })
@@ -26,7 +26,7 @@ describe('StubServiceDeleteBookingById', () => {
     expect(httpResponse.body).toBe(true)
   })
 
-  it('should return false if booking does not exist', async () => {
+  test('should return false if booking does not exist', async () => {
     const request: HttpRequest<DeleteBookingByIdUsecase.Params> = mockHttpRequest({ id: 'non-existent-booking-id' })
 
     const httpResponse = await sut.request(request)
@@ -35,7 +35,7 @@ describe('StubServiceDeleteBookingById', () => {
     expect(httpResponse.body).toBeFalsy()
   })
 
-  it('should handle unexpected errors', async () => {
+  test('should handle unexpected errors', async () => {
     const throwError = (): any => {
       throw new Error('Unexpected error')
     }

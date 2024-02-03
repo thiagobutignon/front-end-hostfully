@@ -32,7 +32,7 @@ describe('StubServiceCreateBooking', () => {
     jest.useRealTimers()
   })
 
-  it('should successfully create a booking when the number of guests are equal to the max number of guests', async () => {
+  test('should successfully create a booking when the number of guests are equal to the max number of guests', async () => {
     const request = mockHttpRequest(createBookingParamsMock(10, 10, new Date('2024-01-02')))
 
     const httpResponse = await sut.request(request)
@@ -51,7 +51,7 @@ describe('StubServiceCreateBooking', () => {
     })
   })
 
-  it('should return unauthorized if the number of guests exceeds the maximum', async () => {
+  test('should return unauthorized if the number of guests exceeds the maximum', async () => {
     const request: HttpRequest<CreateBookingUsecase.Params> = mockHttpRequest(createBookingParamsMock(11, 10))
 
     const httpResponse = await sut.request(request)
@@ -59,7 +59,7 @@ describe('StubServiceCreateBooking', () => {
     expect(httpResponse.statusCode).toBe(HttpStatusCode.unauthorized)
   })
 
-  it('should handle invalid input data', async () => {
+  test('should handle invalid input data', async () => {
     const invalidRequest = mockHttpRequest(createBookingParamsMock(-1, 10))
 
     const httpResponse = await sut.request(invalidRequest)
@@ -67,7 +67,7 @@ describe('StubServiceCreateBooking', () => {
     expect(httpResponse.statusCode).toBe(HttpStatusCode.unauthorized)
   })
 
-  it('should handle errors from BookingCalculateTotalPrice', async () => {
+  test('should handle errors from BookingCalculateTotalPrice', async () => {
     bookingCalculateTotaltPriceSpy.execute.mockImplementation(() => {
       throw new DateError()
     })

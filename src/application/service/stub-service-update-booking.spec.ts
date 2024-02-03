@@ -36,7 +36,7 @@ describe('StubServiceUpdateBooking', () => {
     jest.useRealTimers()
   })
 
-  it('should successfully update a booking', async () => {
+  test('should successfully update a booking', async () => {
     const params = bookingModelMock('existing-booking-id', new Date('2024-01-06'), new Date('2024-01-07'))
     const request: HttpRequest<UpdateBookingUsecase.Params> = mockHttpRequest(params)
 
@@ -53,7 +53,7 @@ describe('StubServiceUpdateBooking', () => {
     })
   })
 
-  it('should return not found if booking does not exist', async () => {
+  test('should return not found if booking does not exist', async () => {
     const params = bookingModelMock('non-existent-booking-id')
     const request: HttpRequest<UpdateBookingUsecase.Params> = mockHttpRequest(params)
 
@@ -62,7 +62,7 @@ describe('StubServiceUpdateBooking', () => {
     expect(httpResponse.statusCode).toBe(HttpStatusCode.notFound)
   })
 
-  it('should return unauthorized if validation fails', async () => {
+  test('should return unauthorized if validation fails', async () => {
     const params = bookingModelMock('existing-booking-id', new Date('2024-01-06'), new Date('2024-01-07'), 10, 9)
     const request: HttpRequest<UpdateBookingUsecase.Params> = mockHttpRequest(params)
 
@@ -71,7 +71,7 @@ describe('StubServiceUpdateBooking', () => {
     expect(httpResponse.statusCode).toBe(HttpStatusCode.unauthorized)
   })
 
-  it('should handle errors from BookingCalculateTotalPrice', async () => {
+  test('should handle errors from BookingCalculateTotalPrice', async () => {
     bookingCalculateTotaltPriceSpy.execute.mockImplementation(() => {
       throw new DateError()
     })
@@ -83,7 +83,7 @@ describe('StubServiceUpdateBooking', () => {
     expect(httpResponse.statusCode).toBe(HttpStatusCode.conflict)
   })
 
-  it('should return conflict if there is a double booking', async () => {
+  test('should return conflict if there is a double booking', async () => {
     bookingsRepository.getAll = jest.fn().mockReturnValueOnce([bookingModelMock('existing-booking-id', new Date('2024-01-06'), new Date('2024-01-07'))])
 
     const params = bookingModelMock('existing-booking-id', new Date('2024-01-06'), new Date('2024-01-07'))
@@ -95,7 +95,7 @@ describe('StubServiceUpdateBooking', () => {
     expect(httpResponse.body.error).toBeDefined()
   })
 
-  it('should handle unexpected server errors', async () => {
+  test('should handle unexpected server errors', async () => {
     jest.spyOn(bookingsRepository, 'getAll').mockImplementationOnce(() => {
       throw new Error('Unexpected server error')
     })
@@ -109,7 +109,7 @@ describe('StubServiceUpdateBooking', () => {
     expect(httpResponse.body.error).toBe('Unexpected error occurred')
   })
 
-  it('should return bad request if BookingCalculateTotalPrice throws DateError', async () => {
+  test('should return bad request if BookingCalculateTotalPrice throws DateError', async () => {
     bookingCalculateTotaltPriceSpy.execute.mockImplementation(() => {
       throw new DateError()
     })

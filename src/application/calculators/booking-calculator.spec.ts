@@ -84,7 +84,7 @@ describe('BookingCalculator', () => {
     })
   })
 
-  it('should not calculate the total price and number of nights if the startDate is more recent than the end date', () => {
+  test('should not calculate the total price and number of nights if the startDate is more recent than the end date', () => {
     const params: BookingCalculateTotalPrice.Params = {
       startDate: new Date('2024-01-02'),
       endDate: new Date('2024-01-01'),

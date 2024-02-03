@@ -20,14 +20,14 @@ describe('StubServiceListBookings', () => {
     sut = new StubServiceListBookings(mockBookingsRepository)
   })
 
-  it('should return a list of bookings with status code 200', async () => {
+  test('should return a list of bookings with status code 200', async () => {
     const httpResponse = await sut.request()
 
     expect(httpResponse.statusCode).toBe(HttpStatusCode.ok)
     expect(httpResponse.body).toEqual({ booking: mockBookings })
   })
 
-  it('should return a bad request error if an error occurs', async () => {
+  test('should return a bad request error if an error occurs', async () => {
     mockBookingsRepository.getAll.mockImplementationOnce(() => {
       throw new Error('Test error')
     })

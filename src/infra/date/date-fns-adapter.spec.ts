@@ -13,7 +13,7 @@ describe('DateFnsAdapter', () => {
   const sut = new DateFnsAdapter()
 
   describe('isSameDay', () => {
-    it('should call isSameDay from date-fns with correct parameters', () => {
+    test('should call isSameDay from date-fns with correct parameters', () => {
       const date1 = new Date()
       const date2 = new Date()
       sut.isSameDay(date1, date2)
@@ -22,7 +22,7 @@ describe('DateFnsAdapter', () => {
   })
 
   describe('isBefore', () => {
-    it('should call isBefore from date-fns with correct parameters', () => {
+    test('should call isBefore from date-fns with correct parameters', () => {
       const date1 = new Date()
       const date2 = new Date()
       sut.isBefore(date1, date2)
@@ -31,7 +31,7 @@ describe('DateFnsAdapter', () => {
   })
 
   describe('isWithinInterval', () => {
-    it('should call isWithinInterval from date-fns with correct parameters', () => {
+    test('should call isWithinInterval from date-fns with correct parameters', () => {
       const date = new Date()
       const interval = { start: new Date(), end: new Date() }
       sut.isWithinInterval(date, interval)
@@ -40,7 +40,7 @@ describe('DateFnsAdapter', () => {
   })
 
   describe('startOfDay', () => {
-    it('should call startOfDay from date-fns with correct parameters', () => {
+    test('should call startOfDay from date-fns with correct parameters', () => {
       const date = new Date()
       sut.startOfDay(date)
       expect(startOfDay).toHaveBeenCalledWith(date)

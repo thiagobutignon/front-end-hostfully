@@ -99,7 +99,7 @@ describe('BookingValidationService', () => {
       expect(result).toBe(expected)
     })
 
-    it('should not allow booking a room for a past date', () => {
+    test('should not allow booking a room for a past date', () => {
       const pastDate = new Date('2023-01-01')
       const result = sut.validate('booking', {
         booking: {

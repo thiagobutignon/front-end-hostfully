@@ -10,7 +10,7 @@ jest.mock('@chakra-ui/react', () => ({
 describe('useReverseColor', () => {
   const mockUseColorMode = useColorMode as jest.Mock
 
-  it('should return light mode colors when color mode is light', () => {
+  test('should return light mode colors when color mode is light', () => {
     mockUseColorMode.mockImplementation(() => ({ colorMode: 'light' }))
 
     const { result } = renderHook(() => useReverseColor())
@@ -19,7 +19,7 @@ describe('useReverseColor', () => {
     expect(result.current.text).toBe('#333333')
   })
 
-  it('should return dark mode colors when color mode is dark', () => {
+  test('should return dark mode colors when color mode is dark', () => {
     mockUseColorMode.mockImplementation(() => ({ colorMode: 'dark' }))
 
     const { result } = renderHook(() => useReverseColor())

@@ -10,7 +10,7 @@ describe('CacheBookingRepository', () => {
   })
 
   describe('add', () => {
-    it('should add a booking and return the updated list', () => {
+    test('should add a booking and return the updated list', () => {
       const mock = bookingModelMock()
 
       const result = sut.add(mock)
@@ -21,7 +21,7 @@ describe('CacheBookingRepository', () => {
   })
 
   describe('getAll', () => {
-    it('should return all bookings', () => {
+    test('should return all bookings', () => {
       const mock = bookingModelMock()
       sut.add(mock)
 
@@ -33,7 +33,7 @@ describe('CacheBookingRepository', () => {
   })
 
   describe('update', () => {
-    it('should update a booking if found', () => {
+    test('should update a booking if found', () => {
       const mock = bookingModelMock()
       sut.add(mock)
       const updatedBooking = { ...mock, totalPrice: 200 }
@@ -43,7 +43,7 @@ describe('CacheBookingRepository', () => {
       expect(updateResult.booking).toContainEqual(updatedBooking)
     })
 
-    it('should return an error if booking not found', () => {
+    test('should return an error if booking not found', () => {
       const mock = bookingModelMock()
 
       const updateResult = sut.update({ ...mock, id: 'non-existent-id' })
@@ -51,7 +51,7 @@ describe('CacheBookingRepository', () => {
       expect(updateResult.error).toBe('Booking not found')
     })
 
-    it('should not update anything if booking does not exist', () => {
+    test('should not update anything if booking does not exist', () => {
       const result = sut.update({ id: 'non-existent-id', totalPrice: 300 })
       expect(result.error).toBe('Booking not found')
       expect(sut.getAll()).toHaveLength(0)
@@ -59,7 +59,7 @@ describe('CacheBookingRepository', () => {
   })
 
   describe('delete', () => {
-    it('should delete a booking if found', () => {
+    test('should delete a booking if found', () => {
       const mock = bookingModelMock()
       sut.add(mock)
 
@@ -69,14 +69,14 @@ describe('CacheBookingRepository', () => {
       expect(sut.getAll()).toHaveLength(0)
     })
 
-    it('should return false if booking not found', () => {
+    test('should return false if booking not found', () => {
       const result = sut.delete({ id: 'non-existent-id' })
 
       expect(result).toBeFalsy()
       expect(sut.getAll()).toHaveLength(0)
     })
 
-    it('should not delete anything if booking does not exist', () => {
+    test('should not delete anything if booking does not exist', () => {
       sut.add(bookingModelMock())
       const result: BookingRepository.DeleteResult = sut.delete({ id: 'non-existent-id' })
 
@@ -86,7 +86,7 @@ describe('CacheBookingRepository', () => {
   })
 
   describe('clearCacheTestOnly', () => {
-    it('should clear all bookings in the cache', () => {
+    test('should clear all bookings in the cache', () => {
       sut.add(bookingModelMock())
       sut.add(bookingModelMock())
 
