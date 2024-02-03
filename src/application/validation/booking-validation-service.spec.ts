@@ -120,10 +120,9 @@ describe('BookingValidationService', () => {
         endDate: new Date('2024-02-08')
       }
     }
-    const expected = ''
 
     const result = sut.validate('booking', input)
-    expect(result).toBe(expected)
+    expect(result).toBe('')
   })
 
   test('when booking starts on the end date of an existing booking, expect no error', () => {
@@ -134,9 +133,44 @@ describe('BookingValidationService', () => {
         endDate: new Date('2024-02-06')
       }
     }
-    const expected = ''
 
     const result = sut.validate('booking', input)
-    expect(result).toBe(expected)
+    expect(result).toBe('')
+  })
+
+  test('should return an empty string for unrecognized field names', () => {
+    const unrecognizedFieldName = 'unrecognizedField'
+    const input = {}
+
+    const result = sut.validate(unrecognizedFieldName, input)
+
+    expect(result).toBe('Unknown field')
+  })
+
+  test('should return "Invalid booking data" if booking dates are not provided', () => {
+    const inputMissingDates = {
+      booking: {
+        property: { id: 'property1' }
+      }
+    }
+
+    const resultMissingBoth = sut.validate('booking', inputMissingDates)
+    expect(resultMissingBoth).toBe('Invalid booking data')
+
+    const inputMissingStartDate = {
+      ...inputMissingDates,
+      booking: { ...inputMissingDates.booking, endDate: new Date('2024-01-03') }
+    }
+
+    const resultMissingStartDate = sut.validate('booking', inputMissingStartDate)
+    expect(resultMissingStartDate).toBe('Invalid booking data')
+
+    const inputMissingEndDate = {
+      ...inputMissingDates,
+      booking: { ...inputMissingDates.booking, startDate: new Date('2024-01-02') }
+    }
+
+    const resultMissingEndDate = sut.validate('booking', inputMissingEndDate)
+    expect(resultMissingEndDate).toBe('Invalid booking data')
   })
 })

@@ -19,7 +19,7 @@ export class BookingValidationService implements Validation {
         return this.validateDoubleBooking(input)
 
       default:
-        return ''
+        return 'Unknown field'
     }
   }
 
@@ -38,7 +38,9 @@ export class BookingValidationService implements Validation {
 
   private validateDoubleBooking (input: Record<string, any>): string {
     const newBooking: Booking.Params = input.booking
-    if (!newBooking?.startDate || !newBooking.endDate) return 'Invalid booking data'
+    if (!newBooking?.startDate || !newBooking.endDate) {
+      return 'Invalid booking data'
+    }
 
     const dateValidationError = this.validateBookingDate(newBooking.startDate)
     if (dateValidationError) {
