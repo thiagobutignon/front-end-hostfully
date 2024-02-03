@@ -84,4 +84,17 @@ describe('CacheBookingRepository', () => {
       expect(sut.getAll()).toHaveLength(1)
     })
   })
+
+  describe('clearCacheTestOnly', () => {
+    it('should clear all bookings in the cache', () => {
+      sut.add(bookingModelMock())
+      sut.add(bookingModelMock())
+
+      expect(sut.getAll()).toHaveLength(2)
+
+      sut.clearCacheTestOnly()
+
+      expect(sut.getAll()).toHaveLength(0)
+    })
+  })
 })
