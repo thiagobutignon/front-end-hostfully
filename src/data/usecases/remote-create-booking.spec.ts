@@ -1,4 +1,4 @@
-import { InvalidCredentialError, NotFoundError, UnexpectedError } from '@/domain/errors'
+import { BookingError, DateError, InvalidCredentialError, NotFoundError, UnexpectedError } from '@/domain/errors'
 import { createBookingParamsMock, createBookingsResultMock } from '@/domain/mocks'
 
 import { CreateBookingUsecase } from '@/domain/usecases'
@@ -79,5 +79,27 @@ describe('RemoteCreateBooking', () => {
     const promise = sut.perform(createBookingParamsMock())
 
     await expect(promise).rejects.toThrow(new NotFoundError())
+  })
+
+  test('Should throw BookingError if httpClient returns 409', async () => {
+    const { sut, httpClientSpy } = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.conflict
+    }
+
+    const promise = sut.perform(createBookingParamsMock())
+
+    await expect(promise).rejects.toThrow(new BookingError())
+  })
+
+  test('Should throw DateError if httpClient returns 400', async () => {
+    const { sut, httpClientSpy } = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest
+    }
+
+    const promise = sut.perform(createBookingParamsMock())
+
+    await expect(promise).rejects.toThrow(new DateError())
   })
 })
