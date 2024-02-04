@@ -1,4 +1,5 @@
 export { default as ErrorComponent } from './error/error'
 export { default as HeaderComponent } from './header/header'
 export { default as LayoutComponent } from './layout/layout'
+export { default as PropertyCardComponent } from './select/property-select'
 export { default as ThemeModeComponent } from './theme-mode/theme-mode'

@@ -1,14 +1,18 @@
 import HeaderComponent from '@/presentation/components/header/header'
+import { ListPropertiesUsecase } from '@/domain/usecases'
+
 type LayoutComponentProps = {
   children: React.ReactNode
+  listProperties: ListPropertiesUsecase
 }
 
 const LayoutComponent: React.FC<LayoutComponentProps> = ({
-  children
+  children,
+  listProperties
 }: LayoutComponentProps) => {
   return (
     <>
-      <HeaderComponent />
+      <HeaderComponent listProperties={listProperties} />
       {children}
     </>
   )
