@@ -6,7 +6,7 @@ exports[`PropertySelect Component matches snapshot 1`] = `
     class="chakra-select__wrapper css-76v6ct"
   >
     <select
-      class="chakra-select css-1ik61og"
+      class="chakra-select css-vvuw64"
     >
       <option
         value=""
@@ -14,11 +14,13 @@ exports[`PropertySelect Component matches snapshot 1`] = `
         Select a property
       </option>
       <option
+        color="reverseBackground"
         value="1"
       >
         Property 1
       </option>
       <option
+        color="reverseBackground"
         value="2"
       >
         Property 2

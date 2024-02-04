@@ -18,10 +18,12 @@ const PropertySelect: React.FC<PropertySelectProps> = ({
       value={selectedPropertyId}
       onChange={onPropertyChange}
       placeholder="Select a property"
+      textColor="text"
+      bg="background"
       my={4}
     >
       {properties.map((property) => (
-        <option key={property.id} value={property.id}>
+        <option key={property.id} value={property.id} color="reverseBackground">
           {property.name}
         </option>
       ))}

@@ -7,30 +7,27 @@ import {
 
 import { BookingPage } from '@/presentation/pages'
 import { LayoutComponent } from '@/presentation/components'
+import { PropertiesProvider } from '@/presentation/context/properties-context'
 import React from 'react'
 import theme from '@/presentation/styles/theme'
 
-const makeBookingPage: React.FC = () => {
-  const listProperties = makeRemoteListProperties()
-  return (
-    <LayoutComponent listProperties={listProperties}>
-      <BookingPage
-        listBookings={makeRemoteListBookings()}
-        listProperties={listProperties}
-      />
-    </LayoutComponent>
-  )
-}
-
 const Router: React.FC = () => {
+  const listProperties = makeRemoteListProperties()
+
   return (
     <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" component={makeBookingPage} />
-        </Switch>
-      </BrowserRouter>
+      <PropertiesProvider listProperties={listProperties}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <BrowserRouter>
+          <Switch>
+            <Route path="/">
+              <LayoutComponent listProperties={listProperties}>
+                <BookingPage listBookings={makeRemoteListBookings()} />
+              </LayoutComponent>
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </PropertiesProvider>
     </ChakraProvider>
   )
 }

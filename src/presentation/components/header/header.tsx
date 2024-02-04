@@ -3,7 +3,7 @@ import { Box, Flex, Menu, Stack, Text } from '@chakra-ui/react'
 import { ListPropertiesUsecase } from '@/domain/usecases'
 import PropertySelect from '@/presentation/components/select/property-select'
 import { ThemeModeComponent } from '@/presentation/components'
-import { useProperties } from '@/presentation/hooks/property'
+import { usePropertiesContext } from '@/presentation/context/properties-context'
 
 type HeaderComponentProps = {
   listProperties: ListPropertiesUsecase
@@ -13,7 +13,7 @@ const HeaderComponent: React.FC<HeaderComponentProps> = ({
   listProperties
 }: HeaderComponentProps) => {
   const { properties, selectedProperty, handlePropertyChange } =
-    useProperties(listProperties)
+    usePropertiesContext()
 
   return (
     <>
@@ -27,12 +27,13 @@ const HeaderComponent: React.FC<HeaderComponentProps> = ({
           <Text color="reverseText" fontSize="xl" fontWeight={700}>
             Hostfully
           </Text>
-
-          <PropertySelect
-            properties={properties}
-            selectedPropertyId={selectedProperty?.id}
-            onPropertyChange={handlePropertyChange}
-          />
+          <Flex maxWidth={'25%'}>
+            <PropertySelect
+              properties={properties}
+              selectedPropertyId={selectedProperty?.id}
+              onPropertyChange={handlePropertyChange}
+            />
+          </Flex>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'}>

@@ -2,6 +2,7 @@ import { render, waitFor } from '@testing-library/react'
 
 import { HeaderComponent } from '@/presentation/components'
 import { ListPropertiesUsecase } from '@/domain/usecases'
+import { PropertiesProvider } from '@/presentation/context'
 
 describe('HeaderComponent', () => {
   let listPropertiesSpy: jest.Mocked<ListPropertiesUsecase>
@@ -13,7 +14,9 @@ describe('HeaderComponent', () => {
   })
   it('renders correctly', async () => {
     const { getByText, getByTestId } = render(
-      <HeaderComponent listProperties={listPropertiesSpy} />
+      <PropertiesProvider listProperties={listPropertiesSpy}>
+        <HeaderComponent listProperties={listPropertiesSpy} />
+      </PropertiesProvider>
     )
     waitFor(() => {
       expect(getByText('Hostfully')).toBeInTheDocument()
@@ -23,7 +26,9 @@ describe('HeaderComponent', () => {
 
   it('matches snapshot', () => {
     const { asFragment } = render(
-      <HeaderComponent listProperties={listPropertiesSpy} />
+      <PropertiesProvider listProperties={listPropertiesSpy}>
+        <HeaderComponent listProperties={listPropertiesSpy} />
+      </PropertiesProvider>
     )
     expect(asFragment()).toMatchSnapshot()
   })

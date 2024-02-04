@@ -1,34 +1,22 @@
 import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react'
-import { ListBookingsUsecase, ListPropertiesUsecase } from '@/domain/usecases'
 import React, { useEffect, useState } from 'react'
 
 import { ErrorComponent } from '@/presentation/components'
+import { ListBookingsUsecase } from '@/domain/usecases'
 import { faker } from '@faker-js/faker'
-import { useProperties } from '@/presentation/hooks/property'
-
-type CallBackType = (error: Error) => void
-type ResultType = CallBackType
-
-export const useErrorHandler = (callback: CallBackType): ResultType => {
-  return (error: Error): void => {
-    callback(error)
-  }
-}
+import { useErrorHandler } from '../hooks/property/use-error-handler'
+import { usePropertiesContext } from '@/presentation/context/properties-context'
 
 type Props = {
   listBookings: ListBookingsUsecase
-  listProperties: ListPropertiesUsecase
 }
 
-export const BookingPage: React.FC<Props> = ({
-  listBookings,
-  listProperties
-}: Props) => {
+export const BookingPage: React.FC<Props> = ({ listBookings }: Props) => {
   const {
     selectedProperty,
-    isLoading: isLoadingProperties,
-    error: errorProperties
-  } = useProperties(listProperties)
+    error: errorProperties,
+    isLoading: isLoadingProperties
+  } = usePropertiesContext()
 
   const [state, setState] = useState({
     isLoading: false,
