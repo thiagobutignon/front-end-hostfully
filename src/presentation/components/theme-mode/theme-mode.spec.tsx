@@ -9,13 +9,13 @@ jest.mock('@chakra-ui/react', () => ({
 }))
 
 describe('ThemeModeComponent', () => {
-  beforeEach(() => {})
-  it('renders correctly', () => {
+  beforeEach(() => {
     ;(useColorMode as jest.Mock).mockImplementation(() => ({
       colorMode: 'light',
       toggleColorMode: jest.fn()
     }))
-
+  })
+  it('renders correctly', () => {
     const { getByText } = render(<ThemeModeComponent />)
     expect(getByText(/Dark/i)).toBeInTheDocument()
   })

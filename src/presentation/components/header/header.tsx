@@ -5,7 +5,11 @@ import { ThemeModeComponent } from '@/presentation/components'
 const HeaderComponent: React.FC = () => {
   return (
     <>
-      <Box bg="reverseBackground" px={4}>
+      <Box
+        data-testid="mock-theme-mode-component"
+        bg="reverseBackground"
+        px={4}
+      >
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Text color="reverseText" fontSize="xl" fontWeight={700}>
             Hostfully

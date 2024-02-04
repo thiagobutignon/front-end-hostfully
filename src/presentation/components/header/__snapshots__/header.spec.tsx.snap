@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-2uykgx"
+    data-testid="mock-theme-mode-component"
+  >
+    <div
+      class="css-q4hjtx"
+    >
+      <p
+        class="chakra-text css-exm3rk"
+      >
+        Hostfully
+      </p>
+      <div
+        class="css-70qvj9"
+      >
+        <div
+          class="chakra-stack css-1f0wxn3"
+        >
+          <button
+            class="chakra-button css-1nj3wf0"
+            type="button"
+          >
+            <svg
+              class="chakra-icon chakra-icon css-p00glj"
+              data-testid="sun-icon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="5"
+                />
+                <path
+                  d="M12 1v2"
+                />
+                <path
+                  d="M12 21v2"
+                />
+                <path
+                  d="M4.22 4.22l1.42 1.42"
+                />
+                <path
+                  d="M18.36 18.36l1.42 1.42"
+                />
+                <path
+                  d="M1 12h2"
+                />
+                <path
+                  d="M21 12h2"
+                />
+                <path
+                  d="M4.22 19.78l1.42-1.42"
+                />
+                <path
+                  d="M18.36 5.64l1.42-1.42"
+                />
+              </g>
+            </svg>
+            Light
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
