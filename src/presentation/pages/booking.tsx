@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { ErrorComponent } from '@/presentation/components'
 import { ListBookingsUsecase } from '@/domain/usecases'
 import { faker } from '@faker-js/faker'
-import { useErrorHandler } from '../hooks/property/use-error-handler'
+import { useErrorHandler } from '../hooks/error/use-error-handler'
 import { usePropertiesContext } from '@/presentation/context/properties-context'
 
 type Props = {
@@ -20,7 +20,6 @@ export const BookingPage: React.FC<Props> = ({ listBookings }: Props) => {
 
   const [state, setState] = useState({
     isLoading: false,
-    isFormInvalid: true,
     listBookings: [] as ListBookingsUsecase.Result,
     reload: false,
     error: ''
@@ -29,10 +28,8 @@ export const BookingPage: React.FC<Props> = ({ listBookings }: Props) => {
   const reload = (): void => {
     setState((old) => ({
       listBookings: [] as ListBookingsUsecase.Result,
-      selectedPropertyId: '1',
       error: '',
       reload: !old.reload,
-      isFormInvalid: true,
       isLoading: true
     }))
   }
@@ -68,7 +65,6 @@ export const BookingPage: React.FC<Props> = ({ listBookings }: Props) => {
         <Box maxW="4xl" mx="auto" p={5} bg="backgroundz">
           {/* Property Image */}
           <Image
-            // src={selectedProperty.image[0]}
             src={faker.image.urlLoremFlickr({ category: 'house' })}
             my={4}
             borderRadius="lg"
