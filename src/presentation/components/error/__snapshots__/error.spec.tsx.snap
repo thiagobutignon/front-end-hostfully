@@ -12,7 +12,7 @@ exports[`ErrorComponent matches snapshot 1`] = `
       An unexpected error occurred
     </p>
     <button
-      class="chakra-button css-4xx2wk"
+      class="chakra-button css-kboz6o"
       data-testid="reload"
       type="button"
     >

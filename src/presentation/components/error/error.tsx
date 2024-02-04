@@ -13,7 +13,12 @@ const ErrorComponent: React.FC<Props> = ({ error, reload }: Props) => {
       <Text data-testid="error" color="error" fontSize="lg" mb={4}>
         {error}
       </Text>
-      <Button data-testid="reload" colorScheme="successButton" onClick={reload}>
+      <Button
+        data-testid="reload"
+        bgColor="successButton"
+        textColor="text"
+        onClick={reload}
+      >
         Try Again
       </Button>
     </Box>

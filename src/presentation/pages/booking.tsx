@@ -24,13 +24,13 @@ export const BookingPage: React.FC<Props> = ({ listBookings }: Props) => {
     isFormInvalid: true,
     listBookings: [] as ListBookingsUsecase.Result,
     reload: false,
-    error: 'AAAAA'
+    error: ''
   })
 
   const reload = (): void => {
     setState((old) => ({
       listBookings: [] as ListBookingsUsecase.Result,
-      error: 'AAAA',
+      error: '',
       reload: !old.reload,
       isFormInvalid: true,
       isLoading: true
@@ -60,6 +60,8 @@ export const BookingPage: React.FC<Props> = ({ listBookings }: Props) => {
 
   return (
     <>
+      <Text>{JSON.stringify(state)}</Text>
+
       <Box maxW="4xl" mx="auto" p={5} bg="backgroundz">
         {/* Property Image */}
         <Image src={faker.image.urlPicsumPhotos()} my={4} borderRadius="lg" />

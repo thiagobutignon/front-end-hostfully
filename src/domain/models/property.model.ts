@@ -3,6 +3,7 @@ import { LocationModel } from '@/domain/models'
 export type PropertyModel = {
   id: string
   name: string
+  description: string
   location: LocationModel
   maxGuests: number
   bedrooms: number
