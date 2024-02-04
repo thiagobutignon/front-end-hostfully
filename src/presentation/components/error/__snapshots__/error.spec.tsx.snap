@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="errorWrap css-xi606m"
+  >
+    <p
+      class="chakra-text css-17u9iup"
+      data-testid="error"
+    >
+      An unexpected error occurred
+    </p>
+    <button
+      class="chakra-button css-4xx2wk"
+      data-testid="reload"
+      type="button"
+    >
+      Try Again
+    </button>
+  </div>
+</DocumentFragment>
+`;
