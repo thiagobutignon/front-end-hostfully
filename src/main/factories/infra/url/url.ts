@@ -1,12 +1,10 @@
 export const getActiveUrl = (): string => {
   const urlEnvironment = parseURL()
   switch (process.env.ACTIVE_THEME) {
-    case 'rivage':
-      return `https://${urlEnvironment}.metaoriginal.com/api/v1`
-    case 'fisher-island':
-      return `https://${urlEnvironment}.metaoriginal.com/api/v1`
+    case 'default':
+      return `https://${urlEnvironment}.com/api/v1`
     default:
-      return `https://${urlEnvironment}.metaoriginal.com/api/v1`
+      return `https://${urlEnvironment}.com/api/v1`
   }
 }
 
@@ -21,8 +19,6 @@ export const parseURL = (): string => {
   }
 }
 
-// export const makeUrl = (endpoint: string): string => {
-//   return getActiveUrl() + endpoint
 export const makeUrl = (endpoint: string): string => {
-  return 'https://staging.metaoriginal.com/api/v1' + endpoint
+  return 'https://any_url.com/api/v1' + endpoint
 }

@@ -49,7 +49,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new DefinePlugin({
-      'process.env.API_URL': JSON.stringify('https://metaoriginal.com/api'),
+      'process.env.API_URL': JSON.stringify('http://any_url.com/api'),
       'process.env.ACTIVE_THEME': JSON.stringify(process.env.ACTIVE_THEME)
     }),
     new HtmlWebpackPlugin({

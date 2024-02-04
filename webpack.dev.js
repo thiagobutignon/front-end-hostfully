@@ -60,7 +60,7 @@ module.exports = merge(common, {
   plugins: [
     new Dotenv(),
     new DefinePlugin({
-      'process.env.API_URL': JSON.stringify('http://metaoriginal.com/api')
+      'process.env.API_URL': JSON.stringify('http://any_url.com/api')
     }),
     new HtmlWebpackPlugin({
       template: './template.dev.html'

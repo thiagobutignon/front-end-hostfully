@@ -35,7 +35,7 @@ const questions = [
     type: 'list',
     name: 'theme',
     message: 'What theme do you want to use?',
-    choices: ['default', 'rivage', 'fisher-island'],
+    choices: ['default'],
     default: 'default'
   }
 ]

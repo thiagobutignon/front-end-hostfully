@@ -1,30 +1,22 @@
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import {
-  Button,
   ChakraProvider,
-  ColorModeScript,
-  useColorMode
+  ColorModeScript
 } from '@chakra-ui/react'
 
+import { BookingPage } from '@/presentation/pages'
 import React from 'react'
 import theme from '@/presentation/styles/theme'
-
-const Example: React.FC = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
-  return (
-    <header style={{ position: 'fixed' }}>
-      <Button color={'successButton'} onClick={toggleColorMode}>
-        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-      </Button>
-    </header>
-  )
-}
 
 const Router: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Example />
-
+      <BrowserRouter>
+      <Switch>
+        <Route path="/" component={BookingPage} />
+      </Switch>
+      </BrowserRouter>
     </ChakraProvider>
   )
 }
