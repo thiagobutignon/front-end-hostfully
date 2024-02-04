@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputWithLabel matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="chakra-form-control css-0"
+    role="group"
+  >
+    <label
+      class="chakra-form__label css-1muhubi"
+      data-testid="myInput-label"
+      for="field-:r3:"
+      id="field-:r3:-label"
+    >
+      My Label
+    </label>
+    <input
+      aria-describedby="field-:r3:-helptext"
+      autocomplete="new-myInput"
+      class="chakra-input css-1vu97f5"
+      data-testid="myInput"
+      id="field-:r3:"
+      name="myInput"
+      type="text"
+      value=""
+    />
+    <div
+      class="chakra-form__helper-text css-18w01t4"
+      data-testid="myInput-error"
+      id="field-:r3:-helptext"
+    >
+      Error message
+    </div>
+  </div>
+</DocumentFragment>
+`;
