@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PropertyInfoComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-vjwr8m"
+  >
+    <img
+      class="chakra-image css-afi9h6"
+      src="https://loremflickr.com/640/480/house?lock=6096378224705536"
+    />
+    <h1
+      class="chakra-heading css-1y1i1kg"
+    >
+      Pat Bashirian
+    </h1>
+    <p
+      class="chakra-text css-1tg6nva"
+    >
+      Guests: 2111450424279048 | Bedrooms: 4512976035905536 | Beds: 6616751263449088
+    </p>
+    <p
+      class="chakra-text css-1j9oeic"
+    >
+      Aedificium supra caelum amet bestia paulatim tolero aliquam arguo.
+    </p>
+    <div
+      class="css-1gvcg4y"
+    >
+      <p
+        class="chakra-text css-e5hj7u"
+      >
+        $0.6472861601505429/night
+      </p>
+      <button
+        class="chakra-button css-16bvcfa"
+        type="button"
+      >
+        Book Now
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
