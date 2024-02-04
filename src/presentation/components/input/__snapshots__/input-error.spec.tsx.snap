@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputError matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="chakra-form-control css-0"
+    role="group"
+  >
+    <div
+      class="chakra-form__helper-text css-18w01t4"
+      id="field-:r2:-helptext"
+    >
+      Error message
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,5 +1,7 @@
 export { default as ErrorComponent } from './error/error'
 export { default as HeaderComponent } from './header/header'
+export { default as InputError } from './input/input-error'
+export { default as InputWithLabel } from './input/input-with-label'
 export { default as LayoutComponent } from './layout/layout'
 export { default as PropertyInfoComponent } from './property-info/property-info'
 export { default as PropertyCardComponent } from './select/property-select'
