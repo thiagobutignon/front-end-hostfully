@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react'
-import { ErrorComponent, HeaderComponent } from '@/presentation/components'
 import React, { useEffect, useState } from 'react'
 
+import { ErrorComponent } from '@/presentation/components'
 import { ListBookingsUsecase } from '@/domain/usecases'
 import { faker } from '@faker-js/faker'
 
@@ -24,13 +24,13 @@ export const BookingPage: React.FC<Props> = ({ listBookings }: Props) => {
     isFormInvalid: true,
     listBookings: [] as ListBookingsUsecase.Result,
     reload: false,
-    error: ''
+    error: 'AAAAA'
   })
 
   const reload = (): void => {
     setState((old) => ({
       listBookings: [] as ListBookingsUsecase.Result,
-      error: '',
+      error: 'AAAA',
       reload: !old.reload,
       isFormInvalid: true,
       isLoading: true
@@ -60,7 +60,6 @@ export const BookingPage: React.FC<Props> = ({ listBookings }: Props) => {
 
   return (
     <>
-      <HeaderComponent />
       <Box maxW="4xl" mx="auto" p={5} bg="backgroundz">
         {/* Property Image */}
         <Image src={faker.image.urlPicsumPhotos()} my={4} borderRadius="lg" />

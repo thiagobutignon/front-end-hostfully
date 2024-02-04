@@ -9,6 +9,7 @@ const HeaderComponent: React.FC = () => {
         data-testid="mock-theme-mode-component"
         bg="reverseBackground"
         px={4}
+        mb={8}
       >
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Text color="reverseText" fontSize="xl" fontWeight={700}>

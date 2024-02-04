@@ -3,7 +3,7 @@
 exports[`HeaderComponent matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="css-2uykgx"
+    class="css-17dkele"
     data-testid="mock-theme-mode-component"
   >
     <div
