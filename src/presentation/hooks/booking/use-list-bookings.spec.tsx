@@ -9,7 +9,7 @@ describe('useListBookings', () => {
   }
   it('should start with initial state', async () => {
     const { result } = renderHook(() =>
-      useListBookings(mockListBookings as ListBookingsUsecase)
+      useListBookings(mockListBookings as ListBookingsUsecase, false)
     )
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false)
@@ -22,7 +22,7 @@ describe('useListBookings', () => {
     mockListBookings.perform.mockReturnValue(new Promise(() => {}))
 
     const { result } = renderHook(() =>
-      useListBookings(mockListBookings as unknown as ListBookingsUsecase)
+      useListBookings(mockListBookings as unknown as ListBookingsUsecase, false)
     )
 
     expect(result.current.isLoading).toBe(true)
@@ -35,7 +35,7 @@ describe('useListBookings', () => {
     const mockData = [{ id: 1, name: 'Booking 1' }]
     mockListBookings.perform.mockResolvedValue(mockData)
     const { result } = renderHook(() =>
-      useListBookings(mockListBookings as unknown as ListBookingsUsecase)
+      useListBookings(mockListBookings as unknown as ListBookingsUsecase, false)
     )
 
     await waitFor(() => {
@@ -49,7 +49,7 @@ describe('useListBookings', () => {
     const errorMessage = 'Error fetching bookings'
     mockListBookings.perform.mockRejectedValue(new Error(errorMessage))
     const { result } = renderHook(() =>
-      useListBookings(mockListBookings as unknown as ListBookingsUsecase)
+      useListBookings(mockListBookings as unknown as ListBookingsUsecase, false)
     )
 
     await waitFor(() => {

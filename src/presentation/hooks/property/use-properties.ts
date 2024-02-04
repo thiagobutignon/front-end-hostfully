@@ -18,7 +18,7 @@ export const useProperties = (
   )
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const [selectedPropertyId, setSelectedPropertyId] = useState('')
+  const [selectedPropertyId, setSelectedPropertyId] = useState('1')
   const [selectedProperty, setSelectedProperty] = useState(null)
 
   useEffect(() => {

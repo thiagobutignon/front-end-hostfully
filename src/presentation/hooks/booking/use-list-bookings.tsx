@@ -10,7 +10,8 @@ type useListBookingsResult = {
 }
 
 export const useListBookings = (
-  listBookingsUsecase: ListBookingsUsecase
+  listBookingsUsecase: ListBookingsUsecase,
+  reloadFlag: boolean
 ): useListBookingsResult => {
   const [bookings, setBookings] = useState([] as ListBookingsUsecase.Result)
   const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +30,7 @@ export const useListBookings = (
       .finally(() => {
         setIsLoading(false)
       })
-  }, [listBookingsUsecase])
+  }, [listBookingsUsecase, reloadFlag])
 
   return { bookings, isLoading, error }
 }
