@@ -1,1 +1,2 @@
-export * from './booking-repository'
+export * from './booking'
+export * from './property'
