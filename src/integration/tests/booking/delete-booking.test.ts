@@ -1,8 +1,11 @@
-import { makeRemoteCreateBooking, makeRemoteDeleteBookingById } from '@/main/factories/data'
+import {
+  makeRemoteCreateBooking,
+  makeRemoteDeleteBookingById
+} from '@/main/factories/data'
 
 import { NotFoundError } from '@/domain/errors'
 import { RemoteDeleteBookingById } from '@/data/usecases'
-import { cacheSingleton } from '@/main/singleton'
+import { cacheBookingSingleton } from '@/main/singleton'
 import { realBooking } from '@/integration/helpers'
 
 describe('DeleteBookingByIdUsecase Integration Test', () => {
@@ -15,24 +18,26 @@ describe('DeleteBookingByIdUsecase Integration Test', () => {
 
   afterEach(() => {
     jest.clearAllMocks()
-    cacheSingleton.clearCacheTestOnly()
+    cacheBookingSingleton.clearCacheTestOnly()
   })
   test('should delete booking by id', async () => {
-    const params = cacheSingleton.getAll()
+    const params = cacheBookingSingleton.getAll()
     const response = await sut.perform({
       id: params[0].id
     })
 
     expect(response).toBeTruthy()
 
-    await expect(sut.perform({
-      id: 'any_value'
-    })).rejects.toThrow(new NotFoundError())
+    await expect(
+      sut.perform({
+        id: 'any_value'
+      })
+    ).rejects.toThrow(new NotFoundError())
   })
 
   test('should throw not found if the id dont exist', async () => {
-    await expect(
-      sut.perform({ id: 'any_value' })
-    ).rejects.toThrow(new NotFoundError())
+    await expect(sut.perform({ id: 'any_value' })).rejects.toThrow(
+      new NotFoundError()
+    )
   })
 })

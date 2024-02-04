@@ -1,8 +1,11 @@
 import { DateInfo, realBooking } from '@/integration/helpers'
-import { makeRemoteCreateBooking, makeRemoteUpdateBooking } from '@/main/factories/data'
+import {
+  makeRemoteCreateBooking,
+  makeRemoteUpdateBooking
+} from '@/main/factories/data'
 
 import { RemoteUpdateBooking } from '@/data/usecases'
-import { cacheSingleton } from '@/main/singleton'
+import { cacheBookingSingleton } from '@/main/singleton'
 
 describe('UpdateBookingUsecase Integration Test', () => {
   let sut: RemoteUpdateBooking
@@ -14,10 +17,10 @@ describe('UpdateBookingUsecase Integration Test', () => {
 
   afterEach(() => {
     jest.clearAllMocks()
-    cacheSingleton.clearCacheTestOnly()
+    cacheBookingSingleton.clearCacheTestOnly()
   })
   test('should update a booking', async () => {
-    const params = cacheSingleton.getAll()
+    const params = cacheBookingSingleton.getAll()
     const response = await sut.perform({
       ...params[0],
       startDate: new DateInfo().getStartDate(10),

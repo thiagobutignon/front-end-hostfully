@@ -1,7 +1,10 @@
-import { makeRemoteCreateBooking, makeRemoteListBookings } from '@/main/factories/data'
+import {
+  makeRemoteCreateBooking,
+  makeRemoteListBookings
+} from '@/main/factories/data'
 
 import { RemoteListBookings } from '@/data/usecases'
-import { cacheSingleton } from '@/main/singleton'
+import { cacheBookingSingleton } from '@/main/singleton'
 import { realBooking } from '@/integration/helpers'
 
 describe('ListBookingUsecase Integration Test', () => {
@@ -14,7 +17,7 @@ describe('ListBookingUsecase Integration Test', () => {
 
   afterEach(() => {
     jest.clearAllMocks()
-    cacheSingleton.clearCacheTestOnly()
+    cacheBookingSingleton.clearCacheTestOnly()
   })
   test('should list bookings', async () => {
     const response = await sut.perform()

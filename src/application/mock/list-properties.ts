@@ -1,6 +1,6 @@
 import { PropertyModel } from '@/domain/models'
 
-export const realProperties: PropertyModel[] = [
+export const listProperties: PropertyModel[] = [
   {
     id: '1',
     name: 'Seaside Escape',

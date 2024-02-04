@@ -1,1 +1,2 @@
-export * from './cache-singleton'
+export * from './cache-booking-singleton'
+export * from './cache-properties-singleton'
