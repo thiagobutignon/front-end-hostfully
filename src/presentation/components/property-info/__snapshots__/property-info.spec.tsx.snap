@@ -7,22 +7,22 @@ exports[`PropertyInfoComponent matches snapshot 1`] = `
   >
     <img
       class="chakra-image css-afi9h6"
-      src="https://loremflickr.com/640/480/house?lock=6096378224705536"
+      src="any_url"
     />
     <h1
       class="chakra-heading css-1y1i1kg"
     >
-      Pat Bashirian
+      any_name
     </h1>
     <p
       class="chakra-text css-1tg6nva"
     >
-      Guests: 2111450424279048 | Bedrooms: 4512976035905536 | Beds: 6616751263449088
+      Guests: 1 | Bedrooms: 1 | Beds: 1
     </p>
     <p
       class="chakra-text css-1j9oeic"
     >
-      Aedificium supra caelum amet bestia paulatim tolero aliquam arguo.
+      any_description
     </p>
     <div
       class="css-1gvcg4y"
@@ -30,14 +30,21 @@ exports[`PropertyInfoComponent matches snapshot 1`] = `
       <p
         class="chakra-text css-e5hj7u"
       >
-        $0.6472861601505429/night
+        $1/night
       </p>
-      <button
-        class="chakra-button css-16bvcfa"
-        type="button"
+      <p
+        class="chakra-text css-e5hj7u"
       >
-        Book Now
-      </button>
+        Cleaning Fee: $1/
+      </p>
+      <p
+        class="chakra-text css-e5hj7u"
+      >
+        Service Fee: $1/
+      </p>
+    </div>
+    <div>
+      children
     </div>
   </div>
 </DocumentFragment>

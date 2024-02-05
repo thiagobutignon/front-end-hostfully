@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 
-import PropertyInfoComponent from '@/presentation/components/property-info/property-info'
-import { PropertyModel } from '@/domain/models'
 import { propertyModelMock } from '@/domain/mocks'
+import { PropertyModel } from '@/domain/models'
+import PropertyInfoComponent from '@/presentation/components/property-info/property-info'
 
 describe('PropertyInfoComponent', () => {
   let selectedProperty: PropertyModel
@@ -29,9 +29,30 @@ describe('PropertyInfoComponent', () => {
     expect(screen.getByRole('img')).toBeInTheDocument()
   })
 
-  it.skip('matches snapshot', () => {
+  it('matches snapshot', () => {
     const { asFragment } = render(
-      <PropertyInfoComponent selectedProperty={selectedProperty}>
+      <PropertyInfoComponent
+        selectedProperty={{
+          bedrooms: 1,
+          beds: 1,
+          cleaningFee: 1,
+          description: 'any_description',
+          id: 'any_id',
+          location: {
+            city: 'any_city',
+            country: 'any_country',
+            number: '1',
+            street: 'any_street'
+          },
+          maxGuests: 1,
+          name: 'any_name',
+          pricePerNight: 1,
+          roomType: 'Apartment',
+          image: ['any_url'],
+          serviceFee: 1,
+          status: 'Completed'
+        }}
+      >
         <div>children</div>
       </PropertyInfoComponent>
     )
