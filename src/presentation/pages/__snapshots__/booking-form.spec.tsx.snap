@@ -31,7 +31,7 @@ exports[`BookingForm matches snapshot 1`] = `
           <input
             aria-describedby="field-:r6:-helptext"
             autocomplete="new-guestEmail"
-            class="chakra-input css-x2srna"
+            class="chakra-input css-13lzx0v"
             data-testid="guestEmail"
             id="guestEmail"
             name="guestEmail"

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookingCardComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-jlimmz"
+  >
+    <div
+      class="chakra-stack css-m3jj3s"
+    >
+      <p
+        class="chakra-text css-in3yi3"
+      >
+        Booking ID: 1
+      </p>
+      <p
+        class="chakra-text css-0"
+      >
+        Property: Seaside Escape
+      </p>
+      <p
+        class="chakra-text css-0"
+      >
+        Email: guest@example.com
+      </p>
+      <div
+        class="chakra-stack css-1igwmid"
+      >
+        <p
+          class="chakra-text css-0"
+        >
+          Start Date: Dec 31, 2023
+        </p>
+        <p
+          class="chakra-text css-0"
+        >
+          End Date: Jan 2, 2024
+        </p>
+      </div>
+      <p
+        class="chakra-text css-0"
+      >
+        Number of Guests: 2
+      </p>
+      <p
+        class="chakra-text css-0"
+      >
+        Number of Nights: 2
+      </p>
+      <p
+        class="chakra-text css-0"
+      >
+        Total price: 500
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

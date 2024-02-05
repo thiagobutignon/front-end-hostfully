@@ -6,13 +6,14 @@ import {
   ErrorComponent,
   PropertyInfoComponent
 } from '@/presentation/components'
+import { SimpleGrid, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 
-import BookingForm from '@/presentation/pages/booking-form'
-import { Text } from '@chakra-ui/react'
-import { Validation } from '@/validation/protocols'
-import { useListBookings } from '@/presentation/hooks'
 import { usePropertiesContext } from '@/presentation/context'
+import { useListBookings } from '@/presentation/hooks'
+import BookingCardComponent from '@/presentation/pages/booking-card'
+import BookingForm from '@/presentation/pages/booking-form'
+import { Validation } from '@/validation/protocols'
 
 type Props = {
   listBookings: ListBookingsUsecase
@@ -70,7 +71,11 @@ export const BookingPage: React.FC<Props> = ({
               reloadFlag={reloadFlag}
               validation={validation}
             />
-            <Text>{JSON.stringify(bookings)}</Text>
+            <SimpleGrid columns={[1, null, 2]} spacing="40px" mt={4}>
+              {bookings.booking.map((booking) => (
+                <BookingCardComponent booking={booking} key={booking.id} />
+              ))}
+            </SimpleGrid>
           </PropertyInfoComponent>
         </>
       )}
