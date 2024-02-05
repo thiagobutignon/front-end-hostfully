@@ -53,7 +53,7 @@ const GuestsFormComponent: React.FC<GuestsFormProps> = ({
   }
 
   useEffect(() => {
-    setBookingDetails(guests) // Sync external changes
+    setBookingDetails(guests)
   }, [guests])
 
   return (

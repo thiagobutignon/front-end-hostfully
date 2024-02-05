@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { RenderResult, fireEvent, render } from '@testing-library/react'
 
 import { GuestsFormComponent } from '@/presentation/components'
 
@@ -7,10 +7,12 @@ jest.mock('@/presentation/styles/themes', () => ({
 }))
 
 describe('GuestsFormComponent', () => {
-  const mockOnGuestInfoChange = jest.fn()
+  let mockOnGuestInfoChange: any
+  let sut: RenderResult
 
-  it('renders correctly with initial state', () => {
-    const { getAllByTestId } = render(
+  beforeEach(() => {
+    mockOnGuestInfoChange = jest.fn()
+    sut = render(
       <GuestsFormComponent
         guests={{
           numberOfGuests: 2,
@@ -22,18 +24,17 @@ describe('GuestsFormComponent', () => {
         onGuestInfoChange={mockOnGuestInfoChange}
       />
     )
+  })
+
+  it('renders correctly with initial state', () => {
+    const { getAllByTestId } = sut
 
     expect(getAllByTestId('input-email-0')[0]).toBeInTheDocument()
     expect(getAllByTestId('input-name-0')[0]).toBeInTheDocument()
   })
 
   it('calls onGuestInfoChange with correct values on input change', () => {
-    const { getAllByTestId } = render(
-      <GuestsFormComponent
-        guests={{ numberOfGuests: 1, guests: [{ name: '', email: '' }] }}
-        onGuestInfoChange={mockOnGuestInfoChange}
-      />
-    )
+    const { getAllByTestId } = sut
 
     const nameInput = getAllByTestId('input-name-0')[0]
     fireEvent.change(nameInput, { target: { value: 'John Doe' } })
@@ -53,18 +54,7 @@ describe('GuestsFormComponent', () => {
   })
 
   test('matches snapshot', () => {
-    const { asFragment } = render(
-      <GuestsFormComponent
-        guests={{
-          numberOfGuests: 2,
-          guests: [
-            { name: '', email: '' },
-            { name: '', email: '' }
-          ]
-        }}
-        onGuestInfoChange={mockOnGuestInfoChange}
-      />
-    )
+    const { asFragment } = sut
 
     expect(asFragment()).toMatchSnapshot()
   })
