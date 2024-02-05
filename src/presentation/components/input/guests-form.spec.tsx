@@ -51,4 +51,21 @@ describe('GuestsFormComponent', () => {
       email: 'johndoe@email.com'
     })
   })
+
+  test('matches snapshot', () => {
+    const { asFragment } = render(
+      <GuestsFormComponent
+        guests={{
+          numberOfGuests: 2,
+          guests: [
+            { name: '', email: '' },
+            { name: '', email: '' }
+          ]
+        }}
+        onGuestInfoChange={mockOnGuestInfoChange}
+      />
+    )
+
+    expect(asFragment()).toMatchSnapshot()
+  })
 })

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuestsFormComponent matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="chakra-stack css-1xb2ccj"
+  >
+    <input
+      class="chakra-input css-1xu3tth"
+      data-testid="input-name-0"
+      id="name-0"
+      placeholder="Name"
+      type="text"
+      value=""
+    />
+    <input
+      class="chakra-input css-1xu3tth"
+      data-testid="input-email-0"
+      id="email-0"
+      placeholder="Email"
+      type="email"
+      value=""
+    />
+    <input
+      class="chakra-input css-1xu3tth"
+      data-testid="input-name-1"
+      id="name-1"
+      placeholder="Name"
+      type="text"
+      value=""
+    />
+    <input
+      class="chakra-input css-1xu3tth"
+      data-testid="input-email-1"
+      id="email-1"
+      placeholder="Email"
+      type="email"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;
