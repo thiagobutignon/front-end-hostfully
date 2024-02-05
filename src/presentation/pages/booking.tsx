@@ -21,6 +21,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import { addDays, eachDayOfInterval } from 'date-fns'
 
+import { DateRange } from 'react-date-range'
 import { Guest } from '@/domain/models'
 import GuestsFormComponent from '@/presentation/components/input/guests-form'
 import { Validation } from '@/validation/protocols'
@@ -74,7 +75,7 @@ export const BookingPage: React.FC<Props> = ({
       guests: [{ name: '', email: '' }]
     } as Guest.Model,
     startDate: new Date(),
-    endDate: addDays(new Date(), 1),
+    endDate: null,
     createdAt: new Date(),
     property: selectedProperty,
 
@@ -149,17 +150,12 @@ export const BookingPage: React.FC<Props> = ({
   }
 
   const handleSelect = (ranges: any): void => {
+    setDateRange([ranges.selection])
     setBookingDetails({
       ...bookingDetails,
       startDate: ranges.selection.startDate,
       endDate: ranges.selection.endDate
     })
-  }
-
-  const selectionRange = {
-    startDate: bookingDetails.startDate,
-    endDate: bookingDetails.endDate,
-    key: 'selection'
   }
 
   const handleSubmit = (event: React.FormEvent): void => {
@@ -224,6 +220,15 @@ export const BookingPage: React.FC<Props> = ({
       }))
     }
   }
+
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 1),
+      key: 'selection'
+    }
+  ])
+
   return (
     <>
       {selectedProperty && (
@@ -269,16 +274,20 @@ export const BookingPage: React.FC<Props> = ({
                   onGuestInfoChange={handleGuestInfoChange}
                 />
 
-                {/* <FormControl>
+                <FormControl>
                   <FormLabel>Booking Dates</FormLabel>
-                  <DateRangePicker
-                    ranges={[selectionRange]}
+
+                  <DateRange
+                    ranges={dateRange}
                     onChange={handleSelect}
                     minDate={new Date()}
-                    rangeColors={['#00A3C4']} // Use your theme color
+                    rangeColors={['#00A3C4']}
                     disabledDates={disabledDates}
+                    direction="horizontal"
+                    moveRangeOnFirstSelection={false}
+                    months={2}
                   />
-                </FormControl> */}
+                </FormControl>
                 {/* Additional form fields for startDate, endDate, guests, etc. */}
                 <Button type="submit" colorScheme="blue">
                   Book Now
