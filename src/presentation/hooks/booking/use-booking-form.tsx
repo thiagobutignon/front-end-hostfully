@@ -196,12 +196,11 @@ export const useBookingForm = (
 
     if (!isSubmitted) {
       setIsSubmitted(true)
-
+      if (bookingDetails.isLoading || bookingDetails.isFormInvalid) {
+        setIsSubmitted(false)
+        return
+      }
       try {
-        if (bookingDetails.isLoading || bookingDetails.isFormInvalid) {
-          return
-        }
-
         setBookingDetails((prevState) => ({ ...prevState, isLoading: true }))
         const response = await createBooking.perform({
           guestEmail: bookingDetails.guestEmail,

@@ -87,12 +87,12 @@ describe('useBookingForm', () => {
       )
     )
 
-    await act(async () => {
+    act(() => {
       result.current.handleSubmit({
         preventDefault: jest.fn()
       } as unknown as React.FormEvent)
 
-      await waitFor(() => {
+      waitFor(() => {
         expect(createBooking.perform).toHaveBeenCalledTimes(1)
         expect(onBookingSubmitted).toHaveBeenCalledWith()
       })
@@ -111,17 +111,83 @@ describe('useBookingForm', () => {
       )
     )
 
-    await act(async () => {
+    act(() => {
       result.current.handleSubmit({
         preventDefault: jest.fn()
       } as unknown as React.FormEvent)
     })
 
-    await waitFor(() => {
+    waitFor(() => {
       expect(result.current.bookingDetails.mainError).toBe(
         'Invalid form, please try again.'
       )
       expect(result.current.bookingDetails.isLoading).toBe(false)
     })
+  })
+
+  test('should handle date selection correctly', () => {
+    const { result } = renderHook(() =>
+      useBookingForm(
+        validation,
+        selectedProperty,
+        createBooking,
+        onBookingSubmitted
+      )
+    )
+
+    const mockRange = {
+      selection: {
+        startDate: new Date(),
+        endDate: new Date()
+      }
+    }
+
+    act(() => {
+      result.current.handleSelect(mockRange)
+    })
+
+    expect(result.current.dateRange).toEqual([mockRange.selection])
+  })
+
+  test('should handle error when number of guests exceeds max', () => {
+    const { result } = renderHook(() =>
+      useBookingForm(
+        validation,
+        selectedProperty,
+        createBooking,
+        onBookingSubmitted
+      )
+    )
+
+    act(() => {
+      result.current.handleNumberOfGuestsChange({
+        target: { value: (selectedProperty.maxGuests + 1).toString() }
+      } as React.ChangeEvent<HTMLInputElement>)
+    })
+
+    expect(result.current.numberOfGuestsInput.error).toBe(
+      `Number of guests cannot exceed ${selectedProperty.maxGuests}.`
+    )
+  })
+
+  test('should handle error for invalid number of guests input', () => {
+    const { result } = renderHook(() =>
+      useBookingForm(
+        validation,
+        selectedProperty,
+        createBooking,
+        onBookingSubmitted
+      )
+    )
+
+    act(() => {
+      result.current.handleNumberOfGuestsChange({
+        target: { value: '' }
+      } as React.ChangeEvent<HTMLInputElement>)
+    })
+
+    expect(result.current.numberOfGuestsInput.error).toBe(
+      'Number of guests must be greater than 0.'
+    )
   })
 })
