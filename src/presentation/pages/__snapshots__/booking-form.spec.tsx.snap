@@ -23,13 +23,13 @@ exports[`BookingForm matches snapshot 1`] = `
           <label
             class="chakra-form__label css-1qbgwm0"
             data-testid="guestEmail-label"
-            for="field-:r3:"
-            id="field-:r3:-label"
+            for="field-:r6:"
+            id="field-:r6:-label"
           >
             Email:
           </label>
           <input
-            aria-describedby="field-:r3:-helptext"
+            aria-describedby="field-:r6:-helptext"
             autocomplete="new-guestEmail"
             class="chakra-input css-x2srna"
             data-testid="guestEmail"
@@ -41,7 +41,7 @@ exports[`BookingForm matches snapshot 1`] = `
           <div
             class="chakra-form__helper-text css-1eqg694"
             data-testid="guestEmail-error"
-            id="field-:r3:-helptext"
+            id="field-:r6:-helptext"
           />
         </div>
         <div
@@ -72,8 +72,8 @@ exports[`BookingForm matches snapshot 1`] = `
         >
           <label
             class="chakra-form__label css-g6pte"
-            for="field-:r5:"
-            id="field-:r5:-label"
+            for="field-:r8:"
+            id="field-:r8:-label"
           >
             Booking Dates
           </label>
