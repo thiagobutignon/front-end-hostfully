@@ -1,16 +1,24 @@
 import { Guest, PropertyModel } from '@/domain/models'
-import { guestModelMock, propertyModelMock } from '@/domain/mocks'
+import {
+  createBookingsResultMock,
+  guestModelMock,
+  propertyModelMock
+} from '@/domain/mocks'
+import { renderHook, waitFor } from '@testing-library/react'
 
 import { CreateBookingUsecase } from '@/domain/usecases'
 import { Validation } from '@/validation/protocols'
 import { act } from 'react-dom/test-utils'
-import { renderHook } from '@testing-library/react'
 import { useBookingForm } from '@/presentation/hooks/booking/use-booking-form'
+
+type MockCreateBookingUsecase = jest.Mocked<CreateBookingUsecase>
 
 describe('useBookingForm', () => {
   const selectedProperty: PropertyModel = propertyModelMock()
   const validation: Validation = { validate: jest.fn() }
-  const createBooking: CreateBookingUsecase = { perform: jest.fn() }
+  const createBooking: MockCreateBookingUsecase = {
+    perform: jest.fn()
+  } as MockCreateBookingUsecase
 
   const onBookingSubmitted = jest.fn()
 
@@ -66,5 +74,28 @@ describe('useBookingForm', () => {
     })
 
     expect(result.current.bookingDetails.guests.guests[0]).toEqual(updatedGuest)
+  })
+  test('should handle form submission correctly', async () => {
+    createBooking.perform.mockResolvedValue(createBookingsResultMock())
+
+    const { result } = renderHook(() =>
+      useBookingForm(
+        validation,
+        selectedProperty,
+        createBooking,
+        onBookingSubmitted
+      )
+    )
+
+    await act(async () => {
+      result.current.handleSubmit({
+        preventDefault: jest.fn()
+      } as unknown as React.FormEvent)
+
+      await waitFor(() => {
+        expect(createBooking.perform).toHaveBeenCalledTimes(1)
+        expect(onBookingSubmitted).toHaveBeenCalledWith()
+      })
+    })
   })
 })
