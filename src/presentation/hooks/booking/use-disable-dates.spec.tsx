@@ -5,7 +5,7 @@ import { useDisabledDates } from '@/presentation/hooks/booking/use-disable-dates
 
 describe('useDisabledDates', () => {
   it('should return an empty array when there are no bookings', () => {
-    const { result } = renderHook(() => useDisabledDates([]))
+    const { result } = renderHook(() => useDisabledDates([], false))
     expect(result.current).toEqual([])
   })
 
@@ -14,7 +14,7 @@ describe('useDisabledDates', () => {
     const endDate = addDays(startDate, 2)
 
     const { result } = renderHook(() =>
-      useDisabledDates([bookingModelMock('1', startDate, endDate)])
+      useDisabledDates([bookingModelMock('1', startDate, endDate)], false)
     )
 
     expect(result.current).toHaveLength(3)

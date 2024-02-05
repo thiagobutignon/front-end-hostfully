@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react'
 
 import { Booking } from '@/domain/models'
 
-export const useDisabledDates = (bookings: Booking.Model[]): Date[] => {
+export const useDisabledDates = (
+  bookings: Booking.Model[],
+  reloadFlag: boolean
+): Date[] => {
   const [disabledDates, setDisabledDates] = useState<Date[]>([])
 
   useEffect(() => {
@@ -17,7 +20,7 @@ export const useDisabledDates = (bookings: Booking.Model[]): Date[] => {
 
       setDisabledDates(newDisabledDates)
     }
-  }, [])
+  }, [reloadFlag])
 
   return disabledDates
 }
