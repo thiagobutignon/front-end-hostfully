@@ -10,7 +10,7 @@ export const useDisabledDates = (
   const [disabledDates, setDisabledDates] = useState<Date[]>([])
 
   useEffect(() => {
-    if (bookings.length > 0) {
+    if (bookings?.length > 0) {
       const newDisabledDates = bookings.flatMap(({ startDate, endDate }) =>
         eachDayOfInterval({
           start: addDays(new Date(startDate), 1),

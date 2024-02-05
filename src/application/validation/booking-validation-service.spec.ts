@@ -5,6 +5,7 @@ import { BookingRepository } from '@/domain/repository'
 import { BookingValidationService } from '@/application/validation/booking-validation-service'
 import { DateClient } from '@/data/protocols'
 import { DateFnsAdapter } from '@/infra/date'
+import { addDays } from 'date-fns'
 
 describe('BookingValidationService', () => {
   let sut: BookingValidationService
@@ -21,10 +22,24 @@ describe('BookingValidationService', () => {
     }
     dateFnsAdapter = new DateFnsAdapter()
     mockDateClient = {
-      isSameDay: jest.fn().mockImplementation((entryDate, dateToCompare) => dateFnsAdapter.isSameDay(entryDate, dateToCompare)),
-      isBefore: jest.fn().mockImplementation((dateToCheck, dateToCompare) => dateFnsAdapter.isBefore(dateToCheck, dateToCompare)),
-      isWithinInterval: jest.fn().mockImplementation((date, interval) => dateFnsAdapter.isWithinInterval(date, interval)),
-      startOfDay: jest.fn().mockImplementation((date) => dateFnsAdapter.startOfDay(date))
+      isSameDay: jest
+        .fn()
+        .mockImplementation((entryDate, dateToCompare) =>
+          dateFnsAdapter.isSameDay(entryDate, dateToCompare)
+        ),
+      isBefore: jest
+        .fn()
+        .mockImplementation((dateToCheck, dateToCompare) =>
+          dateFnsAdapter.isBefore(dateToCheck, dateToCompare)
+        ),
+      isWithinInterval: jest
+        .fn()
+        .mockImplementation((date, interval) =>
+          dateFnsAdapter.isWithinInterval(date, interval)
+        ),
+      startOfDay: jest
+        .fn()
+        .mockImplementation((date) => dateFnsAdapter.startOfDay(date))
     }
     sut = new BookingValidationService(mockBookingsRepository, mockDateClient)
   })
@@ -32,8 +47,14 @@ describe('BookingValidationService', () => {
   describe('validate guests', () => {
     test.each([
       [{ guests: { numberOfGuests: 5 }, property: { maxGuests: 10 } }, ''],
-      [{ guests: { numberOfGuests: 11 }, property: { maxGuests: 10 } }, 'Invalid number of guests'],
-      [{ guests: { numberOfGuests: 0 }, property: { maxGuests: 10 } }, 'Invalid number of guests'],
+      [
+        { guests: { numberOfGuests: 11 }, property: { maxGuests: 10 } },
+        'Invalid number of guests'
+      ],
+      [
+        { guests: { numberOfGuests: 0 }, property: { maxGuests: 10 } },
+        'Invalid number of guests'
+      ],
       [{}, 'Invalid input']
     ])('when input is %p, returns %p', (input, expected) => {
       const result = sut.validate('guests', input)
@@ -45,12 +66,18 @@ describe('BookingValidationService', () => {
     beforeEach(() => {
       jest.useFakeTimers().setSystemTime(new Date('2024-01-01').getTime())
 
-      mockBookingsRepository.getAll.mockReturnValue(
-        [
-          bookingModelMock('property1', new Date('2024-01-02'), new Date('2024-01-03')),
-          bookingModelMock('property1', new Date('2024-01-03'), new Date('2024-01-05'))
-        ]
-      )
+      mockBookingsRepository.getAll.mockReturnValue([
+        bookingModelMock(
+          'property1',
+          new Date('2024-01-02'),
+          new Date('2024-01-03')
+        ),
+        bookingModelMock(
+          'property1',
+          new Date('2024-01-03'),
+          new Date('2024-01-05')
+        )
+      ])
     })
 
     afterEach(() => {
@@ -66,38 +93,48 @@ describe('BookingValidationService', () => {
           }
         },
         new BookingError().message,
-        'Overlaps with existing booking'],
-      [{
-        booking: {
-          property: { id: 'property1' },
-          startDate: new Date('2024-01-03'),
-          endDate: new Date('2024-01-05')
-        }
-      },
-      new BookingError().message,
-      'Starts within an existing booking'],
-      [{
-        booking: {
-          property: { id: 'property1' },
-          startDate: new Date('2024-01-06'),
-          endDate: new Date('2024-01-07')
-        }
-      },
-      '',
-      'No overlap with existing bookings'],
-      [{
-        booking: {
-          property: { id: 'property3' },
-          startDate: new Date('2024-01-02'),
-          endDate: new Date('2024-01-03')
-        }
-      },
-      '',
-      'Different property, no conflict']
-    ])('when booking for %s, expect %s (%s)', (input, expected, description) => {
-      const result = sut.validate('booking', input)
-      expect(result).toBe(expected)
-    })
+        'Overlaps with existing booking'
+      ],
+      [
+        {
+          booking: {
+            property: { id: 'property1' },
+            startDate: new Date('2024-01-03'),
+            endDate: new Date('2024-01-05')
+          }
+        },
+        new BookingError().message,
+        'Starts within an existing booking'
+      ],
+      [
+        {
+          booking: {
+            property: { id: 'property1' },
+            startDate: new Date('2024-01-06'),
+            endDate: new Date('2024-01-07')
+          }
+        },
+        '',
+        'No overlap with existing bookings'
+      ],
+      [
+        {
+          booking: {
+            property: { id: 'property3' },
+            startDate: new Date('2024-01-02'),
+            endDate: new Date('2024-01-03')
+          }
+        },
+        '',
+        'Different property, no conflict'
+      ]
+    ])(
+      'when booking for %s, expect %s (%s)',
+      (input, expected, description) => {
+        const result = sut.validate('booking', input)
+        expect(result).toBe(expected)
+      }
+    )
 
     test('should not allow booking a room for a past date', () => {
       const pastDate = new Date('2023-01-01')
@@ -129,8 +166,8 @@ describe('BookingValidationService', () => {
     const input = {
       booking: {
         property: { id: 'property1' },
-        startDate: new Date('2024-02-05'),
-        endDate: new Date('2024-02-06')
+        startDate: new Date(),
+        endDate: addDays(new Date(), 1)
       }
     }
 
@@ -162,12 +199,18 @@ describe('BookingValidationService', () => {
       booking: { ...inputMissingDates.booking, endDate: new Date('2024-01-03') }
     }
 
-    const resultMissingStartDate = sut.validate('booking', inputMissingStartDate)
+    const resultMissingStartDate = sut.validate(
+      'booking',
+      inputMissingStartDate
+    )
     expect(resultMissingStartDate).toBe('Invalid booking data')
 
     const inputMissingEndDate = {
       ...inputMissingDates,
-      booking: { ...inputMissingDates.booking, startDate: new Date('2024-01-02') }
+      booking: {
+        ...inputMissingDates.booking,
+        startDate: new Date('2024-01-02')
+      }
     }
 
     const resultMissingEndDate = sut.validate('booking', inputMissingEndDate)

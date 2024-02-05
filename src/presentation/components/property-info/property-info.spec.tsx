@@ -10,7 +10,11 @@ describe('PropertyInfoComponent', () => {
     selectedProperty = propertyModelMock()
   })
   it('should display property details correctly', () => {
-    render(<PropertyInfoComponent selectedProperty={selectedProperty} />)
+    render(
+      <PropertyInfoComponent selectedProperty={selectedProperty}>
+        <div>children</div>
+      </PropertyInfoComponent>
+    )
 
     expect(screen.getByText(selectedProperty.name)).toBeInTheDocument()
     expect(
@@ -23,14 +27,13 @@ describe('PropertyInfoComponent', () => {
       screen.getByText(`$${selectedProperty.pricePerNight}/night`)
     ).toBeInTheDocument()
     expect(screen.getByRole('img')).toBeInTheDocument()
-    expect(
-      screen.getByRole('button', { name: /book now/i })
-    ).toBeInTheDocument()
   })
 
   it.skip('matches snapshot', () => {
     const { asFragment } = render(
-      <PropertyInfoComponent selectedProperty={selectedProperty} />
+      <PropertyInfoComponent selectedProperty={selectedProperty}>
+        <div>children</div>
+      </PropertyInfoComponent>
     )
 
     expect(asFragment()).toMatchSnapshot()

@@ -30,7 +30,7 @@ export const useListBookings = (
       .finally(() => {
         setIsLoading(false)
       })
-  }, [listBookingsUsecase, reloadFlag])
+  }, [reloadFlag])
 
   return { bookings, isLoading, error }
 }

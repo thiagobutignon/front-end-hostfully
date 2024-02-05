@@ -1,14 +1,16 @@
-import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react'
 
 import { PropertyModel } from '@/domain/models'
 import React from 'react'
 
 type PropertyInfoProps = {
   selectedProperty: PropertyModel
+  children?: React.ReactNode
 }
 
 const PropertyInfoComponent: React.FC<PropertyInfoProps> = ({
-  selectedProperty
+  selectedProperty,
+  children
 }) => {
   return (
     <Box maxW="4xl" mx="auto" p={5} bg="background">
@@ -32,11 +34,14 @@ const PropertyInfoComponent: React.FC<PropertyInfoProps> = ({
         <Text fontWeight="bold" fontSize="2xl">
           ${selectedProperty.pricePerNight}/night
         </Text>
-
-        <Button bg="successButton" textColor="text" px={8}>
-          Book Now
-        </Button>
+        <Text fontWeight="bold" fontSize="2xl">
+          Cleaning Fee: ${selectedProperty.cleaningFee}/
+        </Text>
+        <Text fontWeight="bold" fontSize="2xl">
+          Service Fee: ${selectedProperty.serviceFee}/
+        </Text>
       </Flex>
+      {children}
     </Box>
   )
 }
