@@ -1,29 +1,29 @@
-import { Guest, PropertyModel } from '@/domain/models'
 import {
   createBookingsResultMock,
   guestModelMock,
   propertyModelMock
 } from '@/domain/mocks'
-import { renderHook, waitFor } from '@testing-library/react'
+import { Guest, PropertyModel } from '@/domain/models'
+import { act, renderHook, waitFor } from '@testing-library/react'
 
 import { CreateBookingUsecase } from '@/domain/usecases'
-import { Validation } from '@/validation/protocols'
-import { act } from 'react-dom/test-utils'
 import { useBookingForm } from '@/presentation/hooks/booking/use-booking-form'
-
-type MockCreateBookingUsecase = jest.Mocked<CreateBookingUsecase>
+import { Validation } from '@/validation/protocols'
 
 describe('useBookingForm', () => {
+  let result: any
   const selectedProperty: PropertyModel = propertyModelMock()
-  const validation: Validation = { validate: jest.fn() }
-  const createBooking: MockCreateBookingUsecase = {
+  const validation: jest.Mocked<Validation> = {
+    validate: jest.fn()
+  }
+  const createBooking: jest.Mocked<CreateBookingUsecase> = {
     perform: jest.fn()
-  } as MockCreateBookingUsecase
+  }
 
   const onBookingSubmitted = jest.fn()
 
-  test('should initialize correctly', () => {
-    const { result } = renderHook(() =>
+  beforeEach(async () => {
+    const hook = renderHook(() =>
       useBookingForm(
         validation,
         selectedProperty,
@@ -31,24 +31,17 @@ describe('useBookingForm', () => {
         onBookingSubmitted
       )
     )
+    result = hook.result
+  })
 
+  test('should initialize correctly', () => {
     expect(result.current.bookingDetails).toBeDefined()
     expect(result.current.dateRange).toBeDefined()
     expect(result.current.numberOfGuestsInput).toBeDefined()
-    // Further initialization checks...
   })
 
-  test('should handle guest number change correctly', () => {
-    const { result } = renderHook(() =>
-      useBookingForm(
-        validation,
-        selectedProperty,
-        createBooking,
-        onBookingSubmitted
-      )
-    )
-
-    act(() => {
+  test('should handle guest number change correctly', async () => {
+    await act(async () => {
       result.current.handleNumberOfGuestsChange({
         target: { value: '3' }
       } as React.ChangeEvent<HTMLInputElement>)
@@ -57,19 +50,10 @@ describe('useBookingForm', () => {
     expect(result.current.numberOfGuestsInput.value).toBe('3')
   })
 
-  test('should handle guest info change correctly', () => {
-    const { result } = renderHook(() =>
-      useBookingForm(
-        validation,
-        selectedProperty,
-        createBooking,
-        onBookingSubmitted
-      )
-    )
-
+  test('should handle guest info change correctly', async () => {
     const updatedGuest: Guest.Info = guestModelMock().guests[0]
 
-    act(() => {
+    await act(async () => {
       result.current.handleGuestInfoChange(0, updatedGuest)
     })
 
@@ -78,40 +62,22 @@ describe('useBookingForm', () => {
   test('should handle form submission correctly', async () => {
     createBooking.perform.mockResolvedValue(createBookingsResultMock())
 
-    const { result } = renderHook(() =>
-      useBookingForm(
-        validation,
-        selectedProperty,
-        createBooking,
-        onBookingSubmitted
-      )
-    )
-
-    act(() => {
+    await act(async () => {
       result.current.handleSubmit({
         preventDefault: jest.fn()
       } as unknown as React.FormEvent)
+    })
 
-      waitFor(() => {
-        expect(createBooking.perform).toHaveBeenCalledTimes(1)
-        expect(onBookingSubmitted).toHaveBeenCalledWith()
-      })
+    await waitFor(() => {
+      expect(createBooking.perform).toHaveBeenCalledTimes(1)
+      expect(onBookingSubmitted).toHaveBeenCalledWith()
     })
   })
 
   test('should handle errors during form submission', async () => {
     createBooking.perform.mockRejectedValue(new Error('Mock error'))
 
-    const { result } = renderHook(() =>
-      useBookingForm(
-        validation,
-        selectedProperty,
-        createBooking,
-        onBookingSubmitted
-      )
-    )
-
-    act(() => {
+    await act(async () => {
       result.current.handleSubmit({
         preventDefault: jest.fn()
       } as unknown as React.FormEvent)
@@ -125,16 +91,7 @@ describe('useBookingForm', () => {
     })
   })
 
-  test('should handle date selection correctly', () => {
-    const { result } = renderHook(() =>
-      useBookingForm(
-        validation,
-        selectedProperty,
-        createBooking,
-        onBookingSubmitted
-      )
-    )
-
+  test('should handle date selection correctly', async () => {
     const mockRange = {
       selection: {
         startDate: new Date(),
@@ -142,24 +99,15 @@ describe('useBookingForm', () => {
       }
     }
 
-    act(() => {
+    await act(async () => {
       result.current.handleSelect(mockRange)
     })
 
     expect(result.current.dateRange).toEqual([mockRange.selection])
   })
 
-  test('should handle error when number of guests exceeds max', () => {
-    const { result } = renderHook(() =>
-      useBookingForm(
-        validation,
-        selectedProperty,
-        createBooking,
-        onBookingSubmitted
-      )
-    )
-
-    act(() => {
+  test('should handle error when number of guests exceeds max', async () => {
+    await act(async () => {
       result.current.handleNumberOfGuestsChange({
         target: { value: (selectedProperty.maxGuests + 1).toString() }
       } as React.ChangeEvent<HTMLInputElement>)
@@ -170,7 +118,7 @@ describe('useBookingForm', () => {
     )
   })
 
-  test('should handle error for invalid number of guests input', () => {
+  test('should handle error for invalid number of guests input', async () => {
     const { result } = renderHook(() =>
       useBookingForm(
         validation,
@@ -180,7 +128,7 @@ describe('useBookingForm', () => {
       )
     )
 
-    act(() => {
+    await act(async () => {
       result.current.handleNumberOfGuestsChange({
         target: { value: '' }
       } as React.ChangeEvent<HTMLInputElement>)
