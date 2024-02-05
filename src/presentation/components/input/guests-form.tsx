@@ -31,32 +31,53 @@ const GuestsFormComponent: React.FC<GuestsFormProps> = ({
     })
   }, [])
 
+  const handleInputChange = (
+    index: number,
+    field: string,
+    value: string
+  ): void => {
+    const updatedGuests = bookingDetails.guests.map((guest, idx) => {
+      if (idx === index) {
+        return { ...guest, [field]: value }
+      }
+      return guest
+    })
+
+    const updatedBookingDetails = {
+      ...bookingDetails,
+      guests: updatedGuests
+    }
+
+    setBookingDetails(updatedBookingDetails)
+    onGuestInfoChange(index, updatedBookingDetails.guests[index])
+  }
+
+  useEffect(() => {
+    setBookingDetails(guests) // Sync external changes
+  }, [guests])
+
   return (
     <VStack spacing={4}>
       {Array.from({ length: guests.numberOfGuests }, (_, index) => (
         <React.Fragment key={index}>
           <Input
+            data-testid={`input-name-${index}`}
             id={`name-${index}`}
             type="text"
             value={guests.guests[index]?.name || ''}
             onChange={(e) => {
-              onGuestInfoChange(index, {
-                ...guests.guests[index],
-                name: e.target.value
-              })
+              handleInputChange(index, 'name', e.target.value)
             }}
             placeholder="Name"
             color={text}
           />
           <Input
+            data-testid={`input-email-${index}`}
             id={`email-${index}`}
             type="email"
             value={guests.guests[index]?.email || ''}
             onChange={(e) => {
-              onGuestInfoChange(index, {
-                ...guests.guests[index],
-                email: e.target.value
-              })
+              handleInputChange(index, 'email', e.target.value)
             }}
             placeholder="Email"
             color={text}

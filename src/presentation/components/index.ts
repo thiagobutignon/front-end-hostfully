@@ -1,6 +1,9 @@
 export { default as ErrorComponent } from './error/error'
 export { default as HeaderComponent } from './header/header'
-export { default as GuestFormComponent } from './input/guests-form'
+export {
+  default as GuestFormComponent,
+  default as GuestsFormComponent
+} from './input/guests-form'
 export { default as InputError } from './input/input-error'
 export { default as InputWithLabel } from './input/input-with-label'
 export { default as LayoutComponent } from './layout/layout'
