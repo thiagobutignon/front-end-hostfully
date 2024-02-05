@@ -98,4 +98,30 @@ describe('useBookingForm', () => {
       })
     })
   })
+
+  test('should handle errors during form submission', async () => {
+    createBooking.perform.mockRejectedValue(new Error('Mock error'))
+
+    const { result } = renderHook(() =>
+      useBookingForm(
+        validation,
+        selectedProperty,
+        createBooking,
+        onBookingSubmitted
+      )
+    )
+
+    await act(async () => {
+      result.current.handleSubmit({
+        preventDefault: jest.fn()
+      } as unknown as React.FormEvent)
+    })
+
+    await waitFor(() => {
+      expect(result.current.bookingDetails.mainError).toBe(
+        'Invalid form, please try again.'
+      )
+      expect(result.current.bookingDetails.isLoading).toBe(false)
+    })
+  })
 })

@@ -11,9 +11,7 @@ type BookingPageStateError = {
   guestsInfoError: string
   startDateError: string
   endDateError: string
-}
 
-type BookingFormProps = {
   isLoading: boolean
   isFormInvalid: boolean
   mainError: string
@@ -22,9 +20,7 @@ type BookingFormProps = {
 type BookingFormResult = {
   bookingDetails: CreateBookingUsecase.Params & BookingPageStateError
   setBookingDetails: React.Dispatch<
-  React.SetStateAction<
-  CreateBookingUsecase.Params & BookingPageStateError & BookingFormProps
-  >
+  React.SetStateAction<CreateBookingUsecase.Params & BookingPageStateError>
   >
   dateRange: Array<{
     startDate: Date
@@ -41,9 +37,7 @@ type BookingFormResult = {
   }
 }
 
-type InitialState = CreateBookingUsecase.Params &
-BookingPageStateError &
-BookingFormProps
+type InitialState = CreateBookingUsecase.Params & BookingPageStateError
 
 const initialState: InitialState = {
   guestEmail: '',
@@ -94,7 +88,7 @@ export const useBookingForm = (
   )
 
   const [bookingDetails, setBookingDetails] = useState<
-  CreateBookingUsecase.Params & BookingPageStateError & BookingFormProps
+  CreateBookingUsecase.Params & BookingPageStateError
   >({ ...initialState, property: selectedProperty })
 
   useEffect(() => {
