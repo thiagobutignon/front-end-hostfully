@@ -2,7 +2,6 @@ import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react'
 
 import { PropertyModel } from '@/domain/models'
 import React from 'react'
-import { faker } from '@faker-js/faker'
 
 type PropertyInfoProps = {
   selectedProperty: PropertyModel
@@ -14,7 +13,7 @@ const PropertyInfoComponent: React.FC<PropertyInfoProps> = ({
   return (
     <Box maxW="4xl" mx="auto" p={5} bg="background">
       <Image
-        src={faker.image.urlLoremFlickr({ category: 'house' })}
+        src={selectedProperty.image[0]}
         my={4}
         borderRadius="lg"
         w="100%"

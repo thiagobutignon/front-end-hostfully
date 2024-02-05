@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
+import { ValidationBuilder, ValidationComposite } from '@/validation/validators'
 import {
   makeRemoteListBookings,
   makeRemoteListProperties
@@ -22,7 +23,15 @@ const Router: React.FC = () => {
           <Switch>
             <Route path="/">
               <LayoutComponent listProperties={listProperties}>
-                <BookingPage listBookings={makeRemoteListBookings()} />
+                <BookingPage
+                  listBookings={makeRemoteListBookings()}
+                  validation={ValidationComposite.build([
+                    ...ValidationBuilder.field('guestsEmail')
+                      .required()
+                      .email()
+                      .build()
+                  ])}
+                />
               </LayoutComponent>
             </Route>
           </Switch>

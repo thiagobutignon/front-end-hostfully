@@ -7,8 +7,8 @@ type InputWithLabelProps = {
   children: React.ReactNode
   type: React.HTMLInputTypeAttribute
   htmlFor?: string
-  state: any
-  setState: any
+  state?: any
+  setState?: any
   name: string
   h?: string
   w?: string

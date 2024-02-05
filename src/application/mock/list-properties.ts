@@ -1,4 +1,5 @@
 import { PropertyModel } from '@/domain/models'
+import { faker } from '@faker-js/faker'
 
 export const listProperties: PropertyModel[] = [
   {
@@ -15,7 +16,7 @@ export const listProperties: PropertyModel[] = [
     maxGuests: 8,
     bedrooms: 4,
     beds: 4,
-    image: ['image1.jpg', 'image2.jpg', 'image3.jpg'],
+    image: Array.from({ length: 3 }, () => faker.image.urlPicsumPhotos()),
     pricePerNight: 350,
     cleaningFee: 50,
     serviceFee: 30,
@@ -36,7 +37,7 @@ export const listProperties: PropertyModel[] = [
     maxGuests: 4,
     bedrooms: 2,
     beds: 2,
-    image: ['image4.jpg', 'image5.jpg', 'image6.jpg'],
+    image: Array.from({ length: 3 }, () => faker.image.urlPicsumPhotos()),
     pricePerNight: 200,
     cleaningFee: 30,
     serviceFee: 20,
@@ -57,7 +58,7 @@ export const listProperties: PropertyModel[] = [
     maxGuests: 6,
     bedrooms: 3,
     beds: 3,
-    image: ['image7.jpg', 'image8.jpg', 'image9.jpg'],
+    image: Array.from({ length: 3 }, () => faker.image.urlPicsumPhotos()),
     pricePerNight: 150,
     cleaningFee: 20,
     serviceFee: 15,
