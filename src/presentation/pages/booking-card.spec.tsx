@@ -1,8 +1,10 @@
+import { RenderResult, render } from '@testing-library/react'
+
 import { Booking } from '@/domain/models'
 import BookingCardComponent from '@/presentation/pages/booking-card'
-import { render } from '@testing-library/react'
 
 describe('BookingCardComponent', () => {
+  let sut: RenderResult
   const mockBooking: Booking.Model = {
     id: '1',
     totalPrice: 500,
@@ -36,13 +38,17 @@ describe('BookingCardComponent', () => {
       status: 'Cancelled'
     }
   }
+
+  beforeEach(() => {
+    sut = render(<BookingCardComponent booking={mockBooking} />)
+  })
   it('renders without crashing', () => {
-    const { getByText } = render(<BookingCardComponent booking={mockBooking} />)
+    const { getByText } = sut
     expect(getByText(`Booking ID: ${mockBooking.id}`)).toBeInTheDocument()
   })
 
   it('displays correct booking information', () => {
-    const { getByText } = render(<BookingCardComponent booking={mockBooking} />)
+    const { getByText } = sut
 
     expect(
       getByText(`Property: ${mockBooking.property.name}`)
@@ -62,9 +68,7 @@ describe('BookingCardComponent', () => {
   })
 
   test('matches snapshot', () => {
-    const { asFragment } = render(
-      <BookingCardComponent booking={mockBooking} />
-    )
+    const { asFragment } = sut
 
     expect(asFragment()).toMatchSnapshot()
   })
