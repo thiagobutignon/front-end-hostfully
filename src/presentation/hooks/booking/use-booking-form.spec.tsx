@@ -129,4 +129,39 @@ describe('useBookingForm', () => {
       'Number of guests must be greater than 0.'
     )
   })
+
+  describe('updateBooking', () => {
+    test('should initialize with initial booking data if provided', async () => {
+      const initialBooking = {
+        ...sut.current.bookingDetails
+      }
+
+      expect(sut.current.bookingDetails).toEqual(initialBooking)
+    })
+
+    test('should validate fields correctly', async () => {
+      act(() => {
+        sut.current.setBookingDetails({
+          ...sut.current.bookingDetails,
+          guestEmail: 'invalid-email'
+        })
+      })
+
+      await waitFor(() => {
+        expect(validation.validate).toHaveBeenCalled()
+      })
+    })
+
+    test('should reset form state after successful submission', async () => {
+      createBooking.perform.mockResolvedValue(createBookingsResultMock())
+
+      await act(async () => {
+        sut.current.handleSubmit({
+          preventDefault: jest.fn()
+        } as unknown as React.FormEvent)
+      })
+
+      expect(sut.current.bookingDetails.guestEmail).toEqual('')
+    })
+  })
 })

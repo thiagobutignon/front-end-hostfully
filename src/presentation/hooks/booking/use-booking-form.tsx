@@ -224,6 +224,7 @@ export const useBookingForm = (
 
     if (!isSubmitted) {
       setIsSubmitted(true)
+
       if (bookingDetails.isLoading || bookingDetails.isFormInvalid) {
         setIsSubmitted(false)
         return
