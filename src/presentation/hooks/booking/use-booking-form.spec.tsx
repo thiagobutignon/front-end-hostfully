@@ -162,6 +162,10 @@ describe('useBookingForm', () => {
       })
 
       expect(sut.current.bookingDetails.guestEmail).toEqual('')
+      expect(sut.current.bookingDetails.guests.guests).toEqual([
+        { email: '', name: '' }
+      ])
+      expect(sut.current.bookingDetails.guests.numberOfGuests).toEqual(0)
     })
   })
 })
