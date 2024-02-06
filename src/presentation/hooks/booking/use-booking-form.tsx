@@ -114,6 +114,31 @@ export const useBookingForm = (
     validate('endDate')
   }, [bookingDetails.endDate])
 
+  useEffect(() => {
+    if (initialBooking) {
+      setBookingDetails({
+        ...bookingDetails,
+        guestEmail: initialBooking.guestEmail,
+        guests: initialBooking.guests,
+        startDate: initialBooking.startDate,
+        endDate: initialBooking.endDate
+      })
+
+      setDateRange([
+        {
+          startDate: new Date(initialBooking.startDate),
+          endDate: new Date(initialBooking.endDate),
+          key: 'selection'
+        }
+      ])
+
+      setNumberOfGuestsInput({
+        value: initialBooking.guests.numberOfGuests.toString(),
+        error: ''
+      })
+    }
+  }, [initialBooking])
+
   const validate = (field: string): void => {
     const { guestEmail, startDate, endDate, guests } = bookingDetails
     const { numberOfGuests, guests: guestsInfo } = guests
