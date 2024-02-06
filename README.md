@@ -18,5 +18,15 @@ Front-End-Hostfully is a multi-tenancy front-end project designed for managing b
 *Other Libraries*:
 - ChakraUI
 - Jest
+- Husky (for pre commits and pre push)
+- Commitzen (for standard commits)
+- Commander and Inquirer (to run custom themes (debug or default))
 
 ## Getting Started
+```yarn```
+To run it locally: ```yarn dev```
+To run unit tests: ```yarn test:watch```
+To run integration tests: ```yarn test:integration```
+To run coverage: ```yarn test:ci```
+To run production: ```yarn build && yarn start```
+To make a commit with commitzen: ```git add && git commit -m```
