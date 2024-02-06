@@ -4,7 +4,7 @@
   "private": true,
   "description": "a really cool app",
   "engines": {
-    "node": "20.11.0",
+    "node": "18.x",
     "yarn": "1.22.21",
     "npm": "10.2.4"
   },
