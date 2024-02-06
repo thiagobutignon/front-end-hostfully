@@ -36,6 +36,7 @@ type BookingFormProps = {
   onBookingSubmitted: () => void
   updateBooking?: UpdateBookingUsecase
   initialBooking?: Booking.Model | null
+  onUpdateCompleted?: () => void
 }
 
 const BookingForm: React.FC<BookingFormProps> = ({
@@ -45,7 +46,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
   createBooking,
   onBookingSubmitted,
   initialBooking,
-  updateBooking
+  updateBooking,
+  onUpdateCompleted
 }) => {
   const { text } = useReverseColor()
   const monthsToShow = useBreakpointValue({ base: 1, md: 2 })
@@ -70,15 +72,18 @@ const BookingForm: React.FC<BookingFormProps> = ({
     selectedProperty,
     createBooking,
     onBookingSubmitted,
+    onUpdateCompleted,
     updateBooking,
     initialBooking
   )
 
   return (
     <Box>
-      <Heading>Book this property</Heading>
+      <Heading>
+        {initialBooking ? 'Updating Booking' : 'Book this property'}
+      </Heading>
       <form onSubmit={handleSubmit} data-testid="form">
-        <Stack spacing={4}>
+        <Stack alignItems={'flex-start'} spacing={4}>
           <InputWithLabel
             id="guestEmail"
             type="email"
@@ -108,7 +113,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
               w={{ base: '315px', md: '359px' }}
               h={'40px'}
               flexShrink={0}
-              textColor={text}
+              textColor={'text'}
               _hover={{}}
               bg={'backgroundColor'}
             />
@@ -138,7 +143,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
           </FormControl>
 
           <Button type="submit" colorScheme="blue">
-            Book Now
+            {initialBooking ? 'Update Book' : 'Book Now'}
           </Button>
         </Stack>
       </form>

@@ -3,10 +3,10 @@
 exports[`BookingCardComponent matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="css-jlimmz"
+    class="css-q3064s"
   >
     <div
-      class="chakra-stack css-m3jj3s"
+      class="chakra-stack css-10tk6em"
     >
       <p
         class="chakra-text css-in3yi3"
@@ -53,18 +53,22 @@ exports[`BookingCardComponent matches snapshot 1`] = `
         Total price: 500
       </p>
     </div>
-    <button
-      class="chakra-button css-4xx2wk"
-      type="button"
+    <div
+      class="chakra-stack css-wwmxkm"
     >
-      Delete
-    </button>
-    <button
-      class="chakra-button css-4xx2wk"
-      type="button"
-    >
-      Update
-    </button>
+      <button
+        class="chakra-button css-uxt1e8"
+        type="button"
+      >
+        Delete
+      </button>
+      <button
+        class="chakra-button css-uxt1e8"
+        type="button"
+      >
+        Update
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

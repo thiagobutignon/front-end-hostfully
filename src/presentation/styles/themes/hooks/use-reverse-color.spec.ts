@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react'
 import { useColorMode } from '@chakra-ui/react'
+import { renderHook } from '@testing-library/react'
 import { useReverseColor } from './use-reverse-color'
 
 jest.mock('@chakra-ui/react', () => ({
@@ -15,8 +15,8 @@ describe('useReverseColor', () => {
 
     const { result } = renderHook(() => useReverseColor())
 
-    expect(result.current.background).toBe('#FFEBE6')
-    expect(result.current.text).toBe('#333333')
+    expect(result.current.background).toBe('#F0EBE6')
+    expect(result.current.text).toBe('#5D5C61')
   })
 
   test('should return dark mode colors when color mode is dark', () => {
@@ -24,7 +24,7 @@ describe('useReverseColor', () => {
 
     const { result } = renderHook(() => useReverseColor())
 
-    expect(result.current.background).toBe('#FFEBE6')
-    expect(result.current.text).toBe('#333333')
+    expect(result.current.background).toBe('#F0EBE6')
+    expect(result.current.text).toBe('#5D5C61')
   })
 })

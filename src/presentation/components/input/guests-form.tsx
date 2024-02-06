@@ -2,7 +2,6 @@ import { Input, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 
 import { Guest } from '@/domain/models'
-import { useReverseColor } from '@/presentation/styles/themes'
 
 type GuestsFormProps = {
   guests: Guest.Model
@@ -13,7 +12,6 @@ const GuestsFormComponent: React.FC<GuestsFormProps> = ({
   guests,
   onGuestInfoChange
 }) => {
-  const { text } = useReverseColor()
   const validNumberOfGuests =
     Number.isInteger(guests.numberOfGuests) && guests.numberOfGuests > 0
       ? guests.numberOfGuests
@@ -68,8 +66,11 @@ const GuestsFormComponent: React.FC<GuestsFormProps> = ({
             onChange={(e) => {
               handleInputChange(index, 'name', e.target.value)
             }}
+            w={{ base: '315px', md: '359px' }}
+            h={'40px'}
+            bg={'backgroundColor'}
             placeholder="Name"
-            color={text}
+            color={'text'}
           />
           <Input
             data-testid={`input-email-${index}`}
@@ -79,8 +80,11 @@ const GuestsFormComponent: React.FC<GuestsFormProps> = ({
             onChange={(e) => {
               handleInputChange(index, 'email', e.target.value)
             }}
+            bg={'backgroundColor'}
+            w={{ base: '315px', md: '359px' }}
+            h={'40px'}
             placeholder="Email"
-            color={text}
+            color={'text'}
           />
         </React.Fragment>
       ))}

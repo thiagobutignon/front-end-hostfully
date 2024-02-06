@@ -12,56 +12,56 @@ export const defaultTheme: ThemeStyles = {
   semanticTokens: {
     colors: {
       reverseBackground: {
-        default: '#333333',
-        _dark: '#FFEBE6'
+        default: '#5D5C61', // Dark slate gray for light theme
+        _dark: '#F0EBE6' // Soft off-white for dark theme
       },
       reverseText: {
-        default: '#FFEBE6',
-        _dark: '#333333'
+        default: '#F0EBE6', // Soft off-white for light theme
+        _dark: '#5D5C61' // Dark slate gray for dark theme
       },
       background: {
-        default: '#FFEBE6',
-        _dark: '#333333'
+        default: '#F0EBE6', // Soft off-white for light theme
+        _dark: '#2B2D42' // Deep indigo for dark theme
       },
       text: {
-        default: '#333333',
-        _dark: '#FFEBE6'
+        default: '#2B2D42', // Deep indigo for light theme
+        _dark: '#F0EBE6' // Soft off-white for dark theme
       },
       detail: {
-        default: '#BFD8D2',
-        _dark: '#D4B483'
+        default: '#8D99AE', // Muted blue for light theme
+        _dark: '#EDD4B2' // Pale gold for dark theme
       },
       iconColor: {
-        default: '#FFEBE6',
-        _dark: '#333333'
+        default: '#F0EBE6', // Soft off-white for light theme
+        _dark: '#2B2D42' // Deep indigo for dark theme
       },
       cardColor: {
-        default: '#FFEBE6',
-        _dark: '#333333'
+        default: '#2B2D42', // Soft off-white for light theme
+        _dark: '#F0EBE6' // Deep indigo for dark theme
       },
       reverseIconColor: {
-        default: '#333333',
-        _dark: '#FFEBE6'
+        default: '#2B2D42', // Deep indigo for light theme
+        _dark: '#F0EBE6' // Soft off-white for dark theme
       },
       buttonHud: {
-        default: 'rgba(207, 216, 220, 0.7)',
-        _dark: 'rgba(142, 124, 195, 0.7)'
+        default: 'rgba(216, 178, 155, 0.7)', // Warm beige for light theme
+        _dark: 'rgba(108, 92, 231, 0.7)' // Soft purple for dark theme
       },
       successButton: {
-        default: '#A1E887',
-        _dark: '#A1E887'
+        default: '#4CAF50', // Vibrant green for both themes
+        _dark: '#4CAF50'
       },
       borderColor: {
-        default: '#E2E8F0',
-        _dark: '#E2E8F0'
+        default: '#CBD5E0', // Light gray for light theme
+        _dark: '#434C5E' // Darker gray for dark theme
       },
       error: {
-        default: '#F4B6C2',
-        _dark: '#F4B6C2'
+        default: '#EF233C', // Bright red for both themes
+        _dark: '#EF233C'
       },
       delete: {
-        default: '#FFADAD',
-        _dark: '#FFADAD'
+        default: '#D90429', // Vivid red for both themes
+        _dark: '#D90429'
       }
     }
   }

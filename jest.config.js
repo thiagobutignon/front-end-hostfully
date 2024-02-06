@@ -9,9 +9,7 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
-  testPathIgnorePatterns: [
-    '<rootDir>/node_modules/'
-  ],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   testEnvironment: 'jsdom',
   transform: {
     '.+\\.(ts|tsx)$': 'ts-jest'
@@ -20,16 +18,10 @@ module.exports = {
   moduleNameMapper: {
     '@/tests/(.*)': '<rootDir>/tests/$1',
     '@/(.*)': '<rootDir>/src/$1',
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '/.(css|less|scss|sass)$/': 'identity-obj-proxy'
   },
   preset: 'ts-jest',
-  testMatch: [
-    '**/*.spec.ts',
-    '**/*.spec.tsx',
-    '**/*.test.ts',
-    '**/*.test.tsx'
-  ],
-  transformIgnorePatterns: [
-    '/node_modules/(?!swiper|ssr-window|dom7)'
-  ]
+  testMatch: ['**/*.spec.ts', '**/*.spec.tsx', '**/*.test.ts', '**/*.test.tsx'],
+  transformIgnorePatterns: ['/node_modules/(?!swiper|ssr-window|dom7)']
 }

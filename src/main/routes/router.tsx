@@ -35,7 +35,13 @@ const Router: React.FC = () => {
                     ...ValidationBuilder.field('guestsEmail')
                       .required()
                       .email()
-                      .build()
+                      .build(),
+                    ...ValidationBuilder.field('numberOfGuests')
+                      .required()
+                      .min(1)
+                      .build(),
+                    ...ValidationBuilder.field('startDate').required().build(),
+                    ...ValidationBuilder.field('endDate').required().build()
                   ])}
                 />
               </LayoutComponent>

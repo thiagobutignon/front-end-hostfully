@@ -79,6 +79,7 @@ export const useBookingForm = (
   selectedProperty: PropertyModel,
   createBooking: CreateBookingUsecase,
   onBookingSubmitted: () => void,
+  onBookingUpdated?: () => void,
   updateBooking?: UpdateBookingUsecase,
   initialBooking?: Booking.Model | null
 ): BookingFormResult => {
@@ -253,6 +254,7 @@ export const useBookingForm = (
           ...initialState,
           property: selectedProperty
         })
+        onBookingUpdated()
         setDateRange(initialDateRange)
         setNumberOfGuestsInput(initialNumberOfGuests)
       }

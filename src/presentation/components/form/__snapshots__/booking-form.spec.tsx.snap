@@ -14,14 +14,14 @@ exports[`BookingForm matches snapshot 1`] = `
       data-testid="form"
     >
       <div
-        class="chakra-stack css-1811skr"
+        class="chakra-stack css-90j4rp"
       >
         <div
           class="chakra-form-control css-1kxonj9"
           role="group"
         >
           <label
-            class="chakra-form__label css-1qbgwm0"
+            class="chakra-form__label css-flsjg2"
             data-testid="guestEmail-label"
             for="field-:r6:"
             id="field-:r6:-label"
@@ -56,7 +56,7 @@ exports[`BookingForm matches snapshot 1`] = `
             Number of Guests:
           </label>
           <input
-            class="chakra-input css-1gcae0q"
+            class="chakra-input css-iew4ig"
             id="numberOfGuests"
             name="numberOfGuests"
             type="number"
@@ -93,7 +93,7 @@ exports[`BookingForm matches snapshot 1`] = `
                   <input
                     placeholder="Early"
                     readonly=""
-                    value="Feb 5, 2024"
+                    value="Feb 6, 2024"
                   />
                 </span>
                 <span
@@ -102,7 +102,7 @@ exports[`BookingForm matches snapshot 1`] = `
                   <input
                     placeholder="Continuous"
                     readonly=""
-                    value="Feb 6, 2024"
+                    value="Feb 7, 2024"
                   />
                 </span>
               </div>
@@ -475,10 +475,6 @@ exports[`BookingForm matches snapshot 1`] = `
                     type="button"
                   >
                     <span
-                      class="rdrStartEdge"
-                      style="color: rgb(0, 163, 196);"
-                    />
-                    <span
                       class="rdrDayNumber"
                     >
                       <span>
@@ -492,7 +488,7 @@ exports[`BookingForm matches snapshot 1`] = `
                     type="button"
                   >
                     <span
-                      class="rdrEndEdge"
+                      class="rdrStartEdge"
                       style="color: rgb(0, 163, 196);"
                     />
                     <span
@@ -508,6 +504,10 @@ exports[`BookingForm matches snapshot 1`] = `
                     style="color: rgb(61, 145, 255);"
                     type="button"
                   >
+                    <span
+                      class="rdrEndEdge"
+                      style="color: rgb(0, 163, 196);"
+                    />
                     <span
                       class="rdrDayNumber"
                     >

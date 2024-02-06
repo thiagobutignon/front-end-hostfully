@@ -61,6 +61,10 @@ export const BookingPage: React.FC<Props> = ({
     setSelectedBooking(booking)
   }
 
+  const onUpdateCompleted = (): void => {
+    setSelectedBooking(null)
+  }
+
   const { performDelete } = useDeleteBooking(deleteBooking)
 
   const handleDeleteBooking = async (id: string): Promise<void> => {
@@ -92,6 +96,7 @@ export const BookingPage: React.FC<Props> = ({
         <>
           <PropertyInfoComponent selectedProperty={selectedProperty}>
             <BookingForm
+              data-testid="booking-form"
               createBooking={createBooking}
               listBookings={listBookings}
               onBookingSubmitted={handleBookingSubmitted}
@@ -99,8 +104,14 @@ export const BookingPage: React.FC<Props> = ({
               validation={validation}
               updateBooking={updateBooking}
               initialBooking={selectedBooking}
+              onUpdateCompleted={onUpdateCompleted}
             />
-            <SimpleGrid columns={[1, null, 2]} spacing="40px" mt={4}>
+            <SimpleGrid
+              data-testid="booking-grid"
+              columns={[1, null, 2]}
+              spacing="40px"
+              mt={4}
+            >
               {bookings.booking.map((booking) => (
                 <BookingCardComponent
                   booking={booking}

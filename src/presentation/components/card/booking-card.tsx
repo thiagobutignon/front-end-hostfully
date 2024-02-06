@@ -28,10 +28,11 @@ const BookingCardComponent: React.FC<BookingCardComponentProps> = ({
       borderRadius="lg"
       overflow="hidden"
       p={4}
-      boxShadow="md"
+      boxShadow={2}
       mb={4}
+      bg={'cardColor'}
     >
-      <VStack align="start">
+      <VStack textColor={'reverseText'} align="start">
         <Text fontWeight="bold">Booking ID: {booking.id}</Text>
         <Text>Property: {booking.property.name}</Text>
         <Text>Email: {booking.guestEmail}</Text>
@@ -43,21 +44,27 @@ const BookingCardComponent: React.FC<BookingCardComponentProps> = ({
         <Text>Number of Nights: {numberOfDays}</Text>
         <Text>Total price: {booking.totalPrice}</Text>
       </VStack>
-      <Button
-        onClick={() => {
-          onDelete(booking.id)
-        }}
-      >
-        Delete
-      </Button>
+      <HStack mt={4} justify={'space-around'} spacing={4}>
+        <Button
+          colorScheme={'red'}
+          onClick={() => {
+            onDelete(booking.id)
+          }}
+          w={'100%'}
+        >
+          Delete
+        </Button>
 
-      <Button
-        onClick={() => {
-          onUpdate(booking)
-        }}
-      >
-        Update
-      </Button>
+        <Button
+          colorScheme={'purple'}
+          onClick={() => {
+            onUpdate(booking)
+          }}
+          w={'100%'}
+        >
+          Update
+        </Button>
+      </HStack>
     </Box>
   )
 }

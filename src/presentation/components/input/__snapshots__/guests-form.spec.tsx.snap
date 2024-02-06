@@ -6,7 +6,7 @@ exports[`GuestsFormComponent matches snapshot 1`] = `
     class="chakra-stack css-1xb2ccj"
   >
     <input
-      class="chakra-input css-1xu3tth"
+      class="chakra-input css-werrn"
       data-testid="input-name-0"
       id="name-0"
       placeholder="Name"
@@ -14,7 +14,7 @@ exports[`GuestsFormComponent matches snapshot 1`] = `
       value=""
     />
     <input
-      class="chakra-input css-1xu3tth"
+      class="chakra-input css-1lm3etc"
       data-testid="input-email-0"
       id="email-0"
       placeholder="Email"
@@ -22,7 +22,7 @@ exports[`GuestsFormComponent matches snapshot 1`] = `
       value=""
     />
     <input
-      class="chakra-input css-1xu3tth"
+      class="chakra-input css-werrn"
       data-testid="input-name-1"
       id="name-1"
       placeholder="Name"
@@ -30,7 +30,7 @@ exports[`GuestsFormComponent matches snapshot 1`] = `
       value=""
     />
     <input
-      class="chakra-input css-1xu3tth"
+      class="chakra-input css-1lm3etc"
       data-testid="input-email-1"
       id="email-1"
       placeholder="Email"
