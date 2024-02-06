@@ -8,6 +8,7 @@ import {
   UpdateBookingUsecase
 } from '@/domain/usecases'
 import {
+  BookingForm,
   ErrorComponent,
   PropertyInfoComponent
 } from '@/presentation/components'
@@ -18,7 +19,6 @@ import React, { useState } from 'react'
 import { Booking } from '@/domain/models'
 import BookingCardComponent from '@/presentation/components/card/booking-card'
 import { usePropertiesContext } from '@/presentation/context'
-import BookingForm from '@/presentation/pages/booking-form'
 import { Validation } from '@/validation/protocols'
 
 type Props = {
