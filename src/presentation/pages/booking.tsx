@@ -16,8 +16,8 @@ import { SimpleGrid, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 
 import { Booking } from '@/domain/models'
+import BookingCardComponent from '@/presentation/components/card/booking-card'
 import { usePropertiesContext } from '@/presentation/context'
-import BookingCardComponent from '@/presentation/pages/booking-card'
 import BookingForm from '@/presentation/pages/booking-form'
 import { Validation } from '@/validation/protocols'
 

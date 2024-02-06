@@ -1,7 +1,7 @@
 import { RenderResult, render } from '@testing-library/react'
 
 import { Booking } from '@/domain/models'
-import BookingCardComponent from '@/presentation/pages/booking-card'
+import BookingCardComponent from '@/presentation/components/card/booking-card'
 
 describe('BookingCardComponent', () => {
   let sut: RenderResult

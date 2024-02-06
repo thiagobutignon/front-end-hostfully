@@ -1,7 +1,7 @@
 import { CreateBookingUsecase, ListBookingsUsecase } from '@/domain/usecases'
 import { act, fireEvent, render } from '@testing-library/react'
 
-import BookingForm from '@/presentation/pages/booking-form'
+import { BookingForm } from '@/presentation/components'
 import { Validation } from '@/validation/protocols'
 import { ChakraProvider } from '@chakra-ui/react'
 import { clear } from 'console'

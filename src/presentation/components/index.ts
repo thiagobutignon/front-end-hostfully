@@ -1,4 +1,6 @@
+export { default as BookingCardComponent } from './card/booking-card'
 export { default as ErrorComponent } from './error/error'
+export { default as BookingForm } from './form/booking-form'
 export { default as HeaderComponent } from './header/header'
 export {
   default as GuestFormComponent,
