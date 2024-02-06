@@ -40,10 +40,14 @@ describe('BookingCardComponent', () => {
   }
 
   const onDelete = jest.fn()
-
+  const onUpdate = jest.fn()
   beforeEach(() => {
     sut = render(
-      <BookingCardComponent booking={mockBooking} onDelete={onDelete} />
+      <BookingCardComponent
+        booking={mockBooking}
+        onDelete={onDelete}
+        onUpdate={onUpdate}
+      />
     )
   })
   it('renders without crashing', () => {

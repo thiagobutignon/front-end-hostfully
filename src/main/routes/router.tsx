@@ -2,7 +2,8 @@ import {
   makeRemoteCreateBooking,
   makeRemoteDeleteBookingById,
   makeRemoteListBookings,
-  makeRemoteListProperties
+  makeRemoteListProperties,
+  makeRemoteUpdateBooking
 } from '@/main/factories/data'
 import { ValidationBuilder, ValidationComposite } from '@/validation/validators'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
@@ -29,6 +30,7 @@ const Router: React.FC = () => {
                   listBookings={makeRemoteListBookings()}
                   createBooking={makeRemoteCreateBooking()}
                   deleteBooking={makeRemoteDeleteBookingById()}
+                  updateBooking={makeRemoteUpdateBooking()}
                   validation={ValidationComposite.build([
                     ...ValidationBuilder.field('guestsEmail')
                       .required()

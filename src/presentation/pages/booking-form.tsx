@@ -1,4 +1,15 @@
 import {
+  CreateBookingUsecase,
+  ListBookingsUsecase,
+  UpdateBookingUsecase
+} from '@/domain/usecases'
+import { InputError, InputWithLabel } from '@/presentation/components'
+import {
+  useBookingForm,
+  useDisabledDates,
+  useListBookings
+} from '@/presentation/hooks'
+import {
   Box,
   Button,
   FormControl,
@@ -8,20 +19,14 @@ import {
   Stack,
   useBreakpointValue
 } from '@chakra-ui/react'
-import { CreateBookingUsecase, ListBookingsUsecase } from '@/domain/usecases'
-import { InputError, InputWithLabel } from '@/presentation/components'
-import {
-  useBookingForm,
-  useDisabledDates,
-  useListBookings
-} from '@/presentation/hooks'
 
-import { DateRange } from 'react-date-range'
+import { Booking } from '@/domain/models'
 import GuestsFormComponent from '@/presentation/components/input/guests-form'
-import React from 'react'
-import { Validation } from '@/validation/protocols'
 import { usePropertiesContext } from '@/presentation/context'
 import { useReverseColor } from '@/presentation/styles/themes'
+import { Validation } from '@/validation/protocols'
+import React from 'react'
+import { DateRange } from 'react-date-range'
 
 type BookingFormProps = {
   reloadFlag: boolean
@@ -29,6 +34,8 @@ type BookingFormProps = {
   validation: Validation
   createBooking: CreateBookingUsecase
   onBookingSubmitted: () => void
+  updateBooking?: UpdateBookingUsecase
+  initialBooking?: Booking.Model | null
 }
 
 const BookingForm: React.FC<BookingFormProps> = ({
@@ -36,7 +43,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
   listBookings,
   validation,
   createBooking,
-  onBookingSubmitted
+  onBookingSubmitted,
+  initialBooking,
+  updateBooking
 }) => {
   const { text } = useReverseColor()
   const monthsToShow = useBreakpointValue({ base: 1, md: 2 })
@@ -60,7 +69,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
     validation,
     selectedProperty,
     createBooking,
-    onBookingSubmitted
+    onBookingSubmitted,
+    updateBooking,
+    initialBooking
   )
 
   return (

@@ -4,18 +4,19 @@ import 'react-date-range/dist/theme/default.css'
 import {
   CreateBookingUsecase,
   DeleteBookingByIdUsecase,
-  ListBookingsUsecase
+  ListBookingsUsecase,
+  UpdateBookingUsecase
 } from '@/domain/usecases'
 import {
   ErrorComponent,
   PropertyInfoComponent
 } from '@/presentation/components'
+import { useDeleteBooking, useListBookings } from '@/presentation/hooks'
 import { SimpleGrid, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 
+import { Booking } from '@/domain/models'
 import { usePropertiesContext } from '@/presentation/context'
-import { useListBookings } from '@/presentation/hooks'
-import { useDeleteBooking } from '@/presentation/hooks/booking/use-delete-booking'
 import BookingCardComponent from '@/presentation/pages/booking-card'
 import BookingForm from '@/presentation/pages/booking-form'
 import { Validation } from '@/validation/protocols'
@@ -25,15 +26,21 @@ type Props = {
   validation: Validation
   createBooking: CreateBookingUsecase
   deleteBooking: DeleteBookingByIdUsecase
+  updateBooking: UpdateBookingUsecase
 }
 
 export const BookingPage: React.FC<Props> = ({
   listBookings,
   validation,
   createBooking,
-  deleteBooking
+  deleteBooking,
+  updateBooking
 }: Props) => {
   const [reloadFlag, setReloadFlag] = useState(false)
+  const [selectedBooking, setSelectedBooking] = useState<Booking.Model | null>(
+    null
+  )
+
   const {
     selectedProperty,
     error: errorProperties,
@@ -48,6 +55,10 @@ export const BookingPage: React.FC<Props> = ({
 
   const handleBookingSubmitted = (): void => {
     setReloadFlag((oldFlag) => !oldFlag)
+  }
+
+  const handleUpdateBooking = (booking: Booking.Model): void => {
+    setSelectedBooking(booking)
   }
 
   const { performDelete } = useDeleteBooking(deleteBooking)
@@ -86,6 +97,8 @@ export const BookingPage: React.FC<Props> = ({
               onBookingSubmitted={handleBookingSubmitted}
               reloadFlag={reloadFlag}
               validation={validation}
+              updateBooking={updateBooking}
+              initialBooking={selectedBooking}
             />
             <SimpleGrid columns={[1, null, 2]} spacing="40px" mt={4}>
               {bookings.booking.map((booking) => (
@@ -93,6 +106,7 @@ export const BookingPage: React.FC<Props> = ({
                   booking={booking}
                   key={booking.id}
                   onDelete={handleDeleteBooking}
+                  onUpdate={handleUpdateBooking}
                 />
               ))}
             </SimpleGrid>

@@ -1,7 +1,7 @@
-import { Guest, PropertyModel } from '@/domain/models'
+import { Booking, Guest, PropertyModel } from '@/domain/models'
+import { CreateBookingUsecase, UpdateBookingUsecase } from '@/domain/usecases'
 import { useEffect, useState } from 'react'
 
-import { CreateBookingUsecase } from '@/domain/usecases'
 import { Validation } from '@/validation/protocols'
 import { addDays } from 'date-fns'
 
@@ -27,6 +27,7 @@ type BookingFormResult = {
     endDate: Date
     key: string
   }>
+
   handleSubmit: (event: React.FormEvent) => void
   handleSelect: (ranges: any) => void
   handleGuestInfoChange: (index: number, updatedGuest: Guest.Info) => void
@@ -77,7 +78,9 @@ export const useBookingForm = (
   validation: Validation,
   selectedProperty: PropertyModel,
   createBooking: CreateBookingUsecase,
-  onBookingSubmitted: () => void
+  onBookingSubmitted: () => void,
+  updateBooking?: UpdateBookingUsecase,
+  initialBooking?: Booking.Model | null
 ): BookingFormResult => {
   const [dateRange, setDateRange] =
     useState<BookingFormResult['dateRange']>(initialDateRange)
@@ -200,33 +203,68 @@ export const useBookingForm = (
         setIsSubmitted(false)
         return
       }
-      try {
-        setBookingDetails((prevState) => ({ ...prevState, isLoading: true }))
-        const response = await createBooking.perform({
-          guestEmail: bookingDetails.guestEmail,
-          guests: bookingDetails.guests,
-          startDate: bookingDetails.startDate,
-          endDate: bookingDetails.endDate,
-          createdAt: bookingDetails.createdAt,
-          property: bookingDetails.property
-        })
-        if (response) {
-          onBookingSubmitted()
-          setBookingDetails({
-            ...initialState,
-            property: selectedProperty
-          })
-          setDateRange(initialDateRange)
-          setNumberOfGuestsInput(initialNumberOfGuests)
-        }
-      } catch {
-        setBookingDetails((prevState) => ({
-          ...prevState,
-          mainError: 'Invalid form, please try again.',
-          isLoading: false
-        }))
+
+      if (initialBooking && updateBooking) {
+        await makeUpdateBooking()
+      } else {
+        await makeCreateBooking()
       }
+
       setIsSubmitted(false)
+    }
+  }
+
+  const makeUpdateBooking = async (): Promise<void> => {
+    try {
+      setBookingDetails((prevState) => ({ ...prevState, isLoading: true }))
+      const response = await updateBooking.perform({
+        ...initialBooking,
+        ...bookingDetails
+      })
+      if (response) {
+        onBookingSubmitted()
+        setBookingDetails({
+          ...initialState,
+          property: selectedProperty
+        })
+        setDateRange(initialDateRange)
+        setNumberOfGuestsInput(initialNumberOfGuests)
+      }
+    } catch {
+      setBookingDetails((prevState) => ({
+        ...prevState,
+        mainError: 'Invalid form, please try again.',
+        isLoading: false
+      }))
+    }
+  }
+
+  const makeCreateBooking = async (): Promise<void> => {
+    try {
+      setBookingDetails((prevState) => ({ ...prevState, isLoading: true }))
+      const response = await createBooking.perform({
+        guestEmail: bookingDetails.guestEmail,
+        guests: bookingDetails.guests,
+        startDate: bookingDetails.startDate,
+        endDate: bookingDetails.endDate,
+        createdAt: bookingDetails.createdAt,
+        property: bookingDetails.property
+      })
+      if (response) {
+        onBookingSubmitted()
+        setBookingDetails({
+          ...initialState,
+          property: selectedProperty
+        })
+        setDateRange(initialDateRange)
+        setNumberOfGuestsInput(initialNumberOfGuests)
+      }
+    } catch {
+      setBookingDetails((prevState) => ({
+        ...prevState,
+        mainError: 'Invalid form, please try again.',
+        isLoading: false
+      }))
     }
   }
 

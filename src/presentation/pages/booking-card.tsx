@@ -7,11 +7,13 @@ import React from 'react'
 type BookingCardComponentProps = {
   booking: Booking.Model
   onDelete: (id: string) => void
+  onUpdate: (booking: Booking.Model) => void
 }
 
 const BookingCardComponent: React.FC<BookingCardComponentProps> = ({
   booking,
-  onDelete
+  onDelete,
+  onUpdate
 }: BookingCardComponentProps) => {
   const startDateFormatted = format(new Date(booking.startDate), 'PP')
   const endDateFormatted = format(new Date(booking.endDate), 'PP')
@@ -47,6 +49,14 @@ const BookingCardComponent: React.FC<BookingCardComponentProps> = ({
         }}
       >
         Delete
+      </Button>
+
+      <Button
+        onClick={() => {
+          onUpdate(booking)
+        }}
+      >
+        Update
       </Button>
     </Box>
   )
