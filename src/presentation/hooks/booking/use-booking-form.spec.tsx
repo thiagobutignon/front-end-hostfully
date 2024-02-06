@@ -11,7 +11,7 @@ import { useBookingForm } from '@/presentation/hooks/booking/use-booking-form'
 import { Validation } from '@/validation/protocols'
 
 describe('useBookingForm', () => {
-  let result: any
+  let sut: any
   const selectedProperty: PropertyModel = propertyModelMock()
   const validation: jest.Mocked<Validation> = {
     validate: jest.fn()
@@ -31,39 +31,39 @@ describe('useBookingForm', () => {
         onBookingSubmitted
       )
     )
-    result = hook.result
+    sut = hook.result
   })
 
   test('should initialize correctly', () => {
-    expect(result.current.bookingDetails).toBeDefined()
-    expect(result.current.dateRange).toBeDefined()
-    expect(result.current.numberOfGuestsInput).toBeDefined()
+    expect(sut.current.bookingDetails).toBeDefined()
+    expect(sut.current.dateRange).toBeDefined()
+    expect(sut.current.numberOfGuestsInput).toBeDefined()
   })
 
   test('should handle guest number change correctly', async () => {
     await act(async () => {
-      result.current.handleNumberOfGuestsChange({
+      sut.current.handleNumberOfGuestsChange({
         target: { value: '3' }
       } as React.ChangeEvent<HTMLInputElement>)
     })
 
-    expect(result.current.numberOfGuestsInput.value).toBe('3')
+    expect(sut.current.numberOfGuestsInput.value).toBe('3')
   })
 
   test('should handle guest info change correctly', async () => {
     const updatedGuest: Guest.Info = guestModelMock().guests[0]
 
     await act(async () => {
-      result.current.handleGuestInfoChange(0, updatedGuest)
+      sut.current.handleGuestInfoChange(0, updatedGuest)
     })
 
-    expect(result.current.bookingDetails.guests.guests[0]).toEqual(updatedGuest)
+    expect(sut.current.bookingDetails.guests.guests[0]).toEqual(updatedGuest)
   })
   test('should handle form submission correctly', async () => {
     createBooking.perform.mockResolvedValue(createBookingsResultMock())
 
     await act(async () => {
-      result.current.handleSubmit({
+      sut.current.handleSubmit({
         preventDefault: jest.fn()
       } as unknown as React.FormEvent)
     })
@@ -78,16 +78,16 @@ describe('useBookingForm', () => {
     createBooking.perform.mockRejectedValue(new Error('Mock error'))
 
     await act(async () => {
-      result.current.handleSubmit({
+      sut.current.handleSubmit({
         preventDefault: jest.fn()
       } as unknown as React.FormEvent)
     })
 
     waitFor(() => {
-      expect(result.current.bookingDetails.mainError).toBe(
+      expect(sut.current.bookingDetails.mainError).toBe(
         'Invalid form, please try again.'
       )
-      expect(result.current.bookingDetails.isLoading).toBe(false)
+      expect(sut.current.bookingDetails.isLoading).toBe(false)
     })
   })
 
@@ -100,41 +100,32 @@ describe('useBookingForm', () => {
     }
 
     await act(async () => {
-      result.current.handleSelect(mockRange)
+      sut.current.handleSelect(mockRange)
     })
 
-    expect(result.current.dateRange).toEqual([mockRange.selection])
+    expect(sut.current.dateRange).toEqual([mockRange.selection])
   })
 
   test('should handle error when number of guests exceeds max', async () => {
     await act(async () => {
-      result.current.handleNumberOfGuestsChange({
+      sut.current.handleNumberOfGuestsChange({
         target: { value: (selectedProperty.maxGuests + 1).toString() }
       } as React.ChangeEvent<HTMLInputElement>)
     })
 
-    expect(result.current.numberOfGuestsInput.error).toBe(
+    expect(sut.current.numberOfGuestsInput.error).toBe(
       `Number of guests cannot exceed ${selectedProperty.maxGuests}.`
     )
   })
 
   test('should handle error for invalid number of guests input', async () => {
-    const { result } = renderHook(() =>
-      useBookingForm(
-        validation,
-        selectedProperty,
-        createBooking,
-        onBookingSubmitted
-      )
-    )
-
     await act(async () => {
-      result.current.handleNumberOfGuestsChange({
+      sut.current.handleNumberOfGuestsChange({
         target: { value: '' }
       } as React.ChangeEvent<HTMLInputElement>)
     })
 
-    expect(result.current.numberOfGuestsInput.error).toBe(
+    expect(sut.current.numberOfGuestsInput.error).toBe(
       'Number of guests must be greater than 0.'
     )
   })
