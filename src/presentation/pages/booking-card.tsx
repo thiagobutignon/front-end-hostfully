@@ -1,4 +1,4 @@
-import { Box, HStack, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react'
 import { differenceInDays, format } from 'date-fns'
 
 import { Booking } from '@/domain/models'
@@ -6,10 +6,12 @@ import React from 'react'
 
 type BookingCardComponentProps = {
   booking: Booking.Model
+  onDelete: (id: string) => void
 }
 
 const BookingCardComponent: React.FC<BookingCardComponentProps> = ({
-  booking
+  booking,
+  onDelete
 }: BookingCardComponentProps) => {
   const startDateFormatted = format(new Date(booking.startDate), 'PP')
   const endDateFormatted = format(new Date(booking.endDate), 'PP')
@@ -39,6 +41,13 @@ const BookingCardComponent: React.FC<BookingCardComponentProps> = ({
         <Text>Number of Nights: {numberOfDays}</Text>
         <Text>Total price: {booking.totalPrice}</Text>
       </VStack>
+      <Button
+        onClick={() => {
+          onDelete(booking.id)
+        }}
+      >
+        Delete
+      </Button>
     </Box>
   )
 }

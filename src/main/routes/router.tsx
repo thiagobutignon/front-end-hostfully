@@ -1,17 +1,18 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import { ValidationBuilder, ValidationComposite } from '@/validation/validators'
 import {
   makeRemoteCreateBooking,
+  makeRemoteDeleteBookingById,
   makeRemoteListBookings,
   makeRemoteListProperties
 } from '@/main/factories/data'
+import { ValidationBuilder, ValidationComposite } from '@/validation/validators'
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import { BookingPage } from '@/presentation/pages'
 import { LayoutComponent } from '@/presentation/components'
 import { PropertiesProvider } from '@/presentation/context/properties-context'
-import React from 'react'
+import { BookingPage } from '@/presentation/pages'
 import theme from '@/presentation/styles/theme'
+import React from 'react'
 
 const Router: React.FC = () => {
   const listProperties = makeRemoteListProperties()
@@ -27,6 +28,7 @@ const Router: React.FC = () => {
                 <BookingPage
                   listBookings={makeRemoteListBookings()}
                   createBooking={makeRemoteCreateBooking()}
+                  deleteBooking={makeRemoteDeleteBookingById()}
                   validation={ValidationComposite.build([
                     ...ValidationBuilder.field('guestsEmail')
                       .required()

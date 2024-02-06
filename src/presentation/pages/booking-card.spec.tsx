@@ -39,8 +39,12 @@ describe('BookingCardComponent', () => {
     }
   }
 
+  const onDelete = jest.fn()
+
   beforeEach(() => {
-    sut = render(<BookingCardComponent booking={mockBooking} />)
+    sut = render(
+      <BookingCardComponent booking={mockBooking} onDelete={onDelete} />
+    )
   })
   it('renders without crashing', () => {
     const { getByText } = sut

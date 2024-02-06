@@ -53,6 +53,12 @@ exports[`BookingCardComponent matches snapshot 1`] = `
         Total price: 500
       </p>
     </div>
+    <button
+      class="chakra-button css-4xx2wk"
+      type="button"
+    >
+      Delete
+    </button>
   </div>
 </DocumentFragment>
 `;
