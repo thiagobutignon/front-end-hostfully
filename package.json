@@ -81,7 +81,7 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
-    "favicons": "^7.1.5",
+    "favicons": "^6.2.2",
     "favicons-webpack-plugin": "^6.0.1",
     "full-icu": "^1.5.0",
     "git-commit-msg-linter": "^5.0.4",
