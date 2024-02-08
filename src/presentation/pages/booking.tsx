@@ -14,6 +14,7 @@ import {
   DrawerContent,
   DrawerHeader,
   Icon,
+  Input,
   SimpleGrid,
   Text,
   useToast
@@ -48,6 +49,8 @@ export const BookingPage: React.FC<Props> = ({
   deleteBooking,
   updateBooking
 }: Props) => {
+  // TODO: Improve this
+  const [searchTerm, setSearchTerm] = useState('')
   const toast = useToast()
   const [open, setOpen] = useState(false)
   const [reloadFlag, setReloadFlag] = useState(false)
@@ -109,6 +112,17 @@ export const BookingPage: React.FC<Props> = ({
     }
   }
 
+  const safeBookings = bookings?.booking || []
+  const handleSearchChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setSearchTerm(event.target.value)
+  }
+
+  const filteredBookings: Booking.Model[] = safeBookings.filter((booking) => {
+    return booking.guestEmail.toLowerCase().includes(searchTerm.toLowerCase())
+  })
+
   const error = errorProperties || listBookingError
   if (error) {
     return (
@@ -167,8 +181,15 @@ export const BookingPage: React.FC<Props> = ({
             <DrawerContent>
               <DrawerCloseButton />
               <DrawerHeader>Bookings</DrawerHeader>
+              <Input
+                placeholder="Search bookings by email..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                mb={4}
+                mx={4}
+              />
               <DrawerBody>
-                {bookings.booking.length === 0 ? (
+                {filteredBookings.length === 0 ? (
                   <Text>No bookings found</Text>
                 ) : (
                   <SimpleGrid
@@ -178,7 +199,7 @@ export const BookingPage: React.FC<Props> = ({
                     mt={4}
                     padding={2}
                   >
-                    {bookings.booking.map((booking) => (
+                    {filteredBookings.map((booking) => (
                       <BookingCardComponent
                         booking={booking}
                         key={booking.id}
