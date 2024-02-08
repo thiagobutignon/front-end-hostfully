@@ -13,6 +13,8 @@ Front-End-Hostfully is a multi-tenancy front-end project designed for managing b
 ## Architecture
 This React project is structured following Clean Architecture principles, ensuring a clear separation of concerns and adherence to SOLID principles, TDD, KISS, YAGNI and DRY. The architecture is divided into several layers, each with a specific role and responsibility. This structure facilitates easier testing, maintenance, and scalability.
 
+## ![Architecture Diagram](https://github.com/thiagobutignon/front-end-hostfully/blob/main/docs/architecture.png)
+
 ### Domain
 - **Purpose**: Contains the core business logic and entities. It is the innermost layer and should not depend on any other layer.
 - **Contents**: Business models (e.g., entities or domain models) and interfaces for repositories and services that are defined by the application's core business logic.
