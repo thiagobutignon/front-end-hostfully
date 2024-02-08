@@ -11,9 +11,43 @@ Front-End-Hostfully is a multi-tenancy front-end project designed for managing b
 *Stub Repository*: Simulated API requests with data storage for bookings and property info.
 
 ## Architecture
-*Clean Architecture*: Organized codebase for scalability and maintainability.
-*TDD (Test Driven Development)*: Ensuring reliability and robustness of the code.
-*DDD (Domain-Driven Design)*: Focusing on domain logic and complexity.
+This React project is structured following Clean Architecture principles, ensuring a clear separation of concerns and adherence to SOLID principles, TDD, KISS, YAGNI and DRY. The architecture is divided into several layers, each with a specific role and responsibility. This structure facilitates easier testing, maintenance, and scalability.
+
+### Domain
+- **Purpose**: Contains the core business logic and entities. It is the innermost layer and should not depend on any other layer.
+- **Contents**: Business models (e.g., entities or domain models) and interfaces for repositories and services that are defined by the application's core business logic.
+
+### Data
+- **Purpose**: Implements interfaces defined in the Domain layer. This layer is responsible for data manipulation and storage, acting as a data access layer.
+- **Contents**: Repositories implementation, data sources (APIs, databases, etc.), and data transfer objects (DTOs).
+
+### Presentation
+- **Purpose**: Handles the UI and presentation logic. It communicates with the Domain layer to retrieve the data, which it then presents to the user.
+- **Contents**: React components, pages, hooks, and view models.
+
+### Validation
+- **Purpose**: Provides validation logic across the application. It ensures that data inputs meet certain criteria before they are processed by the application.
+- **Contents**: Validation rules, validators, and custom validation logic.
+
+### Infra
+- **Purpose**: Supports the application with technical capabilities that do not belong to the core business logic, such as external service integrations, database connections, or file storage.
+- **Contents**: Infrastructure implementations like database clients, external libraries, external APIs integration, logging, and configuration management.
+
+### Integration
+- **Purpose**: Contains integration tests that verify the interactions between Domain, Data, Infra and Application.
+- **Contents**: Integration tests scripts and utilities for setting up and tearing down test environments.
+
+### Application
+ **Purpose**: Acts as a draft for API interactions, simulating the behavior of external APIs that do not yet exist. This layer helps in developing and testing the Presentation and Data layers without the need for an actual backend service. Also, the arrays are acting as in-emory database.
+- **Contents**: Stub API requests, mock data implementations, and interfaces to simulate external API behavior, facilitating front-end development and testing in isolation from backend dependencies.
+
+
+### Main
+- **Purpose**: The entry point of the application. It wires up all the layers, configuring dependencies, and setting up middleware and routes.
+- **Contents**: Dependency injection setup, application initialization code, and main configuration.
+
+## Testing Strategy
+Each layer has its own testing strategy, focusing on unit tests for the Domain and Data layers, integration tests for the Integration layer, and end-to-end tests for the Presentation layer.
 
 ## Technologies
 *React (Ejected Project)*: For a flexible and customizable UI.
