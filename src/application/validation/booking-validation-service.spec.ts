@@ -6,6 +6,7 @@ import { BookingValidationService } from '@/application/validation/booking-valid
 import { DateClient } from '@/data/protocols'
 import { DateFnsAdapter } from '@/infra/date'
 import { addDays } from 'date-fns'
+import { faker } from '@faker-js/faker'
 
 describe('BookingValidationService', () => {
   let sut: BookingValidationService
@@ -153,8 +154,8 @@ describe('BookingValidationService', () => {
     const input = {
       booking: {
         property: { id: 'property1' },
-        startDate: new Date('2024-02-07'),
-        endDate: new Date('2024-02-08')
+        startDate: faker.date.future({ years: 1 }),
+        endDate: faker.date.future({ years: 2 })
       }
     }
 
