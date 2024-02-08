@@ -93,7 +93,7 @@ exports[`BookingForm matches snapshot 1`] = `
                   <input
                     placeholder="Early"
                     readonly=""
-                    value="Feb 6, 2024"
+                    value="Feb 8, 2024"
                   />
                 </span>
                 <span
@@ -102,7 +102,7 @@ exports[`BookingForm matches snapshot 1`] = `
                   <input
                     placeholder="Continuous"
                     readonly=""
-                    value="Feb 7, 2024"
+                    value="Feb 9, 2024"
                   />
                 </span>
               </div>
@@ -488,10 +488,6 @@ exports[`BookingForm matches snapshot 1`] = `
                     type="button"
                   >
                     <span
-                      class="rdrStartEdge"
-                      style="color: rgb(0, 163, 196);"
-                    />
-                    <span
                       class="rdrDayNumber"
                     >
                       <span>
@@ -504,10 +500,6 @@ exports[`BookingForm matches snapshot 1`] = `
                     style="color: rgb(61, 145, 255);"
                     type="button"
                   >
-                    <span
-                      class="rdrEndEdge"
-                      style="color: rgb(0, 163, 196);"
-                    />
                     <span
                       class="rdrDayNumber"
                     >
@@ -522,6 +514,10 @@ exports[`BookingForm matches snapshot 1`] = `
                     type="button"
                   >
                     <span
+                      class="rdrStartEdge"
+                      style="color: rgb(0, 163, 196);"
+                    />
+                    <span
                       class="rdrDayNumber"
                     >
                       <span>
@@ -534,6 +530,10 @@ exports[`BookingForm matches snapshot 1`] = `
                     style="color: rgb(61, 145, 255);"
                     type="button"
                   >
+                    <span
+                      class="rdrEndEdge"
+                      style="color: rgb(0, 163, 196);"
+                    />
                     <span
                       class="rdrDayNumber"
                     >

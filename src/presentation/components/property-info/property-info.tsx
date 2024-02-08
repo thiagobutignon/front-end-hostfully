@@ -30,7 +30,12 @@ const PropertyInfoComponent: React.FC<PropertyInfoProps> = ({
       </Text>
       <Text my={2}>{selectedProperty.description}</Text>
 
-      <Flex justifyContent="space-between" alignItems="center" my={4}>
+      <Flex
+        justifyContent="space-between"
+        alignItems={{ base: 'left', md: 'center' }}
+        my={4}
+        flexDirection={{ base: 'column', md: 'row' }}
+      >
         <Text fontWeight="bold" fontSize="2xl">
           ${selectedProperty.pricePerNight}/night
         </Text>

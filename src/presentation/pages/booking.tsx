@@ -2,24 +2,36 @@ import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 
 import {
+  BookingForm,
+  ErrorComponent,
+  PropertyInfoComponent
+} from '@/presentation/components'
+import {
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  Icon,
+  SimpleGrid,
+  Text,
+  useToast
+} from '@chakra-ui/react'
+import {
   CreateBookingUsecase,
   DeleteBookingByIdUsecase,
   ListBookingsUsecase,
   UpdateBookingUsecase
 } from '@/domain/usecases'
-import {
-  BookingForm,
-  ErrorComponent,
-  PropertyInfoComponent
-} from '@/presentation/components'
-import { useDeleteBooking, useListBookings } from '@/presentation/hooks'
-import { SimpleGrid, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { useDeleteBooking, useListBookings } from '@/presentation/hooks'
 
 import { Booking } from '@/domain/models'
 import BookingCardComponent from '@/presentation/components/card/booking-card'
-import { usePropertiesContext } from '@/presentation/context'
+import { MdReceipt } from 'react-icons/md'
 import { Validation } from '@/validation/protocols'
+import { usePropertiesContext } from '@/presentation/context'
 
 type Props = {
   listBookings: ListBookingsUsecase
@@ -36,6 +48,8 @@ export const BookingPage: React.FC<Props> = ({
   deleteBooking,
   updateBooking
 }: Props) => {
+  const toast = useToast()
+  const [open, setOpen] = useState(false)
   const [reloadFlag, setReloadFlag] = useState(false)
   const [selectedBooking, setSelectedBooking] = useState<Booking.Model | null>(
     null
@@ -55,10 +69,24 @@ export const BookingPage: React.FC<Props> = ({
 
   const handleBookingSubmitted = (): void => {
     setReloadFlag((oldFlag) => !oldFlag)
+    toast({
+      title: 'Booking created.',
+      description: 'Your booking has been successfully created.',
+      status: 'success',
+      duration: 3000,
+      isClosable: true
+    })
   }
 
   const handleUpdateBooking = (booking: Booking.Model): void => {
     setSelectedBooking(booking)
+    toast({
+      title: 'Booking updated.',
+      description: 'Your booking has been successfully updated.',
+      status: 'success',
+      duration: 3000,
+      isClosable: true
+    })
   }
 
   const onUpdateCompleted = (): void => {
@@ -71,6 +99,13 @@ export const BookingPage: React.FC<Props> = ({
     const result = await performDelete(id)
     if (result === true) {
       setReloadFlag((oldFlag) => !oldFlag)
+      toast({
+        title: 'Booking deleted.',
+        description: 'The booking has been successfully deleted.',
+        status: 'warning',
+        duration: 3000,
+        isClosable: true
+      })
     }
   }
 
@@ -94,6 +129,20 @@ export const BookingPage: React.FC<Props> = ({
     <>
       {selectedProperty && (
         <>
+          <Button
+            position={'fixed'}
+            bottom={0}
+            right={0}
+            mr={2}
+            mb={2}
+            bg={'successButton'}
+            onClick={() => {
+              setOpen(true)
+            }}
+            zIndex={999}
+          >
+            <Icon as={MdReceipt} boxSize={6} />
+          </Button>
           <PropertyInfoComponent selectedProperty={selectedProperty}>
             <BookingForm
               data-testid="booking-form"
@@ -106,22 +155,48 @@ export const BookingPage: React.FC<Props> = ({
               initialBooking={selectedBooking}
               onUpdateCompleted={onUpdateCompleted}
             />
-            <SimpleGrid
-              data-testid="booking-grid"
-              columns={[1, null, 2]}
-              spacing="40px"
-              mt={4}
-            >
-              {bookings.booking.map((booking) => (
-                <BookingCardComponent
-                  booking={booking}
-                  key={booking.id}
-                  onDelete={handleDeleteBooking}
-                  onUpdate={handleUpdateBooking}
-                />
-              ))}
-            </SimpleGrid>
           </PropertyInfoComponent>
+          <Drawer
+            isOpen={open}
+            placement="right"
+            onClose={() => {
+              setOpen(false)
+            }}
+            size={{ base: 'sm', md: 'lg' }}
+          >
+            <DrawerContent>
+              <DrawerCloseButton />
+              <DrawerHeader>Bookings</DrawerHeader>
+              <DrawerBody>
+                {bookings.booking.length === 0 ? (
+                  <Text>No bookings found</Text>
+                ) : (
+                  <SimpleGrid
+                    data-testid="booking-grid"
+                    columns={[1]}
+                    spacing="40px"
+                    mt={4}
+                    padding={2}
+                  >
+                    {bookings.booking.map((booking) => (
+                      <BookingCardComponent
+                        booking={booking}
+                        key={booking.id}
+                        onDelete={() => {
+                          handleDeleteBooking(booking.id)
+                          setOpen(false)
+                        }}
+                        onUpdate={() => {
+                          handleUpdateBooking(booking)
+                          setOpen(false)
+                        }}
+                      />
+                    ))}
+                  </SimpleGrid>
+                )}
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
         </>
       )}
     </>
